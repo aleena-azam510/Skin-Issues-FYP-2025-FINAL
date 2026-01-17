@@ -46,7 +46,7 @@
         <div class="social-container">
             <a href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i></a>
             <a href="{% provider_login_url 'github' %}"><i class="fab fa-github"></i></a>
-            <a href="{% provider_login_url 'facebook' %}"><i class="fab fa-facebook-f"></i></a>
+
         </div>
 
         <span>or use email for registration</span>
@@ -120,10 +120,10 @@
             </div>
 
             <!-- Upload Government ID -->
-            <div class="form-group">
+            {% comment %} <div class="form-group">
                 <label for="id_government_id">Upload Government-issued ID (Passport/CNIC)</label>
                 {{ registration_form.government_id }}
-            </div>
+            </div> {% endcomment %}
 
             <p style="font-size:12px;color:#666;">
                 Your account will be reviewed by admin before activation.
