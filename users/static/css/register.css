@@ -1,0 +1,52 @@
+
+
+
+/* ===== NUCLEAR OPTION - FORCE SMALL FONT SIZES ===== */
+/* Target ALL inputs in the form containers with extreme specificity */
+.form-container input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+.form-container select,
+.form-container textarea,
+#container input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+#container select,
+#container textarea,
+.container input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+.container select,
+.container textarea,
+.form-group input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+.form-group select,
+.form-group textarea {
+    font-size: 14px !important;
+    height: 35px !important;
+    padding: 8px 12px !important;
+    line-height: 1.2 !important;
+    box-sizing: border-box !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+/* Specifically target password fields */
+input[type="password"] {
+    font-size: 14px !important;
+    height: 35px !important;
+    padding: 8px 12px !important;
+}
+
+/* Target the actual form elements that Django renders */
+form input, form select, form textarea {
+    font-size: 14px !important;
+    height: 35px !important;
+    padding: 8px 12px !important;
+}
+
+/* Ultra-specific targeting for the signup and signin forms */
+.sign-up-container input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+.sign-up-container select,
+.sign-up-container textarea,
+.sign-in-container input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+.sign-in-container select,
+.sign-in-container textarea {
+    font-size: 14px !important;
+    height: 35px !important;
+    padding: 8px 12px !important;
+} 

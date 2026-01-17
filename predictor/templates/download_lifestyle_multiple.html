@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personalized Lifestyle Plan - Skin Health Guide</title>
+    <style>
+        /* Modern styling with green gradients */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 30px;
+            color: #2d3748;
+            background: linear-gradient(135deg, #f7fff7 0%, #f0f9f0 100%);
+            line-height: 1.6;
+        }
+
+        /* Header section */
+        .header {
+            background: linear-gradient(135deg, #1a7f37 0%, #2ecc71 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(30, 130, 76, 0.15);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 32px;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin: 0 0 15px 0;
+            font-weight: 300;
+        }
+
+        .header .tagline {
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.15);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Plan Cards */
+        .plan-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid #2ecc71;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #1a7f37, #2ecc71);
+        }
+
+        /* Condition Title */
+        .condition-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 26px;
+            color: #1a5d1a;
+            margin: 0 0 25px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e8f5e8;
+            position: relative;
+        }
+
+        .condition-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(to right, #2ecc71, #1a7f37);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 25px;
+            background: #f9fdf9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e8f5e8;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #1a7f37;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 20px;
+            background: linear-gradient(to bottom, #2ecc71, #1a7f37);
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+
+        /* Subsection content with icons */
+        .subsection {
+            margin: 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .subsection p {
+            margin: 0 0 12px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .subsection p::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        /* Different colored sections */
+        .diet-section {
+            border-left: 4px solid #4CAF50;
+        }
+
+        .skincare-section {
+            border-left: 4px solid #2196F3;
+        }
+
+        .exercise-section {
+            border-left: 4px solid #FF9800;
+        }
+
+        .sleep-section {
+            border-left: 4px solid #9C27B0;
+        }
+
+        /* Section icons */
+        .section-title.diet::before { content: '🥗'; margin-right: 10px; font-size: 18px; }
+        .section-title.skincare::before { content: '✨'; margin-right: 10px; font-size: 18px; }
+        .section-title.exercise::before { content: '🏃'; margin-right: 10px; font-size: 18px; }
+        .section-title.sleep::before { content: '😴'; margin-right: 10px; font-size: 18px; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .footer .generated-info {
+            background: linear-gradient(135deg, #e8f5e8, #f0f9f0);
+            padding: 15px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* Print optimizations */
+        @media print {
+            body {
+                padding: 15px;
+                background: white;
+            }
+            
+            .plan-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+            
+            .plan-card:hover {
+                transform: none;
+            }
+            
+            .header {
+                box-shadow: none;
+                margin-bottom: 25px;
+            }
+        }
+
+        /* Page numbering for PDF */
+        .page-number {
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Personalized Lifestyle Plan</h1>
+        <p class="subtitle">Comprehensive Skin Health & Wellness Guide</p>
+        <div class="tagline">Holistic Approach to Healthy Skin</div>
+    </div>
+
+    <!-- Main Content -->
+    {% for plan in plans %}
+    <div class="plan-card">
+        <!-- Condition Title -->
+        <h2 class="condition-title">{{ plan.condition_name }}</h2>
+        
+        <!-- Diet Section -->
+        <div class="section diet-section">
+            <h3 class="section-title diet">Diet Guidance</h3>
+            <div class="subsection">
+                {{ plan.diet|linebreaks }}
+            </div>
+        </div>
+        
+        <!-- Skincare Section -->
+        <div class="section skincare-section">
+            <h3 class="section-title skincare">Skincare Routine</h3>
+            <div class="subsection">
+                {{ plan.skincare|linebreaks }}
+            </div>
+        </div>
+        
+        <!-- Exercise Section -->
+        <div class="section exercise-section">
+            <h3 class="section-title exercise">Exercise Routine</h3>
+            <div class="subsection">
+                {{ plan.exercise|linebreaks }}
+            </div>
+        </div>
+        
+        <!-- Sleep Section -->
+        <div class="section sleep-section">
+            <h3 class="section-title sleep">Sleep Habits</h3>
+            <div class="subsection">
+                {{ plan.sleep|linebreaks }}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Divider between plans -->
+    {% if not loop.last %}
+    <hr style="border: none; border-top: 2px dashed #e0e0e0; margin: 40px 0;">
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="generated-info">
+            <strong>Generated on:</strong> {% now "F j, Y" %} | 
+            <strong>Total Plans:</strong> {{ plans|length }} |
+            <strong>Confidential Lifestyle Guide</strong>
+        </div>
+        <p style="margin-top: 15px;">
+            Consult with healthcare professionals before making significant lifestyle changes.<br>
+            This guide is for informational purposes only.
+        </p>
+    </div>
+    
+    <!-- Page Number -->
+    <div class="page-number">Page 1</div>
+</body>
+</html>

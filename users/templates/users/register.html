@@ -1,0 +1,242 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register / Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="icon" href="{% static 'images/logo_web-removebg-preview.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- INLINE FIXES (SAFE) -->
+    <style>
+        .form-group { margin-bottom: 18px; }
+        label { font-size: 13px; font-weight: 600; }
+        input, select { font-size: 14px; height: 38px; }
+        .error { color: #e74c3c; font-size: 12px; }
+        .submit-btn { background: #3B7A57; color: #fff; }
+    </style>
+</head>
+
+<body>
+
+<!-- Background -->
+<video autoplay muted loop id="background-video">
+    <source src="{% static 'images/Glow Gene.mp4' %}" type="video/mp4">
+</video>
+
+<!-- Logo -->
+<div class="logo">
+    <img src="{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo">
+</div>
+
+<div class="container {{ active_panel }}" id="container">
+
+    <!-- ================= SIGN UP ================= -->
+   <div class="form-container sign-up-container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Create Account</h1>
+
+        <!-- Social Login -->
+        <div class="social-container">
+            <a href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i></a>
+            <a href="{% provider_login_url 'github' %}"><i class="fab fa-github"></i></a>
+            <a href="{% provider_login_url 'facebook' %}"><i class="fab fa-facebook-f"></i></a>
+        </div>
+
+        <span>or use email for registration</span>
+
+        {% if registration_form.errors %}
+            <div class="error">
+                {% for field in registration_form %}
+                    {% for error in field.errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Username -->
+        <div class="form-group">
+            <label>Username</label>
+            {{ registration_form.username }}
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label>Email</label>
+            {{ registration_form.email }}
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+            <label>Role</label>
+            {{ registration_form.role }}
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group">
+            <label>Gender</label>
+            {{ registration_form.gender }}
+        </div>
+
+        <!-- Age -->
+        <div class="form-group">
+            <label>Age</label>
+            {{ registration_form.age }}
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label>Password</label>
+            {{ registration_form.password1 }}
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+            <label>Confirm Password</label>
+            {{ registration_form.password2 }}
+        </div>
+
+        <!-- Doctor-Specific Fields (Hidden Initially) -->
+        <div id="doctorFields" style="display:none;">
+            <h4><i class="fas fa-stethoscope"></i> Dermatologist Verification</h4>
+
+            <!-- Medical License Number -->
+            <div class="form-group">
+                <label for="id_license_number">Medical License Number</label>
+                {{ registration_form.license_number }}
+            </div>
+
+            <!-- Upload Medical License -->
+            <div class="form-group">
+                <label for="id_license_document">Upload Medical License</label>
+                {{ registration_form.license_document }}
+            </div>
+
+            <!-- Upload Government ID -->
+            <div class="form-group">
+                <label for="id_government_id">Upload Government-issued ID (Passport/CNIC)</label>
+                {{ registration_form.government_id }}
+            </div>
+
+            <p style="font-size:12px;color:#666;">
+                Your account will be reviewed by admin before activation.
+            </p>
+        </div>
+
+
+            <!-- Admin -->
+            <div id="adminFields" style="display:none;">
+                <h4><i class="fas fa-shield-alt"></i> Admin Code</h4>
+                <input type="text" name="admin_code">
+            </div>
+
+            <!-- Clerk -->
+            <div id="clerkFields" style="display:none;">
+                <h4><i class="fas fa-user-tie"></i> Clerk Code</h4>
+                <input type="text" name="clerk_code">
+            </div>
+
+            <button type="submit" name="signup_submit" class="submit-btn">
+                Sign Up
+            </button>
+        </form>
+    </div>
+
+    <!-- ================= SIGN IN ================= -->
+    <div class="form-container sign-in-container">
+        <form method="post">
+            {% csrf_token %}
+            <h1>Sign In</h1>
+
+            <div class="social-container">
+                <a href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i></a>
+                <a href="{% provider_login_url 'github' %}"><i class="fab fa-github"></i></a>
+            </div>
+
+            <span>or use your account</span>
+
+            {{ login_form.username }}
+            {{ login_form.password }}
+
+            <button type="submit" name="signin_submit" class="submit-btn">
+                Sign In
+            </button>
+        </form>
+    </div>
+
+    <!-- ================= OVERLAY ================= -->
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ================= JS ================= -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const role = document.getElementById("id_role");
+    const doctor = document.getElementById("doctorFields");
+
+    const licenseNumber = document.getElementById("id_license_number");
+    const licenseDoc = document.getElementById("id_license_document");
+
+    function toggle() {
+        doctor.style.display = "none";
+
+        if (role.value === "doctor") {
+            doctor.style.display = "block";
+            licenseNumber.required = true;
+            licenseDoc.required = true;
+        } else {
+            licenseNumber.required = false;
+            licenseDoc.required = false;
+        }
+    }
+
+    if (role) {
+        role.addEventListener("change", toggle);
+        toggle();
+    }
+
+    document.getElementById("signUp").onclick = () =>
+        document.getElementById("container").classList.add("right-panel-active");
+
+    document.getElementById("signIn").onclick = () =>
+        document.getElementById("container").classList.remove("right-panel-active");
+});
+</script>
+<script>
+    // Toggle Doctor Fields based on role selection
+    const roleSelect = document.getElementById("id_role");
+    const doctorFields = document.getElementById("doctorFields");
+
+    function toggleDoctorFields() {
+        if (roleSelect.value === "doctor") {
+            doctorFields.style.display = "block";
+        } else {
+            doctorFields.style.display = "none";
+        }
+    }
+
+    roleSelect.addEventListener("change", toggleDoctorFields);
+    window.addEventListener("load", toggleDoctorFields); // Initialize on page load
+</script>
+
+</body>
+</html>

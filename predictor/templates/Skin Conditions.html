@@ -1,0 +1,1136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ skin_condition.title }} - Glow Genesis Organic Care{% endblock %}
+{% block meta_description %}{{ skin_condition.meta_description }}{% endblock %}
+{% block meta_keywords %}{{ skin_condition.meta_keywords }}{% endblock %}
+{% block meta_author %}Glow Genesis Team{% endblock %}
+
+{% block extra_head %}
+<style>
+/* --- Global Variables (Provided by User) --- */
+:root {
+    --color-white: #ffffff;
+    --color-light-white: #fefefe;
+    --color-very-light-green: #f8fcf9;
+    --color-light-green: #eaf7f2;
+    --color-primary-green: #3B7A57;
+    --color-dark-green: #2a5c44;
+    --color-accent-orange: #FFA500;
+    --color-dark-orange: #cc8400;
+    --color-text-dark: #333;
+    --color-text-medium: #555;
+    --color-text-light: #888;
+    --color-border-light: #e0e0e0;
+    --color-border-dashed: #e9e9e9;
+    --color-danger: #dc3545; /* Assuming this is still desired for doctor icons */
+}
+
+/* --- Skin Condition Cards --- */
+.card-summary-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch; /* Ensures cards in a row are of equal height */
+}
+
+.skin-condition-card {
+    background: var(--color-white);
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease-in-out;
+    border: 1px solid var(--color-border-light);
+    display: flex;
+    flex-direction: column; /* Organizes content vertically */
+    flex: 1; /* Allows cards to grow and take equal height in a flex container */
+    justify-content: space-between; /* Pushes content and button to top/bottom */
+}
+
+.skin-condition-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* Alternating Card Colors - Re-evaluated for robust application */
+/* Using :nth-of-type to avoid issues with wrapping elements in grid systems like Bootstrap */
+.col-lg-4:nth-of-type(odd) .skin-condition-card {
+    background-color: var(--color-white);
+}
+
+.col-lg-4:nth-of-type(even) .skin-condition-card {
+    background-color: var(--color-white);
+}
+
+/* For Bootstrap's col-md-6, ensure alternating works correctly across rows */
+.col-md-6 .skin-condition-card {
+    background-color: var(--color-white); /* Default for MD, then override */
+}
+.col-md-6:nth-of-type(2n) .skin-condition-card { /* Target every second card in a row for md-6 layout */
+  /*  background-color: var(--color-light-green); */
+   background-color: var(--color-white);
+}
+
+/* Specific rule for the col-md-12 (Solutions) card to always be light green */
+.col-md-12 .skin-condition-card {
+    background-color: var(--color-white) !important; /* Use !important to override previous nth-child/type rules */
+}
+
+
+/* Category Badges */
+.skin-condition-card .category,
+.skin-condition-section .category {
+    display: inline-block; /* Crucial: Ensures it shrinks to content width */
+    width: auto; /* Ensures it doesn't try to take full width */
+    max-width: fit-content; /* Modern way to ensure content-based width */
+    padding: 6px 15px;
+    font-size: 0.85em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    color: var(--color-white);
+    background-color: var(--color-primary-green);
+    border-radius: 25px;
+    box-shadow: 0 3px 10px rgba(59, 122, 87, 0.3);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Card Headings */
+.skin-condition-card h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: var(--color-primary-green);
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.skin-condition-card:hover h3 {
+    color: var(--color-accent-orange);
+}
+
+/* Section Title */
+.section-title .skin-condition-title {
+    color: var(--color-primary-green);
+}
+
+/* Card Meta Information */
+.skin-condition-card .skin-condition-meta {
+    color: var(--color-text-light);
+    font-size: 0.85em;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px dashed var(--color-border-dashed);
+    align-items: center;
+}
+
+.skin-condition-card .skin-condition-meta span {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--color-dark-green);
+}
+
+.skin-condition-card .skin-condition-meta i {
+    color: var(--color-primary-green);
+}
+
+/* Card Paragraphs */
+.skin-condition-card p {
+    font-size: 17px;
+    color: var(--color-text-medium);
+    margin-bottom: 25px;
+    flex-grow: 1; /* Allows paragraph to take up available space, pushing button down */
+    line-height: 1.7;
+}
+
+/* Card Images */
+.skin-condition-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Crops image to fill the space */
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.skin-condition-card:hover .skin-condition-card-image {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Content Wrapper inside Card */
+.skin-condition-card .skin-condition-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows the content to fill available space */
+}
+
+/* --- Read More Button Styles --- */
+.read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-green);
+    color: var(--color-white);
+    padding: 10px 22px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(59, 122, 87, 0.25);
+    margin-top: auto; /* Pushes the button to the bottom */
+    align-self: flex-start; /* Aligns the button to the left if column is wider */
+    min-width: 120px;
+    text-align: center;
+}
+
+.read-more-btn i {
+    margin-left: 8px;
+    font-size: 0.85em;
+    transition: transform 0.2s ease;
+}
+
+.read-more-btn:hover {
+    background: var(--color-dark-green);
+    transform: translateY(-2px);
+    color: var(--color-white);
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(59, 122, 87, 0.4);
+}
+
+.read-more-btn:hover i {
+    transform: translateX(3px);
+}
+
+/* --- Full Width Card for Detailed Sections --- */
+.full-width-card {
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.07);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.full-width-card:hover {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+}
+
+.light-green-bg {
+    background-color: var(--color-light-green);
+}
+
+.white-bg {
+    background-color: var(--color-white);
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Detailed Skin Condition Sections --- */
+.skin-condition-section {
+    padding: 30px 0;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border-light);
+    overflow: hidden;
+    scroll-margin-top: 80px;
+    background-color: white;
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+.skin-condition-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.skin-condition-section h2,
+.skin-condition-section h3 {
+    font-weight: 700;
+    color: var(--color-dark-green);
+    transition: color 0.3s ease;
+}
+
+.skin-condition-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.skin-condition-section h3 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.skin-condition-section h2:hover,
+.skin-condition-section h3:hover {
+    color: var(--color-accent-orange);
+}
+
+.skin-condition-section .skin-condition-meta {
+    color: var(--color-text-light);
+    font-size: 0.9em;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 25px;
+    border-bottom: 1px dashed var(--color-border-dashed);
+    padding-bottom: 12px;
+    align-items: center;
+}
+
+.skin-condition-section .skin-condition-meta i {
+    color: var(--color-dark-green);
+    transition: color 0.3s ease;
+}
+
+.skin-condition-section .skin-condition-meta i:hover {
+    color: var(--color-accent-orange);
+}
+
+/* Global Text Styles */
+.skin-condition-section p,
+.skin-condition-section ul li p {
+    font-size: 17px !important;
+    line-height: 1.6;
+    color: var(--color-text-medium);
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.skin-condition-section p.intro-text {
+    font-weight: 500;
+    font-size: 1.15em;
+    color: var(--color-text-dark);
+    margin-bottom: 30px;
+}
+
+.skin-condition-section p.summary-text {
+    font-size: 1.15em;
+    color: var(--color-text-medium);
+    margin-bottom: 25px;
+    line-height: 1.7;
+    font-style: italic;
+    border-left: 4px solid var(--color-primary-green);
+    padding-left: 15px;
+}
+
+/* UL and LI Styling */
+.skin-condition-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.skin-condition-section ul li {
+    font-size: 17px !important;
+    line-height: 1.6;
+    color: var(--color-text-medium);
+    margin-bottom: 8px;
+    padding-left: 0;
+    position: relative;
+    text-align: left;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.skin-condition-section ul li:hover {
+    background-color: #fff7ef;
+    transform: translateX(5px);
+}
+
+.skin-condition-section li strong {
+    font-weight: 600;
+    color: var(--color-dark-green);
+}
+
+#basics-detail .basic-para ul,
+#symptoms-detail .basic-para ul {
+    list-style: disc;
+    padding-left: 25px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+#basics-detail .basic-para ul li,
+#symptoms-detail .basic-para ul li {
+    padding-left: 0;
+    margin-left: 0;
+    text-align: left;
+}
+
+/* Icon Lists (Prevention, Doctor) */
+#prevention-detail .skin-condition-list,
+#doctor-detail .skin-condition-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+#prevention-detail .skin-condition-list li,
+#doctor-detail .skin-condition-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding-left: 0;
+    text-align: left;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#prevention-detail .skin-condition-list li:hover,
+#doctor-detail .skin-condition-list li:hover {
+    background-color: #fff7ef;
+    transform: translateX(5px);
+}
+
+#prevention-detail .skin-condition-list li i,
+#doctor-detail .skin-condition-list li i {
+    margin-right: 12px;
+    flex-shrink: 0;
+    font-size: 1.3em;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+    color: inherit;
+}
+
+#prevention-detail .skin-condition-list li i {
+    color: var(--color-dark-green);
+}
+
+#doctor-detail .skin-condition-list li i {
+    color: var(--color-danger);
+}
+
+#prevention-detail .skin-condition-list li i:hover,
+#doctor-detail .skin-condition-list li i:hover {
+    color: var(--color-accent-orange);
+}
+
+/* Causes & Treatments List */
+#causes-detail .basic-cause ul,
+#treatments-detail .basic-cause ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+#causes-detail .basic-cause ul li,
+#treatments-detail .basic-cause ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding-left: 0;
+    text-align: left;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#causes-detail .basic-cause ul li:hover,
+#treatments-detail .basic-cause ul li:hover {
+    background-color: #fff7ef;
+    transform: translateX(5px);
+}
+
+#causes-detail .basic-cause ul li strong,
+#treatments-detail .basic-cause ul li strong {
+    display: flex;
+    align-items: center;
+    color: var(--color-dark-green);
+    text-align: left;
+    width: 100%;
+    transition: color 0.3s ease;
+}
+
+#causes-detail .basic-cause ul li strong:hover,
+#treatments-detail .basic-cause ul li strong:hover {
+    color: var(--color-accent-orange);
+}
+
+#causes-detail .basic-cause ul li strong i,
+#treatments-detail .basic-cause ul li strong i {
+    margin-right: 8px;
+    font-size: 1.3em;
+    line-height: 1.6;
+    flex-shrink: 0;
+    color: var(--color-primary-green);
+    transition: color 0.3s ease;
+}
+
+#causes-detail .basic-cause ul li > *:not(strong):not(i),
+#treatments-detail .basic-cause ul li > *:not(strong):not(i) {
+    display: block;
+    margin-top: 4px;
+    font-size: 1em;
+    padding-left: calc(1.3em + 8px);
+    text-indent: -1px;
+    width: 100%;
+}
+
+/* Image Styling */
+.image-placeholder-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background-color: var(--color-border-light);
+    border: 1px solid var(--color-border-dashed);
+    overflow: hidden;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.image-placeholder-wrapper img.img-fluid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.skin-condition-section .col-md-5 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.skin-condition-section .basic-para p {
+    font-size: 17px !important;
+    line-height: 1.7;
+    text-align: left;
+}
+
+/* Back to Gallery Button */
+.back-to-gallery-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-green);
+    color: var(--color-white);
+    padding: 12px 30px;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 28px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(59, 122, 87, 0.3);
+}
+
+.back-to-gallery-btn i {
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+.back-to-gallery-btn:hover {
+    background: var(--color-accent-orange);
+    transform: translateY(-3px);
+    color: var(--color-white);
+    box-shadow: 0 6px 20px rgba(255, 122, 0, 0.45);
+}
+
+/* Heading Icon */
+.skin-condition-section .heading-icon {
+    height: 1.2em;
+    vertical-align: middle;
+    margin-left: 10px;
+    filter: invert(30%) sepia(100%) saturate(150%) hue-rotate(90deg) brightness(80%) contrast(90%);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+    .skin-condition-section h2 {
+        font-size: 2em;
+    }
+    .skin-condition-section h3 {
+        font-size: 1.7em;
+    }
+    .full-width-card {
+        padding: 30px;
+    }
+    .skin-condition-section .row.align-items-center > div {
+        order: unset !important;
+        text-align: left !important;
+    }
+    .skin-condition-section .col-md-7,
+    .skin-condition-section .col-md-5 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .skin-condition-section .image-placeholder-wrapper {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .skin-condition-section .col-md-5 {
+        justify-content: center;
+    }
+    #causes-detail .basic-cause ul li > *:not(strong):not(i),
+    #treatments-detail .basic-cause ul li > *:not(strong):not(i) {
+        padding-left: 0;
+        text-indent: 0;
+    }
+    .skin-condition-section p,
+    .skin-condition-section ul li {
+        text-align: left !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .skin-condition-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .skin-condition-card h3 {
+        font-size: 1.5em;
+    }
+    .skin-condition-card p {
+        font-size: 1em;
+    }
+    .skin-condition-card-image {
+        height: 150px;
+    }
+    .read-more-btn {
+        padding: 8px 18px;
+        font-size: 0.8em;
+        min-width: 100px;
+    }
+    .skin-condition-section h2 {
+        font-size: 1.8em;
+    }
+    .skin-condition-section h3 {
+        font-size: 1.5em;
+    }
+    .skin-condition-section p,
+    .skin-condition-section ul li {
+        font-size: 17px !important;
+        text-align: left !important;
+    }
+    .full-width-card {
+        padding: 20px;
+    }
+    .skin-condition-section .skin-condition-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    #basics-detail .basic-para ul,
+    #symptoms-detail .basic-para ul {
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .skin-condition-card {
+        margin-bottom: 15px;
+    }
+    .skin-condition-section {
+        padding: 15px 0;
+        margin-bottom: 30px;
+    }
+    .skin-condition-section h2 {
+        font-size: 1.5em;
+    }
+    .skin-condition-section h3 {
+        font-size: 1.3em;
+    }
+    .skin-condition-card-image {
+        height: 120px;
+    }
+    .skin-condition-section .row.align-items-center > div {
+        text-align: left !important;
+    }
+    .skin-condition-section p,
+    .skin-condition-section ul li {
+        font-size: 17px !important;
+        text-align: left !important;
+    }
+    #basics-detail .basic-para ul,
+    #symptoms-detail .basic-para ul {
+        padding-left: 15px;
+    }
+
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<section id="skin-condition-detail" class="section">
+    <div class="container">
+       <div class="section-title wow fadeInUp" data-wow-delay="0.1s" style="text-align: center;">
+    <h4>Skin Health Guide</h4>
+    <h2 class="skin-condition-title">{{ skin_condition.title }}</h2>
+</div>
+
+        <div class="row card-summary-row">
+            <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                <div class="skin-condition-card">
+                    {% if skin_condition.basics_card_image %}
+                        <img src="{{ skin_condition.basics_card_image.url }}" class="skin-condition-card-image" alt="{{ skin_condition.basics_title }} Image">
+                    {% else %}
+                        <img src="{% static 'images/default_skin_overview.jpg' %}" class="skin-condition-card-image" alt="Default Overview Image">
+                    {% endif %}
+                    <div class="skin-condition-content">
+                        <span class="category">OVERVIEW</span>
+                        <h3>{{ skin_condition.basics_title }}</h3>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-leaf"></i> Glow Genesis</span>
+                            <span><i class="far fa-calendar"></i> Updated: {{ skin_condition.updated_at|date:"F Y" }}</span>
+                        </div>
+                        <p>{{ skin_condition.basics_summary }}</p>
+                    </div>
+                    <a href="#basics-detail" class="read-more-btn">Read More <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                <div class="skin-condition-card">
+                    {% if skin_condition.symptoms_card_image %}
+                        <img src="{{ skin_condition.symptoms_card_image.url }}" class="skin-condition-card-image" alt="{{ skin_condition.symptoms_title }} Image">
+                    {% else %}
+                        <img src="{% static 'images/default_skin_symptoms.jpg' %}" class="skin-condition-card-image" alt="Default Symptoms Image">
+                    {% endif %}
+                    <div class="skin-condition-content">
+                        <span class="category">SYMPTOMS</span>
+                        <h3>{{ skin_condition.symptoms_title }}</h3>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-diagnoses"></i> Identify & Understand</span>
+                            <span><i class="fas fa-eye"></i> What to Look For</span>
+                        </div>
+                        <p>{{ skin_condition.symptoms_summary }}</p>
+                    </div>
+                    <a href="#symptoms-detail" class="read-more-btn">Read More <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                <div class="skin-condition-card">
+                    {% if skin_condition.causes_card_image %}
+                        <img src="{{ skin_condition.causes_card_image.url }}" class="skin-condition-card-image" alt="{{ skin_condition.causes_title }} Image">
+                    {% else %}
+                        <img src="{% static 'images/default_skin_causes.jpg' %}" class="skin-condition-card-image" alt="Default Causes Image">
+                    {% endif %}
+                    <div class="skin-condition-content">
+                        <span class="category">CAUSES</span>
+                        <h3>{{ skin_condition.causes_title }}</h3>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-flask"></i> Research-Based</span>
+                            <span><i class="fas fa-vial"></i> Science-Backed</span>
+                        </div>
+                        <p>{{ skin_condition.causes_summary }}</p>
+                    </div>
+                    <a href="#causes-detail" class="read-more-btn">Read More <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 mb-4 d-flex">
+                <div class="skin-condition-card">
+                    {% if skin_condition.treatments_card_image %}
+                        <img src="{{ skin_condition.treatments_card_image.url }}" class="skin-condition-card-image" alt="{{ skin_condition.treatments_title }} Image">
+                    {% else %}
+                        <img src="{% static 'images/default_skin_treatments.jpg' %}" class="skin-condition-card-image" alt="Default Treatments Image">
+                    {% endif %}
+                    <div class="skin-condition-content">
+                        <span class="category">SOLUTIONS</span>
+                        <h3>{{ skin_condition.treatments_title }}</h3>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-spa"></i> Natural Care</span>
+                            <span><i class="fas fa-prescription-bottle"></i> Medical Guide</span>
+                        </div>
+                        <p>{{ skin_condition.treatments_summary }}</p>
+                    </div>
+                    <a href="#treatments-detail" class="read-more-btn">Read More <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                <div class="skin-condition-card">
+                    {% if skin_condition.doctor_card_image %}
+                        <img src="{{ skin_condition.doctor_card_image.url }}" class="skin-condition-card-image" alt="{{ skin_condition.doctor_title }} Image">
+                    {% else %}
+                        <img src="{% static 'images/default_skin_doctor.jpg' %}" class="skin-condition-card-image" alt="Default Doctor Image">
+                    {% endif %}
+                    <div class="skin-condition-content">
+                        <span class="category">WHEN TO SEE A DOCTOR</span>
+                        <h3>{{ skin_condition.doctor_title }}</h3>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-hospital-user"></i> Professional Advice</span>
+                            <span><i class="fas fa-stethoscope"></i> Medical Guidance</span>
+                        </div>
+                        <p>{{ skin_condition.doctor_summary }}</p>
+                    </div>
+                    <a href="#doctor-detail" class="read-more-btn">Read More <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                <div class="skin-condition-card">
+                    {% if skin_condition.prevention_card_image %}
+                        <img src="{{ skin_condition.prevention_card_image.url }}" class="skin-condition-card-image" alt="{{ skin_condition.prevention_title }} Image">
+                    {% else %}
+                        <img src="{% static 'images/default_skin_prevention.jpg' %}" class="skin-condition-card-image" alt="Default Prevention Image">
+                    {% endif %}
+                    <div class="skin-condition-content">
+                        <span class="category">PREVENTION</span>
+                        <h3>{{ skin_condition.prevention_title }}</h3>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-shield-alt"></i> Proactive Care</span>
+                            <span><i class="fas fa-heartbeat"></i> Healthy Habits</span>
+                        </div>
+                        <p>{{ skin_condition.prevention_summary }}</p>
+                    </div>
+                    <a href="#prevention-detail" class="read-more-btn">Read More <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        {# DETAILED SECTIONS START HERE - EACH IN ITS OWN FULL-WIDTH CARD #}
+        {# This wrapper maintains the original full-width intent for detailed sections #}
+        <div class="detailed-sections-wrapper">
+            {# Detailed Basics Section #}
+            {% if skin_condition.basics_title %}
+            <div class="skin-condition-card full-width-card white-bg">
+                <div class="skin-condition-content">
+                    <article id="basics-detail" class="skin-condition-section">
+                        <span class="category">DEEP DIVE</span>
+                        <h2>{{ skin_condition.basics_title }}</h2>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-lightbulb"></i> Glow Genesis</span>
+                            <span><i class="fas fa-book-open"></i> Detailed Guide</span>
+                        </div>
+                        <div class="row align-items-center">
+                            {# Content always on the left #}
+                            <div class="col-md-7 order-md-1">
+                                <div class="basic-para">{{ skin_condition.basics_content|safe }}</div>
+                            </div>
+                            {# Image/Placeholder always on the right #}
+                            <div class="col-md-5 order-md-2 text-center text-md-right mt-3 mt-md-0">
+                                
+                                    {% if skin_condition.basics_image %}
+                                        <img src="{{ skin_condition.basics_image.url }}" class="img-fluid mb-3 skin-condition-section-image" alt="{{ skin_condition.basics_title }} Detail Image">
+                                    {% else %}
+                                        <img src="{% static 'images/default_basic_detail.png' %}" class="img-fluid mb-3 skin-condition-section-image" alt="Default Basic Detail Image">
+                                    {% endif %}
+                                
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            {% endif %}
+
+            {# Detailed Symptoms Section #}
+            {% if skin_condition.symptoms_title %}
+            <div class="skin-condition-card full-width-card white-bg">
+                <div class="skin-condition-content">
+                    <article id="symptoms-detail" class="skin-condition-section">
+                        <span class="category">IDENTIFY</span>
+                        <h2>{{ skin_condition.symptoms_title }}</h2>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-search-plus"></i> Detailed Analysis</span>
+                            <span><i class="fas fa-clinic-medical"></i> Common Signs</span>
+                        </div>
+                        <div class="row align-items-center">
+                            {# Content always on the left #}
+                            <div class="col-md-7 order-md-1">
+                                <p>{{ skin_condition.symptoms_summary }}</p>
+                                {% if skin_condition.symptoms_content %}
+                                    <div class="symptoms-list">
+                                        <div class="basic-para">{{ skin_condition.symptoms_content|safe }}</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {# Image/Placeholder always on the right #}
+                            <div class="col-md-5 order-md-2 text-center text-md-right mt-3 mt-md-0">
+                               
+                                    {% if skin_condition.symptoms_image %}
+                                        <img src="{{ skin_condition.symptoms_image.url }}" class="img-fluid mb-3 skin-condition-section-image" alt="{{ skin_condition.symptoms_title }} Detail Image">
+                                    {% else %}
+                                        <img src="{% static 'images/default_symptoms_detail.png' %}" class="img-fluid mb-3 skin-condition-section-image" alt="Default Symptoms Detail Image">
+                                    {% endif %}
+                          
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            {% endif %}
+
+            {# Detailed Causes Section #}
+            {% if skin_condition.causes_title %}
+            <div class="skin-condition-card full-width-card white-bg">
+                <div class="skin-condition-content">
+                    <article id="causes-detail" class="skin-condition-section">
+                        <span class="category">ROOT CAUSES</span>
+                        <h2>{{ skin_condition.causes_title }}</h2>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-microscope"></i> Scientific Breakdown</span>
+                            <span><i class="fas fa-user-md"></i> Dermatology</span>
+                        </div>
+                        <div class="row align-items-center">
+                            {# Content always on the left #}
+                            <div class="col-md-7 order-md-1">
+                                <p class="intro-text">{{ skin_condition.causes_intro|default:"Discover the root causes of this skin condition:" }}</p>
+                                <div class="row cause-treatment-details">
+                                    {% for cause in skin_condition.causes_with_icons %}
+                                        <div class="col-md-12 mb-3">
+                                            <div class="basic-cause">
+                                                <ul>
+                                                    <li><strong><i class="{{ cause.icon|default:'fas fa-chevron-right' }}"></i> {{ cause.heading }}</strong> {{ cause.description }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {# Image/Placeholder always on the right #}
+                            <div class="col-md-5 order-md-2 text-center text-md-right mt-3 mt-md-0">
+                                
+                                    {% if skin_condition.causes_image %}
+                                        <img src="{{ skin_condition.causes_image.url }}" class="img-fluid mb-3 skin-condition-section-image" alt="{{ skin_condition.causes_title }} Detail Image">
+                                    {% else %}
+                                        <img src="{% static 'images/default_causes_detail.png' %}" class="img-fluid mb-3 skin-condition-section-image" alt="Default Causes Detail Image">
+                                    {% endif %}
+                               
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            {% endif %}
+
+            {# Detailed Treatments Section #}
+            {% if skin_condition.treatments_title %}
+            <div class="skin-condition-card full-width-card white-bg">
+                <div class="skin-condition-content">
+                    <article id="treatments-detail" class="skin-condition-section">
+                        <span class="category">TREATMENTS</span>
+                        <h2>{{ skin_condition.treatments_title }}</h2>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-prescription-bottle"></i> Treatment Guide</span>
+                            <span><i class="fas fa-spa"></i> Natural Solutions</span>
+                        </div>
+                        <div class="row align-items-center">
+                            {# Content always on the left #}
+                            <div class="col-md-7 order-md-1">
+                                <p class="intro-text">{{ skin_condition.treatments_intro|default:"Explore effective solutions for managing this condition:" }}</p>
+                                <div class="row cause-treatment-details">
+                                    {% for treatment in skin_condition.treatments_with_icons %}
+                                        <div class="col-md-12 mb-3">
+                                            <div class="basic-cause">
+                                                <ul>
+                                                    <li><strong><i class="{{ treatment.icon|default:'fas fa-chevron-right' }}"></i> {{ treatment.heading }}</strong> {{ treatment.description }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {# Image/Placeholder always on the right #}
+                            <div class="col-md-5 order-md-2 text-center text-md-right mt-3 mt-md-0">
+                    
+                                    {% if skin_condition.treatments_image %}
+                                        <img src="{{ skin_condition.treatments_image.url }}" class="img-fluid mb-3 skin-condition-section-image" alt="{{ skin_condition.treatments_title }} Detail Image">
+                                    {% else %}
+                                        <img src="{% static 'images/default_treatment_detail.png' %}" class="img-fluid mb-3 skin-condition-section-image" alt="Default Treatment Image">
+                                    {% endif %}
+                                
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            {% endif %}
+
+            {# Detailed Prevention Section #}
+            {% if skin_condition.prevention_title %}
+            <div class="skin-condition-card full-width-card white-bg"> {# Corrected: Ensured full-width-card #}
+                <div class="skin-condition-content">
+                    <article id="prevention-detail" class="skin-condition-section">
+                        <span class="category">WELLNESS</span>
+                        <h2>{{ skin_condition.prevention_title }}
+                            {# Corrected conditional logic for heading icons to use 'in' operator #}
+                            {% if "yoga" in skin_condition.prevention_title|lower or "lifestyle" in skin_condition.prevention_title|lower %}
+                                <img src="{% static 'assets/img/icons/yoga.png' %}" alt="Yoga icon" class="heading-icon">
+                            {% elif "skincare" in skin_condition.prevention_title|lower %}
+                                <img src="{% static 'assets/img/icons/skincare.png' %}" alt="Skincare icon" class="heading-icon">
+                            {% endif %}
+                        </h2>
+                        {% if skin_condition.prevention_summary %}
+                            <p class="summary-text">{{ skin_condition.prevention_summary }}</p>
+                        {% endif %}
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-list-check"></i> Daily Care Routine</span>
+                            <span><i class="fas fa-circle-check"></i> Expert Recommended</span>
+                        </div>
+                        <div class="row align-items-center">
+                            {# Content always on the left #}
+                            <div class="col-md-7 order-md-1">
+                                <div class="row"> {# Nested row for skincare/lifestyle columns #}
+                                    <div class="col-md-6 mb-3">
+                                        <h4>Skincare Essentials</h4>
+                                        <ul class="skin-condition-list">
+                                            {% for item in skin_condition.prevention_skincare %}
+                                                <li>
+                                                    <i class="{{ item.icon|default:'fas fa-shield-alt' }}"></i> {{ item.text }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <h4>Lifestyle Factors</h4>
+                                        <ul class="skin-condition-list">
+                                            {% for item in skin_condition.prevention_lifestyle %}
+                                                <li>
+                                                    <i class="{{ item.icon|default:'fas fa-running' }}"></i> {{ item.text }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {# Image/Placeholder always on the right #}
+                            <div class="col-md-5 order-md-2 text-center text-md-right mt-3 mt-md-0">
+                                
+                                    {% if skin_condition.prevention_image %}
+                                        <img src="{{ skin_condition.prevention_image.url }}" class="img-fluid mb-3 skin-condition-section-image" alt="{{ skin_condition.prevention_title }} image">
+                                    {% else %}
+                                        {# Corrected default image path based on your image_329322.png (default_prevention_detail.png) #}
+                                        <img src="{% static 'images/default_prevention_detail.png' %}" class="img-fluid mb-3 skin-condition-section-image" alt="Default Prevention Image">
+                                    {% endif %}
+                                
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            {% endif %}
+
+            {# Detailed Doctor Section - Adjusted to match Prevention's structure #}
+            {% if skin_condition.doctor_title %}
+            <div class="skin-condition-card full-width-card white-bg"> {# Ensure full-width-card and desired background #}
+                <div class="skin-condition-content">
+                    <article id="doctor-detail" class="skin-condition-section">
+                        <span class="category">SEEK EXPERT HELP</span>
+                        <h2>{{ skin_condition.doctor_title }}</h2>
+                        <div class="skin-condition-meta">
+                            <span><i class="fas fa-user-md"></i> Medical Consultation</span>
+                            <span><i class="fas fa-hospital"></i> When to Visit</span>
+                        </div>
+                        <div class="row align-items-center">
+                            {# Content always on the left #}
+                            <div class="col-md-7 order-md-1">
+                                {% if skin_condition.doctor_summary %}
+                                    <p class="intro-text">{{ skin_condition.doctor_summary }}</p>
+                                {% endif %}
+                                {% if skin_condition.doctor_details_with_icons %}
+                                    <ul class="skin-condition-list">
+                                        {% for item in skin_condition.doctor_details_with_icons %}
+                                            <li>
+                                                <i class="{{ item.icon|default:'fas fa-exclamation-circle' }}"></i>
+                                                <strong>{{ item.point }}</strong>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            {# Image/Placeholder always on the right #}
+                            <div class="col-md-5 order-md-2 text-center text-md-right mt-3 mt-md-0">
+                                
+                                    {% if skin_condition.doctor_image %}
+                                        <img src="{{ skin_condition.doctor_image.url }}" class="img-fluid mb-3 skin-condition-section-image" alt="{{ skin_condition.doctor_title }} Image">
+                                    {% else %}
+                                        {# Using .png based on common default names. Verify filename. #}
+                                        <img src="{% static 'images/default_doctor_detail.png' %}" class="img-fluid mb-3 skin-condition-section-image" alt="Default Doctor Image">
+                                    {% endif %}
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            {% endif %}
+        </div> {# END .detailed-sections-wrapper #}
+
+        <div class="text-center" style="margin-top: 40px;">
+            <a href="{% url 'index_page' %}#skin-conditions-gallery" class="back-to-gallery-btn smoothScroll">
+                <i class="fas fa-arrow-left"></i> Back to Skin Conditions Gallery
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Chatbot popup container -->
+    <div id="chatbox-container">
+    <!-- Toggle Button -->
+    <button id="chat-toggle">
+    <span id="chat-icon"><i class="fa-solid fa-comments " style="color:white;"></i></span>
+    <span id="chat-close" style="display: none;"><i class="fa-solid fa-leaf" style="color:white;"></i></span>
+</button>
+
+    <!-- Chat Popup -->
+    <div id="chat-popup" style="display: none;">
+        <!-- Header -->
+        <div id="chat-header">
+            {% comment %} <img src="{% static 'images\logo_web-removebg-preview1.png' %}" alt="Glow.Genie Logo" class="chat-logo" /> {% endcomment %}
+            <div>
+                <h3 style="color:white">GenieGlow</h3>
+                <p>Your Personalized AI Assistant</p>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages"></div>
+
+        <!-- Input Area -->
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask about your skin issue..." />
+            <button id="chat-send" disabled>
+              <div style="background: white; padding: 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+                    <!-- Arrow SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" viewBox="0 0 24 24">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+             </button>
+
+        </div> 
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('a.read-more-btn[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,738 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Doctors | Healthcare System</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+     {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}"> {% endcomment %}
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+           --primary: #416931;
+            --primary-dark: #077531;
+            --primary-light: #dcfedb;
+            --secondary: #37b910;
+            --secondary-light: #d1fada;
+            --accent: #8af65c;
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --card-shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+            --radius-lg: 1rem;
+            --radius-md: 0.75rem;
+            --radius-sm: 0.5rem;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Header Styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--secondary-light);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        /* Controls Section */
+        .controls-section {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 3rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .controls-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .controls-title i {
+            color: var(--primary);
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .control-group {
+            position: relative;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .control-group input,
+        .control-group select {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 2.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--text-dark);
+        }
+
+        .control-group input:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .control-group i {
+            position: absolute;
+            left: 1rem;
+            top: 2.5rem;
+            color: var(--text-light);
+            font-size: 1.125rem;
+        }
+
+        /* Doctors Grid */
+        .doctors-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .doctors-count {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        .doctors-count span {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .sort-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: var(--text-dark);
+        }
+
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Doctor Card */
+        .doctor-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid #f1f5f9;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--primary-light);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 1.5rem;
+            color: var(--white);
+            position: relative;
+        }
+
+        .verification-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .doctor-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-name {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .doctor-specialty {
+            text-align: center;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .doctor-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.9375rem;
+        }
+
+        .doctor-info i {
+            color: var(--primary);
+            width: 1.25rem;
+            text-align: center;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            min-width: 100px;
+        }
+
+        .info-value {
+            color: var(--text-medium);
+        }
+
+        .experience-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.375rem 0.875rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .bio-excerpt {
+            color: var(--text-medium);
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            margin: 1.25rem 0;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .card-footer {
+            padding: 1.5rem;
+            padding-top: 0;
+            margin-top: auto;
+        }
+
+        .view-profile {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 0.875rem 1.5rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-profile:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .view-profile i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .view-profile:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            margin: 2rem 0;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.75rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: var(--text-medium);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            font-size: 1.125rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .doctors-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .doctors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .doctor-card {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .controls-section {
+                padding: 1.25rem;
+            }
+
+            .card-header {
+                padding: 1.25rem;
+            }
+
+            .doctor-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .doctor-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">Verified Doctors Directory</h1>
+        <p class="page-subtitle">Browse and connect with certified medical professionals in our healthcare network</p>
+        <div class="verified-badge">
+            <i class="fas fa-shield-check"></i>
+            All doctors are verified and licensed
+        </div>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="controls-section">
+        <h2 class="controls-title">
+            <i class="fas fa-search"></i>
+            Find Your Doctor
+        </h2>
+        <div class="controls-grid">
+            <div class="control-group">
+                <label for="doctorSearch">Search Doctors</label>
+                <i class="fas fa-search"></i>
+                <input type="text" id="doctorSearch" placeholder="Search by name, specialization, or condition">
+            </div>
+            
+            <div class="control-group">
+                <label for="specializationFilter">Specialization</label>
+                <i class="fas fa-stethoscope"></i>
+                <select id="specializationFilter">
+                    <option value="">All Specializations</option>
+                    {% for spec in specializations %}
+                        <option value="{{ spec|lower }}">{{ spec }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="experienceFilter">Experience</label>
+                <i class="fas fa-award"></i>
+                <select id="experienceFilter">
+                    <option value="">All Experience Levels</option>
+                    <option value="0-5">0-5 years</option>
+                    <option value="5-10">5-10 years</option>
+                    <option value="10-15">10-15 years</option>
+                    <option value="15+">15+ years</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctors Listing -->
+    <div class="doctors-header">
+        <div class="doctors-count">
+            Available Doctors: <span id="doctorCount">{{ doctors|length }}</span>
+        </div>
+        <div class="sort-options">
+            <span class="sort-label">Sort by:</span>
+            <select class="sort-select" id="sortDoctors">
+                <option value="name">Name (A-Z)</option>
+                <option value="experience">Experience</option>
+                <option value="specialization">Specialization</option>
+            </select>
+        </div>
+    </div>
+
+    {% if doctors %}
+    <div class="doctors-grid" id="doctorsContainer">
+        {% for doctor in doctors %}
+        <div class="doctor-card" 
+             data-specialization="{{ doctor.specialization|lower }}" 
+             data-experience="{{ doctor.experience_years }}"
+             data-name="{{ doctor.user.username|lower }}">
+            <div class="card-header">
+                <div class="verification-badge">
+                    <i class="fas fa-check-circle"></i> Verified
+                </div>
+                <div class="doctor-avatar">
+                    {{ doctor.user.username|slice:":1"|upper }}
+                </div>
+                <h2 class="doctor-name">Dr. {{ doctor.user.get_full_name|default:doctor.user.username|title }}</h2>
+                <div class="doctor-specialty">
+                    <i class="fas fa-user-md"></i>
+                    {{ doctor.specialization|default:"General Medicine" }}
+                </div>
+            </div>
+            
+            <div class="card-body">
+                {% if doctor.bio %}
+                <div class="bio-excerpt">
+                    {{ doctor.bio|truncatewords:25 }}
+                </div>
+                {% endif %}
+                
+                <div class="doctor-info">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="info-label">Experience:</span>
+                    <span class="info-value">{{ doctor.experience_years }} years</span>
+                </div>
+                
+                {% if doctor.license_number %}
+                <div class="doctor-info">
+                    <i class="fas fa-id-card"></i>
+                    <span class="info-label">License No:</span>
+                    <span class="info-value">{{ doctor.license_number }}</span>
+                </div>
+                {% endif %}
+                
+                {% if doctor.phone %}
+                <div class="doctor-info">
+                    <i class="fas fa-phone"></i>
+                    <span class="info-label">Contact:</span>
+                    <span class="info-value">{{ doctor.phone }}</span>
+                </div>
+                {% endif %}
+                
+                <div class="doctor-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="info-label">Location:</span>
+                    <span class="info-value">{{ doctor.location|default:"Available Online" }}</span>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <a href="{% url 'public_doctor_profile' doctor.id %}" class="view-profile">
+                    View Full Profile
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <i class="fas fa-user-md"></i>
+        <h3>No Doctors Available</h3>
+        <p>There are currently no verified doctors in our directory. Please check back later or contact our support team for assistance.</p>
+        <a href="#" class="view-profile" style="width: 200px; margin: 0 auto;">
+            <i class="fas fa-envelope"></i>
+            Contact Support
+        </a>
+    </div>
+    {% endif %}
+</div>
+<script>
+    const searchInput = document.getElementById('doctorSearch');
+    const specFilter = document.getElementById('specializationFilter');
+    const expFilter = document.getElementById('experienceFilter');
+    const sortSelect = document.getElementById('sortDoctors');
+    const doctorCount = document.getElementById('doctorCount');
+
+    function filterDoctors() {
+        const term = searchInput.value.toLowerCase();
+        const spec = specFilter.value;
+        const exp = expFilter.value;
+        const cards = document.querySelectorAll('.doctor-card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const name = card.dataset.name || '';
+            const specialty = card.dataset.specialization || '';
+            const experience = parseInt(card.dataset.experience) || 0;
+            const doctorName = card.querySelector('.doctor-name').textContent.toLowerCase();
+
+            let show = true;
+
+            // Search term filter
+            if (term) {
+                const matchesName = name.includes(term) || doctorName.includes(term);
+                const matchesSpecialty = specialty.includes(term);
+                if (!matchesName && !matchesSpecialty) show = false;
+            }
+
+            // Specialization filter
+            if (spec && specialty !== spec.toLowerCase()) {
+                show = false;
+            }
+
+            // Experience filter
+            if (exp && show) {
+                switch(exp) {
+                    case '0-5':
+                        if (experience > 5) show = false;
+                        break;
+                    case '5-10':
+                        if (experience < 5 || experience > 10) show = false;
+                        break;
+                    case '10-15':
+                        if (experience < 10 || experience > 15) show = false;
+                        break;
+                    case '15+':
+                        if (experience < 15) show = false;
+                        break;
+                }
+            }
+
+            if (show) {
+                card.style.display = 'flex';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Update doctor count
+        doctorCount.textContent = visibleCount;
+        
+        // Sort doctors
+        sortDoctors();
+    }
+
+    function sortDoctors() {
+        const sortBy = sortSelect.value;
+        const container = document.getElementById('doctorsContainer');
+        const cards = Array.from(container.querySelectorAll('.doctor-card:not([style*="display: none"])'));
+
+        cards.sort((a, b) => {
+            switch(sortBy) {
+                case 'name':
+                    const nameA = a.querySelector('.doctor-name').textContent;
+                    const nameB = b.querySelector('.doctor-name').textContent;
+                    return nameA.localeCompare(nameB);
+                    
+                case 'experience':
+                    const expA = parseInt(a.dataset.experience) || 0;
+                    const expB = parseInt(b.dataset.experience) || 0;
+                    return expB - expA;
+                    
+                case 'specialization':
+                    const specA = a.dataset.specialization || '';
+                    const specB = b.dataset.specialization || '';
+                    return specA.localeCompare(specB);
+                    
+                default:
+                    return 0;
+            }
+        });
+
+        // Reappend cards in sorted order
+        cards.forEach(card => {
+            container.appendChild(card);
+        });
+    }
+
+    // Event Listeners
+    searchInput.addEventListener('input', filterDoctors);
+    specFilter.addEventListener('change', filterDoctors);
+    expFilter.addEventListener('change', filterDoctors);
+    sortSelect.addEventListener('change', sortDoctors);
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        filterDoctors();
+    });
+</script>
+
+</body>
+</html>

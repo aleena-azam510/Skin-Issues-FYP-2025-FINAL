@@ -1,0 +1,577 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>Glow Genesis Organic Care</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link href="{% static 'images/TabLogo.png' %}" rel="icon" type="image/x-icon" sizes="256x256">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap');
+        
+        /* Updated Navbar Style */
+        
+        body { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); min-height: 100vh; font-family: 'Poppins', sans-serif; }
+        .form-container { padding: 40px 20px; position: relative; max-width: 900px; margin: 0 auto; }
+        form { background: rgba(255, 255, 255, 0.97); padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(46, 125, 50, 0.2); margin: 0 auto; animation: fadeInUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; border: 1px solid #e0f0e2; position: relative; overflow: hidden; backdrop-filter: blur(5px); }
+        .form-header { text-align: center; margin-bottom: 40px; animation: fadeIn 0.8s 0.2s both; }
+        .form-header h1 { color: #1b5e20; font-weight: 700; margin-bottom: 15px; font-size: 2.5rem; position: relative; display: inline-block; background: linear-gradient(135deg, #2e7d32, #4caf50); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Playfair Display', serif; }
+        .form-header h1:after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: linear-gradient(90deg, #4caf50, #8bc34a); border-radius: 4px; }
+        .form-header p { color: #5a8d5e; font-size: 1.9rem; margin-top: 20px; line-height: 1.6; }
+        .form-group {position: relative; z-index: 1; background: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(46, 125, 50, 0.1); border: 1px solid #e0f0e2; animation: fadeInUp 0.6s forwards; transition: all 0.4s ease;}
+        .form-group:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(46, 125, 50, 0.15); }
+        .question-title { color: #2e7d32; margin-bottom: 15px; font-weight: 600; font-size: 16px; display: flex; align-items: center; }
+        .question-title i { margin-right: 10px; font-size: 15px; }
+        .radio-list li, .checkbox-list li { list-style: none; margin: 10px 0; }
+        .radio-list input[type="radio"], .checkbox-list input[type="checkbox"] { display: none; }
+        .radio-list label, .checkbox-list label { display: block; cursor: pointer; background: #f7f9fc; border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px 20px; font-weight: 500; color: #555; transition: all 0.3s ease; }
+        .radio-list input[type="radio"]:checked + label, .checkbox-list input[type="checkbox"]:checked + label { background: #e8f5e9; border-color: #4caf50; color: #2e7d32; box-shadow: 0 2px 6px rgba(76, 175, 80, 0.2); }
+        .radio-list label:hover, .checkbox-list label:hover { background: #f0f0f0; }
+        input[type="text"], input[type="email"], input[type="number"], textarea, select { 
+            width: 100%; padding: 12px 15px; border: 2px solid #e0f0e2; border-radius: 10px; font-size: 1rem; color: #2f5d32; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.8); font-family: 'Poppins', sans-serif; 
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus, textarea:focus, select:focus { border-color: #4caf50; box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3); outline: none; }
+        textarea { min-height: 120px; resize: vertical; }
+        button { display: block; width: 100%; margin-top: 40px; background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%); color: white; font-weight: 600; padding: 18px; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 6px 12px rgba(46, 125, 50, 0.3); transition: all 0.4s ease; font-size: 1.2rem; letter-spacing: 0.5px; position: relative; overflow: hidden; text-transform: uppercase; }
+        button:hover { background: linear-gradient(135deg, #3a9e3e 0%, #1b5e20 100%); box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4); transform: translateY(-3px); }
+        button:active { transform: translateY(1px); }
+        .back-to-home-btn { display: block; width: 100%; margin-top: 20px; background: transparent; color: #4caf50; font-weight: 600; padding: 18px; border: 2px solid #4caf50; border-radius: 12px; cursor: pointer; text-align: center; text-decoration: none; transition: all 0.4s ease; font-size: 1.2rem; letter-spacing: 0.5px; text-transform: uppercase; }
+        .back-to-home-btn:hover { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; transform: translateY(-3px); box-shadow: 4px 8px rgba(46, 125, 50, 0.1); }
+        .progress-container { width: 100%; background-color: #e0f0e2; border-radius: 10px; margin-bottom: 30px; height: 12px; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #8bc34a, #4caf50); border-radius: 10px; transition: width 0.6s ease-in-out; }
+        .errorlist { color: #d32f2f; background: #ffebee; border: 1px solid #ef9a9a; padding: 12px 16px; border-radius: 10px; margin-bottom: 20px; font-weight: 500; list-style-type: none; font-size: 0.95rem; animation: shake 0.5s ease; }
+        .help-text { color: #5a8d5e; font-size: 0.9rem; display: block; margin-top: 8px; font-style: italic; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+        .herb { position: absolute; z-index: -1; opacity: 0.8; animation: float 8s ease-in-out infinite; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1)); }
+        .herb-1 { top: 10%; left: 5%; width: 100px; animation-delay: 0s; }
+        .herb-2 { bottom: 15%; right: 5%; width: 120px; animation-delay: 1s; }
+        .herb-3 { top: 50%; left: 8%; width: 80px; animation-delay: 2s; }
+        
+        /* Placeholder styling */
+        ::placeholder { color: #a0a0a0; font-size: 1.1rem; }
+        :-ms-input-placeholder { color: #a0a0a0; font-size: 1.1rem; }
+        ::-ms-input-placeholder { color: #a0a0a0; font-size: 1.1rem; }
+
+        @media (max-width: 768px) {
+            form { padding: 30px 20px; }
+            .form-header h1 { font-size: 2rem; }
+            .form-header p { font-size: 1rem; }
+            .form-group { padding: 20px; }
+            button { padding: 16px; font-size: 1.1rem; }
+            .option-item { flex: 1 1 100%; }
+            .image-option { flex: 1 1 calc(50% - 15px); }
+        }
+        /* ---------------------------------------
+   MOBILE NAV (<= 991px) - INTEGRATED FIX
+---------------------------------------- */
+@media (max-width: 991px) {
+  
+  .custom-navbar .container {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    position: relative; 
+  }
+
+  .navbar-header {
+    display: flex !important;
+    width: 100%; 
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* 1. Logo Size Fix */
+  .navbar-brand img {
+    height: 140px !important; 
+    width: auto !important;
+  }
+
+  /* 2. Hamburger Lines Fix */
+  .navbar-toggle {
+    display: block !important;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    padding: 8px !important;
+    margin: 0 !important;
+    cursor: pointer;
+  }
+
+  .navbar-toggle .icon-bar {
+    display: block !important;
+    width: 22px !important;
+    height: 2px !important;
+    background-color: #3B7A57 !important; 
+    margin: 3px 0 !important;
+    border-radius: 1px;
+  }
+
+  /* 3. Dropdown Positioning Fix */
+  .navbar-collapse {
+    display: none; 
+    position: absolute; 
+    top: 85%; 
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    z-index: 9999;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    border-top: 1px solid #eee;
+  }
+
+  .navbar-collapse.open {
+    display: block !important;
+  }
+
+  /* 4. Compact Spacing */
+  .navbar-nav {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+  }
+
+  .navbar-nav li {
+    display: block !important;
+    width: 100%;
+  }
+
+  .navbar-nav li a {
+    display: block !important;
+    padding: 8px 20px !important;
+    color: #333 !important;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 14px;
+    line-height: 1.1;
+  }
+
+  /* 5. Skin-Diagnose Button centered */
+  .navbar-nav .section-btn {
+    display: inline-block !important; 
+    width: 80% !important;
+    margin: 10px auto 15px auto !important;
+    background-color: #3B7A57 !important;
+    color: #fff !important;
+    padding: 8px !important;
+    border-radius: 5px;
+    float: none !important;
+  }
+}
+    </style>
+</head>
+<body>
+
+     <!-- PRE LOADER -->
+    {% comment %} <section class="preloader">
+     <div class="spinner">
+          <span class="spinner-rotate"></span>
+         </div>
+    </section> {% endcomment %}
+<section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="{% url 'index_page' %}" class="navbar-brand">
+        <img src="{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo">
+      </a>
+
+      <button type="button" class="navbar-toggle" id="mobileToggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    
+
+    <!-- Menu items -->
+    <div class="navbar-collapse" id="mainNavbar">
+      <ul class="nav navbar-nav navbar-nav-first">
+        <li><a href="{% url 'index_page' %}">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="{% url 'developer_team_page' %}">Developer Team</a></li>
+        <li><a href="{% url 'article_page' %}">Article</a></li>
+        <li><a href="{% url 'skin_identifier' %}">Skin Type Identifier</a></li>
+         <li><a href="#contact">Contact</a></li>
+        <li><a href="{%url 'doctors_list' %}">Doctors</a></li> 
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          {# 🔔 Notifications #}
+          <li class="notification-item">
+            <a href="{% url 'notifications' %}" class="notification-bell">
+              <i class="fas fa-bell"></i>
+
+              {% if unread_notifications|length > 0 %}
+                <span class="badge">
+                  {{ unread_notifications|length }}
+                </span>
+              {% endif %}
+            </a>
+          </li>
+
+          <li><a href="{% url 'model_page' %}" class="section-btn">Skin-Diagnose</a></li>
+          <li><a href="{% url 'dashboard_redirect' %}"><i class="fa fa-user-circle"></i> My Dashboard</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'auth_page' %}" class="section-btn">Login / Sign Up</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+<div class="form-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909495.png" class="herb herb-1">
+    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909543.png" class="herb herb-2">
+    <img src="https://cdn-icons-png.flaticon.com/512/5361/5361372.png" class="herb herb-3">
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        
+        <div class="form-header">
+            <h1>Comprehensive Skin Analysis</h1>
+            <p>Complete this detailed assessment to discover your skin type, concerns, and receive personalized care recommendations</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 0%;"></div>
+        </div>
+
+        {% if form.non_field_errors %}
+        <ul class="errorlist">
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="form-group" id="personal-info-form-group">
+            <h3 class="question-title personal-info-title"><i class="fas fa-user"></i> Personal Information</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="{{ form.name.id_for_label }}">Full Name</label>
+                    {{ form.name }}
+                    {{ form.name.errors }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="{{ form.email.id_for_label }}">Email Address</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="{{ form.age.id_for_label }}">Age</label>
+                    {{ form.age }}
+                    {{ form.age.errors }}
+                </div>
+                <div class="col-md-6">
+                    <label for="{{ form.gender.id_for_label }}">Gender</label>
+                    {{ form.gender }}
+                    {{ form.gender.errors }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-tint"></i> {{ form.skin_feel.label_tag }}</h3>
+            <ul class="radio-list" data-question-name="skin_feel">
+                {% for choice in form.skin_feel %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.skin_feel.errors }}
+        </div>
+
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-list-check"></i> {{ form.skin_concerns.label_tag }}</h3>
+            <ul class="checkbox-list" data-question-name="skin_concerns">
+                {% for choice in form.skin_concerns %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.skin_concerns.errors }}
+        </div>
+        
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-seedling"></i> {{ form.sensitivity_level.label_tag }}</h3>
+            <ul class="radio-list" data-question-name="sensitivity_level">
+                {% for choice in form.sensitivity_level %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.sensitivity_level.errors }}
+        </div>
+
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-eye-dropper"></i> {{ form.pore_size.label_tag }}</h3>
+            <ul class="radio-list" data-question-name="pore_size">
+                {% for choice in form.pore_size %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.pore_size.errors }}
+        </div>
+
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-hand-sparkles"></i> Skin Texture</h3>
+            <ul class="radio-list" data-question-name="skin_texture">
+                {% for choice in form.skin_texture %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.skin_texture.errors }}
+        </div>
+
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-cloud-sun"></i> Climate</h3>
+            <ul class="radio-list" data-question-name="climate">
+                {% for choice in form.climate %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.climate.errors }}
+        </div>
+
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-chart-line"></i> Hormonal Factors</h3>
+            <ul class="checkbox-list" data-question-name="hormonal_factors">
+                {% for choice in form.hormonal_factors %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.hormonal_factors.errors }}
+        </div>
+
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-notes-medical"></i> {{ form.current_routine.label_tag }}</h3>
+            {{ form.current_routine }}
+            {{ form.current_routine.errors }}
+        </div>
+
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-walking"></i> {{ form.lifestyle_factors.label_tag }}</h3>
+            <ul class="checkbox-list" data-question-name="lifestyle_factors">
+                {% for choice in form.lifestyle_factors %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.lifestyle_factors.errors }}
+        </div>
+        
+        <div class="form-group">
+            <h3 class="question-title"><i class="fas fa-hand-holding-medical"></i> {{ form.product_reaction.label_tag }}</h3>
+            <ul class="radio-list" data-question-name="product_reaction">
+                {% for choice in form.product_reaction %}
+                <li>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            {{ form.product_reaction.errors }}
+        </div>
+        
+        <button type="submit">
+            <span>Get My Complete Skin Analysis</span>
+        </button>
+        <a href="/" class="back-to-home-btn">
+            <span>Back to Home Page</span>
+        </a>
+    </form>
+</div>
+<!-- Essential JS for Bootstrap dropdown -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+<!-- Initialize dropdowns -->
+<script>
+$(document).ready(function(){
+    // Enable all dropdowns
+    $('.dropdown-toggle').dropdown();
+    
+    // Debugging - log if dropdown is initialized
+    $('.dropdown-toggle').on('click', function() {
+        console.log('Dropdown clicked - should work now');
+    });
+});
+</script>
+<!-- Chatbot popup container -->
+    <div id="chatbox-container">
+    <!-- Toggle Button -->
+    <button id="chat-toggle">
+    <span id="chat-icon"><i class="fa-solid fa-comments " style="color:white;"></i></span>
+    <span id="chat-close" style="display: none;"><i class="fa-solid fa-leaf" style="color:white;"></i></span>
+</button>
+
+    <!-- Chat Popup -->
+    <div id="chat-popup" style="display: none;">
+        <!-- Header -->
+        <div id="chat-header">
+            {% comment %} <img src="{% static 'images\logo_web-removebg-preview1.png' %}" alt="Glow.Genie Logo" class="chat-logo" /> {% endcomment %}
+            <div>
+                <h3 style="color:white">GenieGlow</h3>
+                <p>Your Personalized AI Assistant</p>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages"></div>
+
+        <!-- Input Area -->
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask about your skin issue..." />
+            <button id="chat-send" disabled>
+              <div style="background: white; padding: 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+                    <!-- Arrow SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" viewBox="0 0 24 24">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+             </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- Your other scripts (can stay as they are) -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-bc8Gc1Lppn/H07GgNq9B2S7t+02zWn+vK9g32XlK5uWz2q67sK7Gz10d1uV" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/chatbot.js' %}"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('mainNavbar');
+
+  toggleBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    navMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!toggleBtn.contains(event.target) && !navMenu.contains(event.target)) {
+      navMenu.classList.remove('open');
+    }
+  });
+});
+
+    </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const progressBar = document.querySelector('.progress-bar');
+    const questionGroups = document.querySelectorAll('.form-group');
+
+    const totalQuestions = questionGroups.length;
+
+    function updateProgressBar() {
+        let answeredQuestions = 0;
+
+        const nameField = document.getElementById('id_name');
+        const emailField = document.getElementById('id_email');
+        const ageField = document.getElementById('id_age');
+        const genderField = document.getElementById('id_gender');
+        
+        // This is a new check for the select element
+        if (nameField && nameField.value.trim() !== '') answeredQuestions += 0.25;
+        if (emailField && emailField.value.trim() !== '') answeredQuestions += 0.25;
+        if (ageField && ageField.value !== '') answeredQuestions += 0.25;
+        // Check if a valid option is selected (not the disabled placeholder)
+        if (genderField && genderField.value !== '') answeredQuestions += 0.25;
+
+        for (let i = 1; i < questionGroups.length; i++) {
+            const group = questionGroups[i];
+            const radioButtons = group.querySelectorAll('input[type="radio"]');
+            const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+            const textarea = group.querySelector('textarea');
+
+            if (radioButtons.length > 0) {
+                if (group.querySelector('input[type="radio"]:checked')) {
+                    answeredQuestions++;
+                }
+            } else if (checkboxes.length > 0) {
+                if (group.querySelector('input[type="checkbox"]:checked')) {
+                    answeredQuestions++;
+                }
+            } else if (textarea) {
+                if (textarea.value.trim() !== '') {
+                    answeredQuestions++;
+                }
+            }
+        }
+
+        const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+        progressBar.style.width = progressPercentage + '%';
+    }
+
+    form.querySelectorAll('input, textarea, select').forEach(input => {
+        input.addEventListener('change', updateProgressBar);
+        input.addEventListener('input', updateProgressBar);
+    });
+
+    updateProgressBar();
+});
+</script>
+</body>
+</html>

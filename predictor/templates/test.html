@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mobile Navbar Fix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 3 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <style>
+    body {
+      padding-top: 70px;
+    }
+
+    /* MOBILE FIXED NAV STYLES */
+    @media (max-width: 991px) {
+      .navbar-fixed-top {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+
+      .custom-navbar .container {
+        flex-wrap: nowrap;
+        padding: 0 15px;
+      }
+
+      .custom-navbar .navbar-header {
+        width: 100%;
+        justify-content: space-between;
+        padding: 10px 0;
+      }
+
+      .custom-navbar .navbar-brand img {
+        height: 50px;
+      }
+
+      .custom-navbar .navbar-toggle {
+        display: block;
+      }
+
+      .custom-navbar .navbar-collapse {
+        display: none !important;
+        flex-direction: column;
+        align-items: flex-start;
+        background: #fff;
+        width: 100%;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 999;
+        padding-bottom: 10px;
+      }
+
+      .custom-navbar .navbar-collapse.in {
+        display: flex !important;
+      }
+
+      .custom-navbar .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+      }
+
+      .custom-navbar .nav li a {
+        padding: 12px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        color: #333 !important;
+      }
+
+      .custom-navbar .navbar-collapse .section-btn {
+        background-color: #3B7A57 !important;
+        color: white !important;
+        margin-left: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .custom-navbar .dropdown-menu {
+        display: none;
+        position: static !important;
+        float: none !important;
+        width: 100%;
+        background-color: #fff;
+        padding-left: 30px;
+        box-shadow: none;
+      }
+
+      .custom-navbar .dropdown.open .dropdown-menu {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-default navbar-fixed-top custom-navbar">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" role="button">
+            Hello, Alina <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container" style="margin-top: 100px;">
+  <p>Resize to mobile view and click "Hello, Alina" to show logout.</p>
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- Toggle open/close on click -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dropdowns = document.querySelectorAll(".dropdown-toggle");
+    dropdowns.forEach(function (toggle) {
+      toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        const parent = this.closest(".dropdown");
+        parent.classList.toggle("open");
+
+        // Optional: Close others
+        document.querySelectorAll(".dropdown").forEach(function (el) {
+          if (el !== parent) el.classList.remove("open");
+        });
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

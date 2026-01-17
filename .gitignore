@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
+db.sqlite3
+.env
+.env.*
+staticfiles/
+
+# AI generated / user uploads
+media/ai_reports/
+media/annotated_reports/
+media/skin_images/
+media/skin_progress/
+
+# Virtual environment
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db

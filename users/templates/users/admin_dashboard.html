@@ -1,0 +1,844 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Healthcare System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-dark: #1a472a;
+      --primary: #2d5a3c;
+      --primary-light: #3c7a4f;
+      --accent: #4caf50;
+      --accent-hover: #45a049;
+      --danger: #d32f2f;
+      --danger-hover: #c62828;
+      --warning: #ff9800;
+      --success: #4caf50;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+    
+    body {
+      background-color: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    .admin-header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: var(--white);
+      padding: 1.25rem 2rem;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .admin-avatar {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    
+    .admin-info h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    .admin-info p {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      margin-top: 0.125rem;
+    }
+    
+    .logout-btn {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--white);
+      padding: 0.625rem 1.5rem;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .logout-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    /* Main Content */
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .dashboard-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .dashboard-title h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+    
+    .title-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.25rem;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 4px solid var(--primary);
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .stat-card.warning {
+      border-top-color: var(--warning);
+    }
+    
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+    
+    .stat-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--primary-light), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+    
+    .stat-card.warning .stat-icon {
+      background: linear-gradient(135deg, #ff9800, #ff5722);
+    }
+    
+    .stat-number {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--gray-800);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+    
+    .stat-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.875rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      background: var(--gray-100);
+      color: var(--gray-700);
+      margin-top: 0.75rem;
+    }
+    
+    /* Approval Section */
+    .approval-section {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 2rem;
+      border: 1px solid var(--gray-200);
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-800);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .section-header h2 i {
+      color: var(--primary);
+    }
+    
+    .pending-badge {
+      background: var(--warning);
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    
+    /* Table */
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+    
+    thead {
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+    }
+    
+    th {
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    
+    th:first-child {
+      border-radius: var(--radius-lg) 0 0 0;
+    }
+    
+    th:last-child {
+      border-radius: 0 var(--radius-lg) 0 0;
+    }
+    
+    tbody tr {
+      border-bottom: 1px solid var(--gray-200);
+      transition: background-color 0.2s ease;
+    }
+    
+    tbody tr:hover {
+      background-color: var(--gray-50);
+    }
+    
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+    
+    td {
+      padding: 1.25rem 1.5rem;
+      vertical-align: middle;
+    }
+    
+    /* Doctor Info */
+    .doctor-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .doctor-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-light), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+    
+    .doctor-details h4 {
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 0.25rem;
+    }
+    
+    .doctor-details p {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+    
+    /* Status Badge */
+    .status-badge {
+      padding: 0.375rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    
+    .status-pending {
+      background: rgba(255, 152, 0, 0.1);
+      color: #ff9800;
+      border: 1px solid rgba(255, 152, 0, 0.2);
+    }
+    
+    .status-verified {
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(76, 175, 80, 0.2);
+    }
+    
+    /* Document Preview */
+    .doc-preview {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .doc-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--gray-100);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+    
+    .doc-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+    
+    .doc-link:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+    
+    /* Action Buttons */
+    .action-form {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .btn {
+      padding: 0.625rem 1.25rem;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-approve {
+      background: linear-gradient(135deg, var(--success), var(--accent-hover));
+      color: white;
+      box-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
+    }
+    
+    .btn-approve:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+    }
+    
+    .btn-reject {
+      background: linear-gradient(135deg, var(--danger), var(--danger-hover));
+      color: white;
+      box-shadow: 0 2px 5px rgba(211, 47, 47, 0.3);
+    }
+    
+    .btn-reject:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(211, 47, 47, 0.4);
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray-500);
+    }
+    
+    .empty-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      color: var(--gray-400);
+    }
+    
+    .empty-state h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--gray-700);
+    }
+    
+    .empty-state p {
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .doc-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer; /* indicate clickable */
+  transition: background 0.2s ease;
+}
+
+.doc-preview:hover {
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+}
+
+    
+    /* Footer */
+    .admin-footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray-500);
+      font-size: 0.875rem;
+      border-top: 1px solid var(--gray-200);
+      margin-top: 3rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .dashboard-container {
+        padding: 0 1rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .admin-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1.5rem 1rem;
+      }
+      
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .dashboard-title {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+      }
+      
+      .section-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      
+      .approval-section {
+        padding: 1.5rem;
+      }
+      
+      .action-form {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .stat-card {
+        padding: 1.5rem;
+      }
+      
+      .stat-number {
+        font-size: 2.25rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .doctor-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .doctor-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="admin-avatar">
+        <i class="fas fa-user-shield"></i>
+      </div>
+      <div class="admin-info">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome back, <strong>{{ request.user.username }}</strong></p>
+      </div>
+    </div>
+    <a href="{% url 'logout' %}" class="logout-btn">
+      <i class="fas fa-sign-out-alt"></i>
+      Logout
+    </a>
+  </header>
+
+  <main class="dashboard-container">
+    <!-- Dashboard Title -->
+    <div class="dashboard-title">
+      <div class="title-icon">
+        <i class="fas fa-tachometer-alt"></i>
+      </div>
+      <h2>System Overview & Doctor Verification</h2>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div>
+            <div class="stat-number">{{ total_users }}</div>
+            <div class="stat-label">Total Users</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        <div class="stat-trend">
+          <i class="fas fa-chart-line"></i>
+          All system users
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-header">
+          <div>
+            <div class="stat-number">{{ verified_doctors }}</div>
+            <div class="stat-label">Verified Doctors</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+        </div>
+        <div class="stat-trend">
+          <i class="fas fa-check-circle"></i>
+          Active professionals
+        </div>
+      </div>
+      
+      <div class="stat-card warning">
+        <div class="stat-header">
+          <div>
+            <div class="stat-number">{{ unverified_doctors.count }}</div>
+            <div class="stat-label">Pending Approvals</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+        </div>
+        <div class="stat-trend">
+          <i class="fas fa-exclamation-circle"></i>
+          Require attention
+        </div>
+      </div>
+    </div>
+
+    <!-- Approval Section -->
+    <section class="approval-section">
+      <div class="section-header">
+        <h2>
+          <i class="fas fa-clipboard-check"></i>
+          Doctor Verification Requests
+        </h2>
+        {% if unverified_doctors.count > 0 %}
+        <div class="pending-badge">
+          {{ unverified_doctors.count }} Pending
+        </div>
+        {% endif %}
+      </div>
+
+      {% if unverified_doctors %}
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Doctor Information</th>
+              <th>Contact Details</th>
+              <th>Status</th>
+              <th>License Document</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for doctor in unverified_doctors %}
+            <tr>
+              <td>
+                <div class="doctor-info">
+                  <div class="doctor-avatar">
+                    {{ doctor.username|slice:":1"|upper }}
+                  </div>
+                  <div class="doctor-details">
+                    <h4>{{ doctor.username }}</h4>
+                    <p>License: {{ doctor.license_number }}</p>
+                  </div>
+                </div>
+              </td>
+              
+              <td>
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                  <strong>{{ doctor.email }}</strong>
+                  {% if doctor.phone %}
+                  <small style="color: var(--gray-500);">{{ doctor.phone }}</small>
+                  {% endif %}
+                </div>
+              </td>
+              
+              <td>
+                <span class="status-badge status-pending">
+                  <i class="fas fa-clock"></i>
+                  Pending Review
+                </span>
+              </td>
+              
+              <td>
+  <!-- License Document Preview -->
+  {% if doctor.license_document %}
+  <div class="doc-preview" onclick="openModal('{{ doctor.license_document.url }}')">
+    <div class="doc-icon">
+      {% if doctor.license_document.url|lower|slice:"-4:" == ".pdf" %}
+        <i class="fas fa-file-pdf"></i>
+      {% else %}
+        <i class="fas fa-file-image"></i>
+      {% endif %}
+    </div>
+    <a href="javascript:void(0)" class="doc-link">View License</a>
+  </div>
+  {% else %}
+  <div style="color: var(--gray-400); font-style: italic;">
+    <i class="fas fa-times-circle"></i> No license provided
+  </div>
+  {% endif %}
+
+  <!-- Government ID Preview -->
+        <td>
+          {% if doctor.government_id %}
+          <div class="doc-preview" style="margin-top:0.5rem;" onclick="openModal('{{ doctor.government_id.url }}')">
+            <div class="doc-icon">
+              {% if doctor.government_id.url|lower|slice:"-4:" == ".pdf" %}
+                <i class="fas fa-file-pdf"></i>
+              {% else %}
+                <i class="fas fa-id-card"></i>
+              {% endif %}
+            </div>
+            <a href="javascript:void(0)" class="doc-link">View ID</a>
+          </div>
+          {% else %}
+          <div style="color: var(--gray-400); font-style: italic; margin-top:0.5rem;">
+            <i class="fas fa-times-circle"></i> No ID provided
+          </div>
+          {% endif %}
+        </td>
+
+              
+              <td>
+                <form action="{% url 'verify_doctor' doctor.id %}" method="post" class="action-form">
+
+                  {% csrf_token %}
+                  <button type="submit" name="action" value="approve" class="btn btn-approve">
+                    <i class="fas fa-check"></i>
+                    Approve
+                  </button>
+                  
+                  <!-- Rejection with reason -->
+                  <button type="button" class="btn btn-reject" onclick="toggleReason({{ doctor.id }})">
+                    <i class="fas fa-times"></i> Reject
+                  </button>
+                    <div id="reject-reason-{{ doctor.id }}" style="display:none; margin-top:0.5rem;">
+                      <input type="text" name="rejection_reason" placeholder="Enter reason for rejection" style="width: 100%; padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                      <button type="submit" name="action" value="reject" class="btn btn-reject" style="margin-top:0.5rem;">
+                        Submit Rejection
+                      </button>
+                    </div>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>All caught up!</h3>
+        <p>There are no pending doctor verification requests at this time.</p>
+        <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--gray-400);">
+          New requests will appear here automatically.
+        </p>
+      </div>
+      {% endif %}
+    </section>
+  </main>
+  <!-- Document Preview Modal -->
+<div id="docModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999;">
+  <div style="background:#fff; max-width:800px; margin:5% auto; padding:20px; border-radius:8px; position:relative;">
+    <button onclick="closeModal()" style="position:absolute; top:10px; right:10px;">✖</button>
+    <div id="docContent"></div>
+  </div>
+</div>
+
+
+  <footer class="admin-footer">
+    <p>Healthcare System Admin Portal • Secure Access Only</p>
+    <p style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray-400);">
+      Last updated: {% now "F j, Y" %}
+    </p>
+  </footer>
+  <script>
+function toggleReason(id) {
+  const div = document.getElementById(`reject-reason-${id}`);
+  div.style.display = div.style.display === 'none' ? 'block' : 'none';
+}
+</script>
+<script>
+function openModal(url) {
+  const modal = document.getElementById('docModal');
+  const content = document.getElementById('docContent');
+
+  // Determine file type
+  const ext = url.split('.').pop().toLowerCase();
+  if(ext === 'pdf') {
+    content.innerHTML = `<iframe src="${url}" style="width:100%; height:600px; border:none;"></iframe>`;
+  } else {
+    content.innerHTML = `<img src="${url}" style="width:100%; max-height:600px; object-fit:contain;">`;
+  }
+
+  modal.style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('docModal').style.display = 'none';
+  document.getElementById('docContent').innerHTML = '';
+}
+
+// Optional: close modal when clicking outside content
+document.getElementById('docModal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,985 @@
+{% extends "dashboard/layout.html" %}
+
+{% block extra_css %}
+<style>
+:root {
+  --primary-green: #5cb910;
+  --light-green: #79d334;
+  --dark-green: #017a01;
+  --emerald-green: #0f940d;
+  --teal-green: #047857;
+  --bg-gradient: linear-gradient(135deg, #ecfdf5 0%, #b8e7b2ff 100%);
+  --card-gradient: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  --text-dark: #064e3b;
+  --text-medium: #065f46;
+  --text-light: #6b7280;
+  --shadow-light: 0 10px 25px rgba(92, 185, 16, 0.1);
+  --shadow-medium: 0 15px 35px rgba(92, 185, 16, 0.15);
+  --warning-orange: #f59e0b;
+  --warning-red: #dc2626;
+}
+
+body {
+  background: var(--bg-gradient);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+/* Base Container */
+.uv-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.uv-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary-green), var(--emerald-green), var(--teal-green));
+}
+
+/* Page Header */
+.uv-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.uv-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-green), var(--emerald-green));
+    border-radius: 2px;
+}
+
+.uv-header h2 {
+    font-size: 2.75rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.uv-header p {
+    font-size: 1.5rem;
+    color: var(--text-medium);
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Location Banner */
+.location-banner {
+    background: linear-gradient(135deg, rgba(92, 185, 16, 0.1), rgba(121, 211, 52, 0.1));
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(92, 185, 16, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: relative;
+}
+
+.location-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.location-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.location-details h3 {
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+}
+
+.location-details p {
+    color: var(--text-medium);
+    font-size: 1.15rem;
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.95rem;
+}
+
+.temp-display {
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+
+.weather-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.location-controls {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.location-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.btn-refresh {
+    background: linear-gradient(135deg, var(--primary-green), var(--emerald-green));
+    color: white;
+}
+
+.btn-refresh:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(92, 185, 16, 0.3);
+}
+
+.btn-manual {
+    background: white;
+    color: var(--text-dark);
+    border: 2px solid rgba(92, 185, 16, 0.3);
+}
+
+.btn-manual:hover {
+    border-color: var(--primary-green);
+    background: rgba(92, 185, 16, 0.05);
+}
+
+/* Stats Cards Grid */
+.uv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.uv-card {
+    background: var(--card-gradient);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid rgba(92, 185, 16, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.uv-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-green), var(--emerald-green));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.uv-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-medium);
+    border-color: rgba(92, 185, 16, 0.3);
+}
+
+.uv-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Card Icon */
+.uv-card-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.75rem;
+    background: linear-gradient(135deg, var(--primary-green), var(--emerald-green));
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.uv-card h3 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.index-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-green), var(--emerald-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.index-category {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+/* Index Bars */
+.uv-bar-container, .pollution-bar-container {
+    margin: 1.5rem 0;
+}
+
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: var(--text-medium);
+    font-weight: 500;
+}
+
+.uv-bar, .pollution-bar {
+    height: 20px;
+    width: 100%;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+    overflow: hidden;
+    position: relative;
+}
+
+.uv-bar-inner, .pollution-bar-inner {
+    height: 100%;
+    width: 0;
+    border-radius: 12px;
+    transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.uv-bar-inner {
+    background: linear-gradient(90deg, var(--light-green), var(--primary-green), var(--emerald-green));
+}
+
+.pollution-bar-inner {
+    background: linear-gradient(90deg, var(--light-green), var(--dark-green), var(--teal-green));
+}
+
+.uv-bar-inner::after, .pollution-bar-inner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Tips Box */
+.tip-box {
+    background: linear-gradient(135deg, rgba(92, 185, 16, 0.08), rgba(121, 211, 52, 0.08));
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    position: relative;
+    padding-left: 3rem;
+    border: 1px solid rgba(92, 185, 16, 0.15);
+    color: var(--text-medium);
+}
+
+.tip-box::before {
+    content: '💡';
+    position: absolute;
+    left: 1rem;
+    top: 1.25rem;
+    font-size: 1.2rem;
+}
+
+/* Scale Indicators */
+.scale-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.scale-item {
+    text-align: center;
+    flex: 1;
+}
+
+/* Data Time */
+.data-time {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 1rem;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Additional Info Cards */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.info-card {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 14px;
+    border-left: 4px solid var(--primary-green);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+}
+
+.info-card h4 {
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-card p {
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Alert Banner */
+.alert-banner {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(220, 38, 38, 0.05));
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-dark);
+}
+
+.alert-icon {
+    color: var(--warning-orange);
+    font-size: 1.5rem;
+}
+
+.alert-content {
+    flex: 1;
+}
+
+.alert-content strong {
+    color: var(--warning-orange);
+}
+
+/* Footer */
+.uv-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(92, 185, 16, 0.1);
+    font-size: 1rem;
+    color: var(--text-medium);
+}
+
+.uv-footer a {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.uv-footer a:hover {
+    color: var(--emerald-green);
+    text-decoration: underline;
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+/* Loading spinner */
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    transform: translateX(150%);
+    transition: transform 0.3s ease;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    border-left: 4px solid var(--primary-green);
+}
+
+.notification.error {
+    border-left: 4px solid var(--warning-red);
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .uv-container {
+        padding: 1.5rem;
+    }
+    
+    .uv-header h2 {
+        font-size: 2.25rem;
+    }
+    
+    .location-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .location-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .weather-info {
+        justify-content: center;
+    }
+    
+    .location-controls {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .uv-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .index-value {
+        font-size: 2rem;
+    }
+    
+    .scale-indicator {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .uv-header h2 {
+        font-size: 1.875rem;
+    }
+    
+    .location-controls {
+        flex-direction: column;
+    }
+    
+    .location-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="uv-container">
+  <!-- Header -->
+  <div class="uv-header">
+    <h2>UV & Pollution Insights</h2>
+    <p>Real-time UV exposure and air quality guidance for your skin health.</p>
+  </div>
+
+  <!-- Alert Banner (Conditional) -->
+  <div id="alertBanner" class="alert-banner" style="display: none;">
+    <div class="alert-icon">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div class="alert-content">
+      <strong>Protection Alert:</strong> <span id="alertMessage">High UV or pollution levels detected. Extra protection recommended.</span>
+    </div>
+  </div>
+
+  <!-- Location Banner -->
+  <div class="location-banner" id="locationBanner">
+    <div class="location-info">
+      <div class="location-icon">
+        <i class="fas fa-location-dot"></i>
+      </div>
+      <div class="location-details">
+        <h3 id="locationName">Detecting your location...</h3>
+        <p id="locationDetails">Loading weather data...</p>
+      </div>
+    </div>
+    
+    <div class="weather-info" id="weatherInfo" style="display: none;">
+      <div class="temp-display">
+        <span id="currentTemp">--</span>°C
+      </div>
+      <div id="weatherDescription">--</div>
+      <img id="weatherIcon" class="weather-icon" src="" alt="">
+    </div>
+    
+    <div class="location-controls">
+      <button class="location-btn btn-refresh" id="refreshLocation">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+      <button class="location-btn btn-manual" id="manualLocation">
+        <i class="fas fa-map-marker-alt"></i> Change
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="uv-grid">
+    <!-- UV Index Card -->
+    <div class="uv-card">
+      <div class="uv-card-icon">
+        <i class="fas fa-sun"></i>
+      </div>
+      <div class="card-header">
+        <div>
+          <h3>UV Index</h3>
+          <div class="index-category" id="uvCategory" style="background: rgba(92, 185, 16, 0.1); color: var(--primary-green);">
+            Loading...
+          </div>
+        </div>
+        <div class="index-value" id="uvValue">--</div>
+      </div>
+      
+      <div class="uv-bar-container">
+        <div class="bar-label">
+          <span>Current Level</span>
+          <span id="uvLevelText">0 out of 11+</span>
+        </div>
+        <div class="uv-bar">
+          <div class="uv-bar-inner" id="uvLevel"></div>
+        </div>
+        <div class="scale-indicator">
+          <div class="scale-item">Low<br>(0-2)</div>
+          <div class="scale-item">Moderate<br>(3-5)</div>
+          <div class="scale-item">High<br>(6-7)</div>
+          <div class="scale-item">Very High<br>(8-10)</div>
+          <div class="scale-item">Extreme<br>(11+)</div>
+        </div>
+      </div>
+      
+      <div class="tip-box" id="uvTip">
+        Loading UV protection tips...
+      </div>
+      
+      <div class="data-time">
+        <i class="fas fa-clock"></i>
+        <span id="uvTime">Last updated: --</span>
+      </div>
+    </div>
+
+    <!-- Air Quality Card -->
+    <div class="uv-card">
+      <div class="uv-card-icon">
+        <i class="fas fa-smog"></i>
+      </div>
+      <div class="card-header">
+        <div>
+          <h3>Air Quality</h3>
+          <div class="index-category" id="aqiCategory" style="background: rgba(1, 122, 1, 0.1); color: var(--dark-green);">
+            Loading...
+          </div>
+        </div>
+        <div class="index-value" id="aqiValue">--</div>
+      </div>
+      
+      <div class="pollution-bar-container">
+        <div class="bar-label">
+          <span>AQI Level</span>
+          <span id="aqiLevelText">0 AQI</span>
+        </div>
+        <div class="pollution-bar">
+          <div class="pollution-bar-inner" id="aqiLevel"></div>
+        </div>
+        <div class="scale-indicator">
+          <div class="scale-item">Good<br>(0-50)</div>
+          <div class="scale-item">Moderate<br>(51-100)</div>
+          <div class="scale-item">Unhealthy<br>(101-150)</div>
+          <div class="scale-item">Very Unhealthy<br>(151-200)</div>
+          <div class="scale-item">Hazardous<br>(201+)</div>
+        </div>
+      </div>
+      
+      <div class="tip-box" id="aqiTip">
+        Loading air quality tips...
+      </div>
+      
+      <div class="data-time">
+        <i class="fas fa-clock"></i>
+        <span id="aqiTime">Last updated: --</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Information -->
+  <div class="info-grid">
+    <div class="info-card">
+      <h4><i class="fas fa-shield-alt" style="color: var(--primary-green);"></i> UV Protection</h4>
+      <p>UV rays can cause premature aging, sunburn, and increase skin cancer risk. Reapply sunscreen every 2 hours when outdoors.</p>
+    </div>
+    <div class="info-card">
+      <h4><i class="fas fa-wind" style="color: var(--dark-green);"></i> Pollution Impact</h4>
+      <p>Pollution particles can clog pores, cause inflammation, and accelerate aging. Cleanse thoroughly after outdoor exposure.</p>
+    </div>
+    <div class="info-card">
+      <h4><i class="fas fa-clock" style="color: var(--emerald-green);"></i> Peak Hours</h4>
+      <p>UV rays are strongest between 10 AM and 4 PM. Plan outdoor activities before or after these hours when possible.</p>
+    </div>
+    <div class="info-card">
+      <h4><i class="fas fa-heart" style="color: var(--teal-green);"></i> Skin Health</h4>
+      <p>Antioxidant serums with Vitamin C can help protect against environmental damage. Stay hydrated for optimal skin health.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="uv-footer">
+    <p>Data provided by OpenWeather API • <a href="{% url 'habits' %}">Track your protective habits →</a></p>
+  </div>
+</div>
+
+<!-- Manual Location Modal -->
+<div id="locationModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+  <div style="background: white; padding: 2rem; border-radius: 16px; max-width: 400px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+    <h3 style="color: var(--text-dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+      <i class="fas fa-map-marker-alt" style="color: var(--primary-green);"></i> Set Location
+    </h3>
+    <input type="text" id="cityInput" placeholder="Enter city name (e.g., New York)" style="width: 100%; padding: 0.75rem; border: 2px solid rgba(92, 185, 16, 0.3); border-radius: 8px; margin-bottom: 1rem; font-size: 1rem; transition: border-color 0.3s ease;">
+    <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+      <button id="cancelLocation" style="padding: 0.75rem 1.5rem; border-radius: 8px; border: 2px solid #e5e7eb; background: white; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">Cancel</button>
+      <button id="saveLocation" style="padding: 0.75rem 1.5rem; border-radius: 8px; border: none; background: linear-gradient(135deg, var(--primary-green), var(--emerald-green)); color: white; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">Set Location</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block dashboard_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const API_KEY = 'd3322d68c3442a9842f29bbcb4bcbdfe';
+
+    const ui = {
+        locName: document.getElementById('locationName'),
+        locDetails: document.getElementById('locationDetails'),
+        weatherInfo: document.getElementById('weatherInfo'),
+        temp: document.getElementById('currentTemp'),
+        desc: document.getElementById('weatherDescription'),
+        icon: document.getElementById('weatherIcon'),
+        uvVal: document.getElementById('uvValue'),
+        uvCat: document.getElementById('uvCategory'),
+        uvBar: document.getElementById('uvLevel'),
+        uvText: document.getElementById('uvLevelText'),
+        uvTip: document.getElementById('uvTip'),
+        uvTime: document.getElementById('uvTime'),
+        aqiVal: document.getElementById('aqiValue'),
+        aqiCat: document.getElementById('aqiCategory'),
+        aqiBar: document.getElementById('aqiLevel'),
+        aqiText: document.getElementById('aqiLevelText'),
+        aqiTip: document.getElementById('aqiTip'),
+        aqiTime: document.getElementById('aqiTime'),
+        alertBanner: document.getElementById('alertBanner'),
+        alertMsg: document.getElementById('alertMessage')
+    };
+
+    let userLoc = { lat: 40.7128, lon: -74.0060, name: 'New York', country: 'US' };
+    let lastUpdateTime = new Date();
+
+    // ------------------ Initialization ------------------
+    async function init() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                async pos => {
+                    userLoc.lat = pos.coords.latitude;
+                    userLoc.lon = pos.coords.longitude;
+                    await reverseGeocode();
+                    await fetchAll();
+                },
+                () => fetchAll(),
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        } else fetchAll();
+    }
+
+    async function reverseGeocode() {
+        try {
+            const res = await fetch(
+                `https://api.openweathermap.org/geo/1.0/reverse?lat=${userLoc.lat}&lon=${userLoc.lon}&limit=1&appid=${API_KEY}`
+            );
+            const data = await res.json();
+            if (data.length) {
+                userLoc.name = data[0].name;
+                userLoc.country = data[0].country;
+                userLoc.state = data[0].state || '';
+            }
+        } catch (e) {
+            console.warn("Reverse geocode failed", e);
+        }
+    }
+
+    async function fetchAll() {
+        ui.alertBanner.style.display = 'none';
+        await Promise.all([updateWeather(), updateUV(), updateAQI()]);
+        lastUpdateTime = new Date();
+        updateTimeDisplays();
+    }
+
+    // ------------------ Weather ------------------
+    async function updateWeather() {
+        try {
+            const res = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?lat=${userLoc.lat}&lon=${userLoc.lon}&units=metric&appid=${API_KEY}`
+            );
+            if (!res.ok) throw new Error("Weather fetch failed");
+            const data = await res.json();
+
+            ui.weatherInfo.style.display = 'flex';
+            ui.temp.textContent = Math.round(data.main.temp);
+            ui.desc.textContent =
+                data.weather[0].description.charAt(0).toUpperCase() + data.weather[0].description.slice(1);
+            ui.icon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+            ui.locName.textContent = userLoc.name || data.name;
+            ui.locDetails.textContent = userLoc.state ? `${userLoc.state}, ${data.sys.country}` : data.sys.country;
+        } catch (e) {
+            console.error("Weather error:", e);
+            ui.locName.textContent = "Weather unavailable";
+            ui.locDetails.textContent = "";
+        }
+    }
+
+    // ------------------ UV ------------------
+    async function updateUV() {
+        try {
+            const res = await fetch(
+                `https://api.open-meteo.com/v1/forecast?latitude=${userLoc.lat}&longitude=${userLoc.lon}&hourly=uv_index&timezone=auto`
+            );
+            const data = await res.json();
+            if (!data.hourly || !data.hourly.uv_index) throw new Error("UV data missing");
+
+            const uv = data.hourly.uv_index[0];
+            updateUVDisplay(uv);
+        } catch (e) {
+            console.error("UV error:", e);
+            ui.uvVal.textContent = "N/A";
+            ui.uvCat.textContent = "Unavailable";
+            ui.uvTip.textContent = "UV data unavailable";
+        }
+    }
+
+    function updateUVDisplay(uv) {
+        ui.uvVal.textContent = uv.toFixed(1);
+        ui.uvBar.style.width = Math.min(100, (uv / 11) * 100) + "%";
+        ui.uvText.textContent = `${uv.toFixed(1)} / 11+`;
+
+        let category, color, tip;
+        if (uv <= 2) [category, color, tip] = ["Low", "#10B981", "Low risk."];
+        else if (uv <= 5) [category, color, tip] = ["Moderate", "#F59E0B", "Use SPF 30+."];
+        else if (uv <= 7) [category, color, tip] = ["High", "#EF4444", "Limit sun exposure."];
+        else if (uv <= 10) [category, color, tip] = ["Very High", "#DC2626", "Avoid midday sun."];
+        else [category, color, tip] = ["Extreme", "#7C3AED", "Stay indoors if possible."];
+
+        ui.uvCat.textContent = category;
+        ui.uvCat.style.color = color;
+        ui.uvTip.textContent = tip;
+
+        if (uv > 6) {
+            ui.alertBanner.style.display = "flex";
+            ui.alertMsg.textContent = `High UV Alert (${uv.toFixed(1)}) – Wear SPF!`;
+        }
+    }
+
+    // ------------------ AQI ------------------
+    async function updateAQI() {
+        try {
+            const res = await fetch(
+                `https://api.openweathermap.org/data/2.5/air_pollution?lat=${userLoc.lat}&lon=${userLoc.lon}&appid=${API_KEY}`
+            );
+            const data = await res.json();
+            updateAQIDisplay(data.list[0].main.aqi);
+        } catch (e) {
+            console.error("AQI error:", e);
+            ui.aqiVal.textContent = "N/A";
+            ui.aqiCat.textContent = "Unavailable";
+            ui.aqiTip.textContent = "AQI data unavailable";
+        }
+    }
+
+    function updateAQIDisplay(aqi) {
+        const labels = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+        ui.aqiVal.textContent = aqi;
+        ui.aqiCat.textContent = labels[aqi - 1];
+        ui.aqiBar.style.width = (aqi / 5) * 100 + "%";
+        ui.aqiText.textContent = `Level ${aqi} / 5 (${labels[aqi - 1]})`;
+
+        if (aqi >= 4) {
+            ui.alertBanner.style.display = "flex";
+            ui.alertMsg.textContent = `Poor Air Quality (${labels[aqi - 1]}) – Limit outdoor exposure!`;
+        }
+    }
+
+    // ------------------ Time Display ------------------
+    function updateTimeDisplays() {
+        const t = lastUpdateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        ui.uvTime.textContent = `Updated ${t}`;
+        ui.aqiTime.textContent = `Updated ${t}`;
+    }
+
+    // ------------------ Manual Location Modal ------------------
+    const modal = document.getElementById("locationModal");
+    const cityInput = document.getElementById("cityInput");
+
+    document.getElementById("manualLocation").addEventListener("click", () => {
+        modal.style.display = "flex";
+        cityInput.focus();
+    });
+
+    document.getElementById("cancelLocation").addEventListener("click", () => {
+        modal.style.display = "none";
+        cityInput.value = "";
+    });
+
+    document.getElementById("saveLocation").addEventListener("click", async () => {
+        const city = cityInput.value.trim();
+        if (!city) return alert("Please enter a city name");
+
+        modal.style.display = "none";
+        ui.locName.textContent = "Searching...";
+
+        try {
+            const geoRes = await fetch(
+                `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${API_KEY}`
+            );
+            const geoData = await geoRes.json();
+            if (!geoData || geoData.length === 0) throw new Error("City not found");
+
+            userLoc = {
+                lat: geoData[0].lat,
+                lon: geoData[0].lon,
+                name: geoData[0].name,
+                country: geoData[0].country,
+                state: geoData[0].state || ""
+            };
+            await fetchAll();
+        } catch (e) {
+            console.error(e);
+            alert("City not found, please try again");
+            ui.locName.textContent = "Error finding city";
+        }
+        cityInput.value = "";
+    });
+
+    modal.addEventListener("click", e => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+            cityInput.value = "";
+        }
+    });
+
+    cityInput.addEventListener("keypress", e => {
+        if (e.key === "Enter") document.getElementById("saveLocation").click();
+    });
+
+    // ------------------ Refresh Button ------------------
+    document.getElementById("refreshLocation").addEventListener("click", async function () {
+        this.classList.add("loading");
+        await fetchAll();
+        this.classList.remove("loading");
+        alert("Data refreshed successfully");
+    });
+
+    // ------------------ Initialize ------------------
+    init();
+    setInterval(fetchAll, 10 * 60 * 1000);
+});
+</script>
+{% endblock %}

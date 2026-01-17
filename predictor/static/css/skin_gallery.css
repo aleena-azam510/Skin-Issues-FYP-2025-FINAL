@@ -1,0 +1,589 @@
+/* Variables for easy color theme changes */
+:root {
+    --color-white: #ffffff;
+    --color-light-white: #fefefe;
+    --color-very-light-green: #f8fcf9;
+    --color-light-green: #eaf7f2;
+    --color-primary-green: #3B7A57; /* Main brand green */
+    --color-dark-green: #2a5c44; /* Darker green for headings */
+    --color-accent-orange: #FFA500; /* Main accent orange */
+    --color-dark-orange: #cc8400; /* Darker orange on hover */
+    --color-text-dark: #333;
+    --color-text-medium: #555;
+    --color-text-light: #888;
+    --color-border-light: #e0e0e0;
+    --color-border-dashed: #e9e9e9;
+}
+
+/* REMOVED: General Body and Typography from here, as template_style.css handles them.
+   If you need to *override* specific body/h/p properties for the *entire* skin gallery page,
+   you'd re-add them with more specific selectors or within a wrapper for the gallery content.
+*/
+
+/* --- Skin Condition Cards (Summary at top) --- */
+.card-summary-row {
+    align-items: stretch; /* Ensures cards in the row have equal height */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.skin-condition-card {
+    background: var(--color-white);
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* More pronounced, softer shadow */
+    transition: all 0.4s ease-in-out; /* Smooth transition for hover */
+    border: 1px solid var(--color-border-light); /* Subtle border */
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Allow cards to take equal space */
+    justify-content: space-between; /* Push content and footer to ends */
+}
+
+.skin-condition-card:hover {
+    transform: translateY(-10px) scale(1.02); /* Lift and slightly enlarge on hover */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18); /* More intense shadow on hover */
+}
+
+/* Alternating Card Colors for the top 3 cards */
+.col-lg-4:nth-child(1) .skin-condition-card,
+.col-md-6:nth-child(1) .skin-condition-card {
+    background-color: var(--color-white);
+}
+.col-lg-4:nth-child(2) .skin-condition-card,
+.col-md-6:nth-child(2) .skin-condition-card {
+    background-color: var(--color-light-green); /* Lighter shade of green */
+}
+.col-lg-4:nth-child(3) .skin-condition-card,
+.col-md-12:nth-child(3) .skin-condition-card { /* Adjust for single column on smaller screens */
+    background-color: var(--color-white);
+}
+
+/* Category Badges */
+.skin-condition-card .category,
+.skin-condition-section .category {
+    color: var(--color-white); /* White text for category badge */
+    background-color: var(--color-accent-orange); /* Orange background for the badge */
+    font-size: 0.8em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 25px; /* More pill-shaped */
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(255, 165, 0, 0.2);
+}
+
+/* Card Headings */
+.skin-condition-card h3 {
+    font-size: 1.8em; /* Specific size for card titles */
+    margin-bottom: 15px;
+    color: var(--color-primary-green); /* Green for card titles */
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.skin-condition-card:hover h3 {
+    color: var(--color-accent-orange); /* Orange on hover */
+}
+
+/* Card Meta Information */
+.skin-condition-card .skin-condition-meta {
+    color: var(--color-text-light);
+    font-size: 0.85em;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px dashed var(--color-border-dashed); /* Subtle separator */
+    align-items: center;
+}
+
+.skin-condition-card .skin-condition-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between icon and text */
+    color: var(--color-accent-orange); /* Span color orange */
+}
+
+.skin-condition-card .skin-condition-meta i {
+    color: var(--color-primary-green); /* Green icons */
+}
+
+/* Card Paragraphs */
+.skin-condition-card p {
+    font-size: 1em; /* Specific size for card paragraphs, relative to base p */
+    color: var(--color-text-medium);
+    margin-bottom: 25px;
+    flex-grow: 1;
+    line-height: 1.7;
+}
+
+.skin-condition-card-image {
+    width: 100%;
+    height: 200px; /* Consistent height for summary images */
+    object-fit: cover;
+    border-radius: 10px 10px 0 0; /* Rounded top corners */
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Hover effect for summary images */
+.skin-condition-card:hover .skin-condition-card-image {
+    transform: scale(1.03); /* Slightly zoom in image on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Full Width Card for Detailed Sections --- */
+.full-width-card {
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.07);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.full-width-card:hover {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+}
+
+.light-green-bg {
+    background-color: var(--color-light-green); /* Light green background */
+}
+
+.white-bg {
+    background-color: var(--color-white); /* White background */
+}
+
+/* Detailed Skin Condition Sections */
+.skin-condition-section {
+    margin-bottom: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+    overflow: hidden;
+    /* You might want to define a specific background here if it differs from template_style's section background */
+    /* background-color: var(--color-background-light); */ 
+}
+
+.skin-condition-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.skin-condition-section h2 {
+    font-size: 2.5em; /* Specific size for section titles on detail page */
+    font-weight: 700;
+    color: var(--color-dark-green); /* Main headings green color */
+    margin-bottom: 15px;
+}
+
+.skin-condition-section h3 {
+    font-size: 2em; /* Specific size for sub-headings within sections */
+    font-weight: 600;
+    color: var(--color-dark-green); /* Main headings green color */
+    margin-bottom: 15px;
+}
+
+.skin-condition-section .skin-condition-meta {
+    color: var(--color-text-light);
+    font-size: 0.9em;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 25px; /* More space between meta items */
+    border-bottom: 1px dashed var(--color-border-dashed);
+    padding-bottom: 12px;
+    align-items: center;
+}
+
+.skin-condition-section .skin-condition-meta i {
+    color: var(--color-accent-orange); /* Orange icons in detailed meta */
+}
+
+.skin-condition-section p {
+    font-size: 1.05em; /* Specific size for paragraphs within sections */
+    color: var(--color-text-medium);
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.skin-condition-section p.intro-text {
+    font-weight: 500;
+    font-size: 1.1em;
+    color: var(--color-text-dark);
+    margin-bottom: 30px;
+}
+
+.skin-condition-section strong {
+    color: var(--color-primary-green); /* Green for sub-headings in lists */
+    font-weight: 600;
+    display: flex; /* For icon alignment */
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 1.05em;
+}
+
+.skin-condition-section .icon-green {
+    color: var(--color-primary-green); /* Specific color for these icons */
+    margin-right: 8px;
+    font-size: 0.9em;
+}
+
+/* Lists for Prevention Section */
+.skin-condition-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skin-condition-list li {
+    font-size: 1em; /* Relative to base p size from template_style.css */
+    color: var(--color-text-medium);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start; /* Align icon and text at the top */
+    line-height: 1.6;
+}
+
+.skin-condition-list li i {
+    color: var(--color-accent-orange); /* Orange checkmark icons */
+    margin-right: 12px;
+    font-size: 1.3em;
+    line-height: inherit; /* Inherit line-height for better alignment */
+}
+
+/* Images within detailed sections */
+.skin-condition-section-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: block;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.skin-condition-section-image:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+}
+
+/* Back to Gallery Button */
+.back-to-gallery-btn {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-primary-green); /* Green button */
+    color: var(--color-white);
+    padding: 12px 30px;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(59, 122, 87, 0.3);
+}
+
+.back-to-gallery-btn i {
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+.back-to-gallery-btn:hover {
+    background: var(--color-dark-green); /* Darker green on hover */
+    transform: translateY(-3px);
+    color: var(--color-white);
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(59, 122, 87, 0.45);
+}
+
+/* --- Testimonial Section --- */
+#testimonial {
+    background-color: var(--color-light-green); /* Light green background */
+    text-align: center;
+    position: relative;
+    padding: 100px 0;
+}
+
+#testimonial .overlay {
+    background: rgba(255, 255, 255, 0.6); /* Slightly transparent white overlay */
+    position: absolute; /* Cover the whole section */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Below content but above background image */
+}
+
+#testimonial .container {
+    position: relative; /* Ensure content is above overlay */
+    z-index: 2;
+}
+
+#testimonial .section-title h2 {
+    color: var(--color-dark-green); /* Main headings green color */
+    margin-bottom: 40px;
+}
+
+.testimonial-carousel {
+    margin-top: 30px;
+}
+
+.testimonial-item {
+    background: var(--color-white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    margin: 20px; /* Space between carousel items */
+}
+
+.testimonial-item p {
+    font-size: 1.15em;
+    color: var(--color-text-medium);
+    line-height: 1.8;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.testimonial-item .tst-author h4 {
+    font-size: 1.3em;
+    color: var(--color-primary-green);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.testimonial-item .tst-author span {
+    font-size: 0.9em;
+    color: var(--color-accent-orange); /* Span color orange */
+    display: block;
+}
+
+/* Owl Carousel Customizations (if you're using it) */
+.owl-theme .owl-nav.disabled + .owl-dots {
+    margin-top: 30px;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+    width: 12px;
+    height: 12px;
+    margin: 5px 7px;
+    background: var(--color-border-light);
+    display: block;
+    -webkit-backface-visibility: visible;
+    transition: opacity .2s ease;
+    border-radius: 30px;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+    background: var(--color-accent-orange); /* Orange dots */
+}
+
+/* --- Contact Section --- */
+#contact {
+    background-color: var(--color-light-white); /* Near white background for contact */
+    padding: 80px 0;
+}
+
+#contact .section-title h2 {
+    color: var(--color-dark-green); /* Main headings green color */
+}
+
+#google-map {
+    border-radius: 15px;
+    overflow: hidden; /* Ensures map corners are rounded */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px; /* Space on smaller screens */
+}
+
+#google-map iframe {
+    width: 100%;
+    height: 450px;
+    border: 0;
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form .form-control {
+    background: var(--color-very-light-green); /* Light green-tinted input background */
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 1em;
+    padding: 12px 18px;
+    height: auto; /* Allow textarea to size naturally */
+    transition: all 0.3s ease;
+}
+
+.contact-form .form-control:focus {
+    border-color: var(--color-primary-green); /* Green border on focus */
+    box-shadow: 0 0 0 0.2rem rgba(59, 122, 87, 0.25);
+    background-color: var(--color-white);
+}
+
+.contact-form textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.contact-form .section-btn {
+    width: 100%; /* Full width button */
+    padding: 15px;
+    font-size: 1.1em;
+    background: var(--color-accent-orange); /* Orange submit button */
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+    border-radius: 8px;
+    color: var(--color-white); /* Ensure text is white */
+}
+
+.contact-form .section-btn:hover {
+    background: var(--color-dark-orange); /* Darker orange on hover */
+    box-shadow: 0 6px 20px rgba(255, 165, 0, 0.45);
+    color: var(--color-white); /* Ensure text is white */
+}
+
+.form-message {
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: none; /* Hidden by default, shown via JS */
+    font-weight: 500;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* skin_gallery.css additions for icon font family */
+
+/* Ensure Font Awesome is used for specific icons in cards */
+.skin-condition-card .skin-condition-meta i {
+    color: var(--color-primary-green); /* Green icons */
+    font-family: 'Font Awesome Solid'; /* Explicitly set for FA 5/6 solid icons */
+}
+
+/* Ensure Font Awesome is used for specific icons in lists */
+.skin-condition-list li i {
+    color: var(--color-accent-orange); /* Orange checkmark icons */
+    margin-right: 12px;
+    font-size: 1.3em;
+    line-height: inherit; /* Inherit line-height for better alignment */
+    font-family: 'Font Awesome Solid'; /* Explicitly set for FA 5/6 solid icons */
+}
+
+/* Ensure Font Awesome is used for the back button icon */
+.back-to-gallery-btn i {
+    margin-right: 10px;
+    font-size: 1.1em;
+    font-family: 'Font Awesome Solid'; /* Explicitly set for FA 5/6 solid icons */
+}
+
+/* For icons in detailed meta, if they are separate from the card meta */
+.skin-condition-section .skin-condition-meta i {
+    color: var(--color-accent-orange); /* Orange icons in detailed meta */
+    font-family: 'Font Awesome Solid'; /* Explicitly set for FA 5/6 solid icons */
+}
+
+/* If you also have .icon-green that uses FA icons */
+.skin-condition-section .icon-green {
+    color: var(--color-primary-green); /* Specific color for these icons */
+    margin-right: 8px;
+    font-size: 0.9em;
+    font-family: 'Font Awesome Solid'; /* Explicitly set for FA 5/6 solid icons */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 991px) {
+    /* REMOVED: .section padding if template_style.css handles it, or adjust if needed for *this specific context* */
+    /* .section {
+        padding: 60px 0;
+    } */
+    /* REMOVED: .section-title margins/sizes if template_style.css handles general section titles */
+    /* .section-title {
+        margin-bottom: 40px;
+    }
+    .section-title h2 {
+        font-size: 2.5em;
+    } */
+    
+    .col-lg-4 {
+        margin-bottom: 30px; /* Ensure spacing on smaller screens */
+    }
+    .full-width-card {
+        padding: 30px;
+    }
+    .skin-condition-section-image {
+        margin-top: 20px; /* Space above image on mobile if text is first */
+    }
+    #google-map iframe {
+        height: 350px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* REMOVED: .section padding if template_style.css handles it, or adjust if needed for *this specific context* */
+    /* .section {
+        padding: 40px 0;
+    } */
+    /* REMOVED: .section-title h2 if template_style.css handles general section titles */
+    /* .section-title h2 {
+        font-size: 2em;
+    } */
+
+    .skin-condition-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .skin-condition-card h3 {
+        font-size: 1.5em;
+    }
+    .skin-condition-card-image {
+        height: 160px;
+    }
+    .skin-condition-section h2 {
+        font-size: 2em;
+    }
+    .skin-condition-section h3 {
+        font-size: 1.6em;
+    }
+    .skin-condition-section .skin-condition-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .back-to-gallery-btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    .testimonial-item {
+        margin: 10px 0;
+    }
+    #google-map {
+        margin-bottom: 40px;
+    }
+    .contact-form .col-md-6,
+    .contact-form .col-sm-6 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Ensure column ordering is correct for images on mobile */
+    .skin-condition-section .row > div {
+        order: unset !important; /* Reset order to default for small screens */
+    }
+}

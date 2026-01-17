@@ -1,0 +1,2149 @@
+/* Base Styles */
+:root {
+    --primary-color: #e07c02;
+    --secondary-color: #005325;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Remove any existing body styles that might conflict */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    /* font-family: 'Poppins', sans-serif; */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('../images/bg_image.jpg'); */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+/* Ensure content stays above background */
+.page-container {
+    position: relative;
+    z-index: 1;
+    /* background-color: rgb(255, 255, 255);
+    min-height: 100vh; Ensures container covers full height */
+    background-color: rgb(243, 239, 239); /* Make it slightly transparent */
+    min-height: 100vh;
+    backdrop-filter: blur(2px); /* Optional: adds a soft blur effect */
+}
+
+
+/* Header Styles */
+.header {
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: green;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+
+    /* max-width: 1200px;      or whatever max width you want */
+    /* margin: 2rem auto;      centers it horizontally with spacing from navbar */
+    width: 100%;             /* responsive width */
+}
+
+
+.logo {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+
+/* Main Content Styles */
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem; /* Default padding for larger screens */
+    justify-content: center;
+    flex: 1;
+    align-items: self-start;
+}
+
+/* .card {
+    background: #ffffff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    transition: var(--transition);
+} */
+
+.prediction-card {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+#imagePreview {
+    max-width: 100%;
+    max-height: 400px; /* Keeps the image from growing too tall */
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.results-card {
+    width: 100%;
+    max-width: 800px; /* Larger width as requested */
+}
+
+/* Form Elements */
+ .file-input {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+}
+
+/* =====================
+    Global Section Title Styling
+    ===================== */
+.section-title-custom {
+    font-size: 2.5rem;
+    color: #3B7A57;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 4rem;
+    padding: 0 1rem;
+}
+
+/* =====================
+    Global Section Title Styling
+    ===================== */
+.section-title-custom {
+    font-size: 2.5rem;
+    color: #3B7A57;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 4rem;
+    padding: 0 1rem;
+}
+
+/* =====================
+    Info Section (Custom - Highly Specific Overrides)
+    ===================== */
+#main-info-section {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+#main-info-section .info-card-custom {
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: rgb(18, 105, 1);
+    display: flex;
+    flex-direction: column; /* Default to column for small screens */
+    width: 100%;
+    height: auto; /* Let content dictate height */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#main-info-section .info-card-custom:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#main-info-section .info-card-content-custom {
+    display: flex;
+    flex-direction: column; /* Stacks text and image vertically on small screens */
+    width: 100%;
+    height: 100%; /* Important for flex child to fill parent */
+}
+
+#main-info-section .info-card-content-reverse-custom {
+    /* No change here, will be applied by media query */
+}
+
+#main-info-section .info-text-custom {
+    padding: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    max-width: 600px; /* Limits text width on larger cards */
+    margin: 0 auto;
+    flex: 1 1 auto; /* Allow text to grow/shrink based on content */
+}
+
+#main-info-section .info-text-custom p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    color: #666 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+}
+
+/* --- Image Placeholders --- */
+.image-placeholder {
+    display: block; /* Ensure it's a block element */
+    width: 100%; /* Take full width of parent */
+    background-color: #e0e0e0; /* Gray background for visibility */
+    display: flex; /* Use flex to center any future background images */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Hide anything outside its bounds */
+    /* text-align: center; /* For centering text if you put placeholder text */
+    /* font-size: 0.8rem; */
+    /* color: #555; */
+    /* border: 1px dashed #999; */
+}
+
+/* Specific Placeholder Backgrounds (optional, for visualization) */
+.model-image { /* background-image: url('{% static "images/bg_image_2.jpg" %}'); */ }
+.goal-image { /* background-image: url('{% static "images/technoo.jpg" %}'); */ }
+.works-image { /* background-image: url('{% static "images/xyz.jpg" %}'); */ }
+.remedies-image { /* background-image: url('{% static "images/goal.jpg" %}'); */ }
+
+
+/* ====================
+    Desktop: Side by side (Info Section Custom)
+    ==================== */
+@media (min-width: 900px) {
+    #main-info-section .info-card-custom {
+        flex-direction: row; /* Main card layout */
+    }
+    #main-info-section .info-card-content-custom {
+        flex-direction: row; /* Content inside card is row */
+    }
+
+    #main-info-section .info-card-content-reverse-custom {
+        flex-direction: row-reverse;
+    }
+
+    #main-info-section .info-text-custom {
+        flex: 1; /* Text takes proportional space */
+        padding: 2rem;
+        max-width: unset; /* Remove max-width for desktop */
+    }
+
+    /* Desktop Image Placeholder Dimensions */
+    .image-placeholder {
+        flex: 1; /* Image placeholder takes proportional space */
+        height: auto; /* Let flex container define height implicitly */
+        aspect-ratio: 16 / 9; /* Or 4 / 3, depends on desired look. 16/9 is common for landscape. */
+        min-height: 250px; /* Ensures a minimum height even if ratio is not fully applied by flex */
+        max-height: 400px; /* Prevents images from getting too tall on very wide screens */
+    }
+}
+
+/* =====================
+    Large desktops (enhance spacing) (Info Section Custom)
+    ===================== */
+@media (min-width: 1400px) {
+    #main-info-section {
+        grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+        padding: 3rem;
+        gap: 3rem;
+    }
+
+    #main-info-section .info-text-custom p {
+        font-size: 15px !important;
+    }
+
+    .image-placeholder {
+        min-height: 280px; /* Slightly taller on large screens */
+        max-height: 450px;
+    }
+}
+
+/* =====================
+    Tablets and Small Screens (Info Section Custom)
+    ===================== */
+@media (max-width: 768px) {
+    .section-title-custom {
+        font-size: 2rem;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+    }
+    #main-info-section {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    #main-info-section .info-text-custom {
+        padding: 1.25rem;
+        max-width: 100%;
+        margin: 0 auto;
+        flex: unset;
+    }
+
+    #main-info-section .info-text-custom p {
+        font-size: 13px !important;
+    }
+
+    /* Mobile Image Placeholder Dimensions */
+    .image-placeholder {
+        aspect-ratio: 4 / 3; /* For tablets/stacked view - a good balance for landscape */
+        height: auto; /* Let aspect-ratio determine height */
+        width: 100%;
+        min-height: 180px; /* Ensures a baseline height */
+        flex: unset; /* Unset flex behavior, rely on width/height/aspect-ratio */
+    }
+}
+
+/* =====================
+    Mobile Phones (Info Section Custom)
+    ===================== */
+@media (max-width: 480px) {
+    .section-title-custom {
+        font-size: 1.8rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    #main-info-section {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    #main-info-section .info-text-custom {
+        padding: 1rem;
+    }
+    #main-info-section .info-text-custom p {
+        font-size: 12px !important;
+    }
+    /* Mobile Image Placeholder Dimensions */
+    .image-placeholder {
+        aspect-ratio: 1 / 1; /* Square for smaller mobile screens */
+        height: auto;
+        min-height: 150px; /* Guarantees a minimum square size */
+    }
+}
+
+
+/* =====================
+    Features Section (Custom - Highly Specific Overrides)
+    ===================== */
+#main-features-section {
+    padding: 2rem;
+    background-color: transparent;
+}
+
+#main-features-section .features-container-custom {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#main-features-section .feature-card-custom {
+    padding: 2px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4CAF50, #dc9804);
+    transition: all 0.3s ease;
+    transform: scale(0.9);
+}
+
+#main-features-section .feature-card-custom:hover {
+    transform: translateY(-5px) scale(1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+#main-features-section .card-content-custom {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Icon Placeholders --- */
+.icon-placeholder {
+    width: 60px; /* Fixed width for icons */
+    height: 60px; /* Fixed height for icons */
+    background-color: #888; /* Dark gray for visibility */
+    border-radius: 50%; /* Make them round */
+    margin-bottom: 1rem; /* Space below icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* For adding a temporary letter to know which is which */
+    /* color: white; */
+    /* font-size: 1.5rem; */
+}
+
+.early-detection-icon { /* background-image: url('your-icon-1.png'); */ }
+.sun-protection-icon { /* background-image: url('your-icon-2.png'); */ }
+.common-conditions-icon { /* background-image: url('your-icon-3.png'); */ }
+
+
+#main-features-section .card-content-custom h3 {
+    color: #3B7A57;
+    margin-bottom: 0.5rem;
+}
+
+#main-features-section .card-content-custom p {
+    color: #666 !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+}
+/* Inside your style.css file (or whichever CSS file contains these rules) */
+
+/* For "About Our Model" */
+.model-image {
+    background-image: url('/static/images/about_fin.jpg'); /* Replace with your actual model image path */
+    background-size: cover; /* Ensures image covers the whole div */
+    background-position: center; /* Centers the image within the div */
+    background-repeat: no-repeat;
+}
+/* Add this to your CSS, adjust the ID/class as needed for the section ABOVE your title */
+#home-css { /* Or whatever ID/class the section directly above your title has */
+    padding-bottom: 60px; /* Or a value that looks good, e.g., 4rem */
+    /* You might also want to ensure this section has an explicit height or min-height */
+}
+/* For "Our Goal" */
+.goal-image {
+    background-image: url('/static/images/goal_fin.jpg'); /* Replace with your actual goal image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* For "How It Works" */
+.works-image {
+    background-image: url('/static/images/work_fin.jpg'); /* Replace with your actual how it works image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* For "Remedies and More" */
+.remedies-image {
+    background-image: url('/static/images/remedy_fin.jpg'); /* Replace with your actual remedies image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Reset for general image behaviors - IMPORTANT */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Prevent extra space below images */
+}
+
+.btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.predict-btn {
+    background-color: var(--secondary-color);
+}
+
+.camera-btn {
+    background-color: #055719;
+}
+
+/* Media Elements */
+.media-element {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+    display: none;
+}
+
+.media-element.active {
+    display: block;
+}
+
+/* Results Section */
+.results-content {
+    padding: 1rem;
+}
+
+.condition-result {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.condition-result h3 {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.condition-result ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.condition-result li {
+    margin-bottom: 0.5rem;
+}
+
+
+ .remedy-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        transition: opacity 0.3s;
+    }
+    .image-container {
+        position: relative;
+    }
+    .image-loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .image-loader::after {
+        content: "Loading...";
+        color: #666;
+    }
+    .remedy-image.loaded {
+        opacity: 1;
+    }
+    .no-image {
+        background: #f0f0f0;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #999;
+    }
+/* Spinner */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid var(--primary-color);
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 1rem auto;
+    display: none;
+}
+ul {
+  list-style-type: disc ;
+  padding-left: 40px !important;
+  margin-bottom: 1em !important;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* =====================
+    Info Section (Custom)
+    ===================== */
+#main-info-section { /* Using ID for highest specificity for the main section */
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.info-card-custom {
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Combine transitions */
+    color: rgb(18, 105, 1);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.info-card-custom:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.info-card-content-custom {
+    display: flex;
+    flex-direction: column; /* Default to column for small screens */
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.info-card-content-reverse-custom {
+    /* (No direct styles here, relies on media query override) */
+}
+
+.info-text-custom {
+    padding: 1.5rem;
+    width: 100%; /* Default to full width for stacking on small screens */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* High specificity for paragraph within info-text-custom */
+.info-text-custom p {
+    font-size: 0.8rem !important; /* Keep !important if absolutely necessary to override */
+    line-height: 1.4 !important; /* Keep !important if absolutely necessary to override */
+    color: #666;
+    margin-bottom: 0; /* Override Bootstrap's default bottom margin for p */
+    margin-top: 0; /* Ensure no top margin either */
+    padding: 0; /* Remove any padding that might be inherited */
+}
+
+.info-image-custom {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* High specificity for image within info-image-custom */
+.info-image-custom img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    vertical-align: top; /* Override vertical-align: middle; from Bootstrap */
+    border: none; /* Override border: 0; if it was causing issues, or use none for clarity */
+    margin: 0; /* Remove any default margins */
+    padding: 0; /* Remove any default paddings */
+}
+
+.info-card-custom:hover .info-image-custom img {
+    transform: scale(1.05);
+}
+
+.info-text-custom,
+.info-image-custom {
+    flex: 1 1 100%;
+    min-width: 300px;
+}
+
+/* ====================
+    Desktop: Side by side (Info Section Custom)
+    ==================== */
+@media (min-width: 900px) {
+    .info-card-content-custom {
+        flex-direction: row;
+    }
+
+    .info-card-content-reverse-custom {
+        flex-direction: row-reverse;
+    }
+
+    .info-text-custom,
+    .info-image-custom {
+        flex: 1;
+        padding: 2rem;
+        aspect-ratio: unset;
+    }
+
+    .info-image-custom {
+        padding: 0;
+    }
+}
+
+/* =====================
+    Large desktops (enhance spacing) (Info Section Custom)
+    ===================== */
+@media (min-width: 1400px) {
+    #main-info-section {
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        padding: 3rem;
+        gap: 3rem;
+    }
+
+    .info-text-custom p {
+        font-size: 0.95rem !important;
+    }
+}
+
+/* =====================
+    Tablets and Small Screens (Info Section Custom)
+    ===================== */
+@media (max-width: 768px) {
+    #main-info-section {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .info-text-custom {
+        padding: 1.25rem;
+    }
+
+    .info-image-custom {
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* =====================
+    Mobile Phones (Info Section Custom)
+    ===================== */
+@media (max-width: 480px) {
+    #main-info-section {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .info-text-custom {
+        padding: 1rem;
+    }
+    .info-text-custom p {
+        font-size: 0.85rem !important;
+    }
+    .info-image-custom {
+        aspect-ratio: 1;
+    }
+}
+
+
+.card-content-custom {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* High specificity for image within card-content-custom */
+.card-content-custom img {
+    margin-bottom: 1rem;
+    object-fit: contain;
+    width: 45px !important;
+    height: 45px !important;
+    vertical-align: top; /* Override Bootstrap */
+    border: none; /* Override Bootstrap */
+    margin-left: 0; /* Ensure no inherited horizontal margin */
+    margin-right: 0; /* Ensure no inherited horizontal margin */
+    padding: 0; /* Ensure no inherited padding */
+}
+
+.card-content-custom h3 {
+    color: #3B7A57;
+    margin-bottom: 0.5rem;
+}
+
+/* High specificity for paragraph within card-content-custom */
+.card-content-custom p {
+    color: #666;
+    font-size: 0.8rem !important; /* Keep !important if necessary */
+    line-height: 1.4 !important; /* Keep !important if necessary */
+    margin-bottom: 0; /* Override Bootstrap's default bottom margin for p */
+    margin-top: 0; /* Ensure no top margin either */
+    padding: 0; /* Remove any padding that might be inherited */
+}
+/* ======================================================================
+   UPDATED REMEDY CARD AND IMAGE STYLES - THIS IS THE CRITICAL SECTION
+   ====================================================================== */
+
+/* Remedy Card Styles - General (applies to all screen sizes) */
+.remedy-card {
+    display: flex;
+    flex-direction: column; /* ALWAYS column, image above text, for consistency on ALL screens */
+    /* Removed gap as padding will handle spacing more precisely */
+    background: white;
+    /* Removed padding from here directly, we'll apply it to inner elements for more control */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+    max-width: 900px; /* Limits the overall card width on very large screens if you don't want it full browser width */
+    width: 100%; /* Ensures the card takes full width of its parent container/grid column */
+    align-items: flex-start; /* Aligns content to the start (left) */
+    overflow: hidden; /* Hides any content that might overflow */
+}
+
+/* Padding for the text content within the card */
+.remedy-card .card-content-padded {
+    width: 100%; /* Ensure content wrapper is full width */
+    box-sizing: border-box; /* Include padding in width */
+    padding: 1.5rem; /* Apply standard card padding here for all text content */
+}
+
+/* Image Wrapper (essential for handling padding around the image) */
+.remedy-card .remedy-image-wrapper {
+    width: 100%; /* Ensures the wrapper takes full width */
+    box-sizing: border-box; /* Include padding in width */
+    padding: 0 1.5rem; /* Add horizontal padding to center the image visually if card has padding */
+    overflow: hidden; /* Hides any parts of the image that might exceed the wrapper's bounds after object-fit */
+    margin-top: 1rem; /* Space above the image wrapper (adjust as needed) */
+    margin-bottom: 0; /* No extra space below, the image itself might have some */
+    border-radius: var(--border-radius); /* Apply radius here or on image */
+}
+
+/* Remedy Image - The core styling for consistent size and full width */
+.remedy-card .remedy-image {
+    width: 100%; /* ALWAYS take full width of its parent (.remedy-image-wrapper) */
+    height: 200px; /* FIXED HEIGHT: All images will be forced to this exact height for consistency */
+    object-fit: cover; /* ESSENTIAL: Scales and crops the image to fill the 100% width and fixed height without distortion */
+    border-radius: var(--border-radius); /* Apply border-radius directly to the image */
+    display: block; /* Ensures proper block-level behavior for sizing */
+    margin: 0; /* Remove any default margins that might prevent full width */
+    padding: 0; /* Remove any default padding */
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.remedy-card .remedy-image:hover {
+    transform: scale(1.05);
+}
+
+/* Remedy Text (assuming it's a sibling of remedy-image-wrapper inside .remedy-card) */
+.remedy-text {
+    width: 100%; /* Always take full width (remaining space) */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Padding is now handled by .card-content-padded */
+}
+
+.remedy-text h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+.remedy-text p.amount {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.remedy-text ul {
+    margin-left: 1.5rem;
+    list-style-type: disc;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Remedy Navigation buttons, adjust padding to align with text content */
+.remedy-navigation {
+    width: 100%; /* Ensure navigation also takes full width within its padded container */
+    box-sizing: border-box;
+    padding: 0 1.5rem 1.5rem 1.5rem; /* Left, Right, Bottom padding to match card padding */
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Placeholder for no image available */
+.remedy-image-placeholder {
+    width: 100%;
+    height: 200px; /* Match the actual image height for consistency */
+    background-color: #f0f0f0; /* Soft gray background */
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #999; /* Lighter text color */
+    font-style: italic;
+    text-align: center;
+}
+
+.remedy-image-placeholder-text { /* Style for the 'No image available' text */
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* --- Media Queries for Responsive Adjustments (Specific for Remedy Card) --- */
+
+/* Adjust heights and padding for smaller screens if needed, otherwise base values apply */
+@media (max-width: 768px) {
+    /* Reduce horizontal padding for remedy image wrapper on smaller screens */
+    .remedy-card .remedy-image-wrapper {
+        padding: 0 1rem; /* Example: Reduce padding from 1.5rem to 1rem */
+    }
+
+    /* Reduce horizontal padding for card content on smaller screens */
+    .remedy-card .card-content-padded {
+        padding: 1rem; /* Example: Reduce padding from 1.5rem to 1rem */
+    }
+
+    /* Reduce height of image for tablets/smaller desktops */
+    .remedy-card .remedy-image {
+        height: 180px;
+    }
+
+    .remedy-image-placeholder {
+        height: 180px;
+    }
+
+    .remedy-navigation {
+        padding: 0 1rem 1rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further reduce height of image for very small mobile screens */
+    .remedy-card .remedy-image {
+        height: 150px;
+    }
+
+    .remedy-image-placeholder {
+        height: 150px;
+    }
+
+    /* Further reduce horizontal padding for remedy image wrapper on very small screens */
+    .remedy-card .remedy-image-wrapper {
+        padding: 0 0.5rem; /* Example: Reduce padding to 0.5rem */
+    }
+
+    /* Further reduce horizontal padding for card content on very small screens */
+    .remedy-card .card-content-padded {
+        padding: 0.5rem; /* Example: Reduce padding to 0.5rem */
+    }
+
+    .remedy-navigation {
+        padding: 0 0.5rem 0.5rem 0.5rem;
+    }
+}
+
+/* ======================================================================
+   VERY IMPORTANT: REMOVE THE FOLLOWING CONFLICTING MEDIA QUERY BLOCK
+   ====================================================================== */
+
+/* This block was the source of your problem. Delete or comment out this entire section. */
+/*
+@media (min-width: 769px) {
+    .remedy-card {
+        flex-direction: row; // This makes it side-by-side
+        align-items: center;
+    }
+
+    .remedy-image {
+        flex: 0 0 45%; // This limits the image width to 45%
+        max-width: 45%; // This also limits the image width to 45%
+        margin-bottom: 0;
+    }
+
+    .remedy-text {
+        flex: 1 1 55%;
+        padding-left: 24px;
+    }
+}
+*/
+
+/* --- Remaining Media Queries and other styles (Keep your existing ones) --- */
+
+/* Your other media queries for .main-content, .card, .header, .logo, .btn, .action-buttons etc. go here */
+/* For example, the following from your original file should remain: */
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+    }
+    /* ... other .card, .header, .logo adjustments */
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 0.5rem;
+    }
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* SOLUTION CSS: Targets the remedy container */
+#herbalDetailedRemediesGrid {
+    /* 1. Ensure it's a grid */
+    display: grid !important; 
+    /* 2. Define 2 equal-width columns */
+    grid-template-columns: repeat(2, 1fr) !important;
+    /* 3. Set gap */
+    gap: 20px !important; 
+    width: 100% !important;
+    padding: 0 !important; 
+    box-sizing: border-box !important;
+}
+
+/* Ensure each issue/remedy card takes up one grid column */
+.issue-remedy-pair {
+    grid-column: span 1 !important; 
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Responsive adjustment: Stack remedies vertically on smaller screens */
+@media (max-width: 992px) {
+    #herbalDetailedRemediesGrid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* --- FOLLOW-UP QUESTIONS STYLING --- */
+
+.followup-section-header {
+    margin-bottom: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, #f0f9f1 0%, #e6f4ea 100%);
+    border-left: 6px solid #22742d;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(34, 116, 45, 0.1);
+}
+
+.followup-section-header h3 {
+    color: #22742d;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.8em;
+}
+
+#followup-questions-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+#question-flow-container {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+}
+
+.question-item {
+    padding: 30px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    margin: 20px 0;
+    background: white;
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    pointer-events: none;
+    transform: translateX(100%);
+}
+
+.active-question {
+    opacity: 1;
+    transform: translateX(0) !important;
+    position: relative;
+    z-index: 20;
+    pointer-events: all;
+    border-color: #22742d;
+    box-shadow: 0 8px 25px rgba(34, 116, 45, 0.15);
+}
+
+.question-title {
+    font-size: 1.3em;
+    color: #2d3748;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f7fafc;
+}
+
+.question-title strong {
+    color: #22742d;
+    background-color: #f0f9f1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.9em;
+}
+
+/* --- RADIO BUTTON STYLING --- */
+.options-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+/* Hide the actual radio buttons but keep them accessible */
+.options-group input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Style the labels as custom radio buttons */
+.radio-label {
+    cursor: pointer;
+    padding: 16px 35px;
+    border: 2px solid #e2e8f0;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    font-size: 1.1em;
+    min-width: 140px;
+    text-align: center;
+    background-color: white;
+    color: #4a5568;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.radio-icon {
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+}
+
+/* Yes option styling */
+.yes-option .radio-icon {
+    color: #22742d;
+    opacity: 0.5;
+}
+
+.yes-option:hover {
+    background-color: #f0f9f1;
+    color: #22742d;
+    border-color: #cbd5e0;
+    transform: translateY(-3px);
+}
+
+.yes-option:hover .radio-icon {
+    opacity: 1;
+}
+
+/* No option styling */
+.no-option .radio-icon {
+    color: #e53e3e;
+    opacity: 0.5;
+}
+
+.no-option:hover {
+    background-color: #fff5f5;
+    color: #e53e3e;
+    border-color: #cbd5e0;
+    transform: translateY(-3px);
+}
+
+.no-option:hover .radio-icon {
+    opacity: 1;
+}
+
+/* SELECTED STATES - CLEAR VISUAL FEEDBACK */
+input[type="radio"]:checked + .yes-option {
+    background-color: #22742d;
+    color: white;
+    border-color: #1a5c24;
+    box-shadow: 0 8px 20px rgba(34, 116, 45, 0.25);
+    transform: scale(1.05);
+    border-width: 3px;
+    font-weight: 700;
+}
+
+input[type="radio"]:checked + .yes-option .radio-icon {
+    opacity: 1;
+    color: white;
+    transform: scale(1.2);
+}
+
+input[type="radio"]:checked + .no-option {
+    background-color: #e53e3e;
+    color: white;
+    border-color: #c53030;
+    box-shadow: 0 8px 20px rgba(229, 62, 62, 0.25);
+    transform: scale(1.05);
+    border-width: 3px;
+    font-weight: 700;
+}
+
+input[type="radio"]:checked + .no-option .radio-icon {
+    opacity: 1;
+    color: white;
+    transform: scale(1.2);
+}
+
+/* Pulsing animation for selected state */
+@keyframes pulse-selected {
+    0% { box-shadow: 0 0 0 0 rgba(34, 116, 45, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(34, 116, 45, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 116, 45, 0); }
+}
+
+input[type="radio"]:checked + .radio-label {
+    animation: pulse-selected 0.6s ease;
+}
+
+/* Navigation buttons */
+.question-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding: 15px 0;
+    border-top: 1px solid #e2e8f0;
+}
+
+#prevQuestionBtn,
+#nextQuestionBtn,
+#backToLastQBtn {
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    min-width: 160px;
+}
+
+#prevQuestionBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.question-count {
+    font-weight: 700;
+    color: #22742d;
+    background-color: #f0f9f1;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 1.1em;
+}
+
+/* Final step */
+.final-step-message {
+    text-align: center;
+    padding: 50px 30px;
+    background: linear-gradient(135deg, #e6f7e9 0%, #d4f1d8 100%);
+    border: 2px dashed #22742d;
+    border-radius: 12px;
+    margin: 30px 0;
+}
+
+.final-step-message h4 {
+    color: #22742d;
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+#submitFollowupBtn {
+    width: 100%;
+    margin-top: 30px;
+    padding: 18px;
+    font-size: 1.2em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #22742d 0%, #1a5c24 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+#submitFollowupBtn:disabled {
+    background: linear-gradient(135deg, #cbd5e0 0%, #a0aec0 100%);
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .options-group {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .radio-label {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+df-messenger {
+     --df-messenger-button-titlebar-color:rgb(0, 122, 4);
+     --df-messenger-chat-background-color:rgb(255, 255, 255);
+     --df-messenger-font-color:rgb(255, 255, 255);
+     --df-messenger-send-icon: #66bb6a;
+     --df-messenger-user-message:rgb(225, 165, 0);
+     --df-messenger-bot-message:rgb(0, 105, 0);
+     --df-messenger-input-box-color: #ffffff;
+     --df-messenger-input-font-color:rgb(13, 103, 16);
+     --df-messenger-input-placeholder-font-color: #66bb6a;
+
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     z-index: 999;
+ }
+
+ .custom-icon-title,
+    .custom-icon-bot {
+      vertical-align: middle;
+      border-radius: 50%;
+ }
+ .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #4CAF50;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* --- Features Section --- */
+/* Features Section - RESPONSIVE DESIGN */
+.features-section {
+    padding: clamp(2rem, 5vw, 6rem) clamp(1rem, 3vw, 4rem);
+    max-width: min(1400px, 95vw);
+    margin: 0 auto;
+    position: relative;
+    background-color: #f8faf7;
+    overflow: hidden;
+}
+
+/* Header Section */
+.features-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .features-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+}
+
+.features-section h2 {
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    color: #1a1a1a;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    background: linear-gradient(135deg, #28a745 0%, #055719 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+    width: 100%;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .features-section h2 {
+        text-align: left;
+        margin: 0;
+        width: auto;
+    }
+}
+
+/* Carousel Controls */
+.carousel-controls {
+    display: flex;
+    gap: clamp(0.5rem, 2vw, 1rem);
+    align-items: center;
+    margin-top: clamp(1rem, 3vw, 0);
+    justify-content: center;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .carousel-controls {
+        width: auto;
+        margin-top: 0;
+        justify-content: flex-end;
+    }
+}
+
+.carousel-prev, .carousel-next, .pause-rotation {
+    background: white;
+    border: 2px solid #d7e3cd;
+    border-radius: 50%;
+    width: clamp(44px, 8vw, 56px);
+    height: clamp(44px, 8vw, 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #28a745;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.1);
+    flex-shrink: 0;
+    touch-action: manipulation;
+}
+
+.carousel-prev:hover, .carousel-next:hover, .pause-rotation:hover {
+    background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.3);
+}
+
+.pause-rotation {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    background: linear-gradient(135deg, #28a745 0%, #055719 100%);
+    color: white;
+    border: none;
+    width: clamp(48px, 10vw, 66px);
+    height: clamp(48px, 10vw, 66px);
+}
+
+/* Carousel Container */
+.features-carousel {
+    position: relative;
+    padding: clamp(1rem, 3vw, 3rem) 0;
+    width: 100%;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    padding: clamp(0.5rem, 2vw, 2rem) 0;
+    margin: 0 clamp(-1rem, -3vw, -3rem);
+    position: relative;
+    width: calc(100% + clamp(2rem, 6vw, 6rem));
+}
+
+.carousel-track {
+    display: flex;
+    gap: clamp(1rem, 3vw, 3rem);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    padding: 0 clamp(1rem, 3vw, 3rem);
+}
+
+/* Feature Cards - RESPONSIVE */
+.feature-card {
+    flex: 0 0 auto;
+    width: calc(100vw - clamp(2.5rem, 5vw, 5rem));
+    background: white;
+    border-radius: clamp(16px, 3vw, 24px);
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    box-shadow: 0 clamp(6px, 1.5vw, 15px) clamp(20px, 4vw, 50px) rgba(40, 167, 69, 0.08);
+    border: clamp(1.5px, 0.3vw, 2px) solid #d7e3cd;
+    opacity: 0.7;
+    transform: scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: clamp(260px, 40vw, 380px);
+    max-height: clamp(320px, 50vw, 450px);
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .feature-card {
+        width: calc(50vw - clamp(3rem, 6vw, 6rem));
+        min-height: clamp(300px, 35vw, 350px);
+        max-height: clamp(350px, 45vw, 400px);
+    }
+}
+
+@media (min-width: 1024px) {
+    .feature-card {
+        width: calc(33.333vw - clamp(3.5rem, 7vw, 7rem));
+        min-height: clamp(340px, 30vw, 380px);
+        max-height: clamp(380px, 35vw, 420px);
+    }
+}
+
+@media (min-width: 1400px) {
+    .feature-card {
+        width: clamp(350px, 33.333vw, 400px);
+        min-height: clamp(380px, 25vw, 400px);
+        max-height: clamp(420px, 30vw, 450px);
+    }
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: clamp(3px, 0.5vw, 4px);
+    background: linear-gradient(90deg, #28a745 0%, #ff8c00 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: clamp(16px, 3vw, 24px) clamp(16px, 3vw, 24px) 0 0;
+}
+
+.feature-card.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 clamp(12px, 2.5vw, 25px) clamp(30px, 6vw, 70px) rgba(40, 167, 69, 0.15);
+    border-color: #28a745;
+    z-index: 2;
+}
+
+.feature-card.active::before {
+    opacity: 1;
+}
+
+.feature-card:hover {
+    transform: translateY(clamp(-5px, -1vw, -10px)) scale(1);
+    box-shadow: 0 clamp(15px, 3vw, 30px) clamp(40px, 8vw, 80px) rgba(40, 167, 69, 0.2);
+    border-color: #ff8c00;
+}
+
+/* Card Content */
+.card-icon {
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-icon img {
+    width: clamp(48px, 8vw, 70px);
+    height: clamp(48px, 8vw, 70px);
+    object-fit: contain;
+    padding: clamp(0.6rem, 1.2vw, 1rem);
+    background: linear-gradient(135deg, #28a745 0%, #055719 100%);
+    border-radius: clamp(12px, 2vw, 18px);
+    box-shadow: 0 clamp(5px, 1vw, 10px) clamp(15px, 2vw, 30px) rgba(40, 167, 69, 0.2);
+    transition: transform 0.4s ease;
+}
+
+.feature-card:hover .card-icon img {
+    transform: rotate(clamp(5deg, 1vw, 15deg)) scale(1.1);
+}
+
+.card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.card-content h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: #1a1a1a;
+    margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    padding: 0 clamp(0.25rem, 0.5vw, 0.5rem);
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .card-content h3 {
+        text-align: left;
+        position: relative;
+        padding-left: clamp(1.25rem, 2.5vw, 1.75rem);
+    }
+    
+    .card-content h3::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: clamp(6px, 1vw, 8px);
+        height: clamp(20px, 3vw, 25px);
+        background: #28a745;
+        border-radius: 2px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .feature-card:hover .card-content h3::before {
+        background: #ff8c00;
+    }
+}
+
+.card-content p {
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+    line-height: clamp(1.5, 2vw, 1.7);
+    color: #444;
+    margin-bottom: clamp(0.75rem, 1.5vw, 1.5rem);
+    text-align: center;
+    padding: 0 clamp(0.25rem, 0.5vw, 0.5rem);
+    font-weight: 400;
+    overflow: hidden;
+    flex-shrink: 0;
+    max-height: calc(clamp(3.6em, 8vw, 5em));
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+@media (min-width: 768px) {
+    .card-content p {
+        text-align: left;
+        max-height: none;
+        display: block;
+        -webkit-line-clamp: none;
+    }
+}
+
+/* Feature List */
+.card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.4rem, 1vw, 0.75rem);
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #d7e3cd transparent;
+}
+
+.card-features::-webkit-scrollbar {
+    width: 4px;
+}
+
+.card-features::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.card-features::-webkit-scrollbar-thumb {
+    background-color: #d7e3cd;
+    border-radius: 2px;
+}
+
+.card-features li {
+    position: relative;
+    padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem) clamp(0.5rem, 1vw, 0.75rem) clamp(2.25rem, 4vw, 2.5rem);
+    color: #333;
+    font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+    background: #f8faf7;
+    border-radius: clamp(8px, 1.5vw, 12px);
+    border-left: clamp(2px, 0.3vw, 3px) solid #28a745;
+    transition: all 0.3s ease;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    flex-shrink: 0;
+    line-height: 1.3;
+    min-height: clamp(2.5em, 4vw, 3em);
+    display: flex;
+    align-items: center;
+}
+
+.feature-card:hover .card-features li {
+    border-left-color: #ff8c00;
+}
+
+.card-features li::before {
+    content: '✓';
+    position: absolute;
+    left: clamp(0.75rem, 1.5vw, 1rem);
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ff8c00;
+    font-weight: bold;
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
+}
+
+/* Navigation Dots */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: clamp(0.4rem, 1vw, 0.75rem);
+    margin: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(1rem, 2vw, 1.5rem);
+    flex-wrap: wrap;
+    padding: 0 clamp(0.75rem, 2vw, 1rem);
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+    .carousel-dots {
+        overflow-x: visible;
+    }
+}
+
+.dot {
+    width: clamp(8px, 1.5vw, 14px);
+    height: clamp(8px, 1.5vw, 14px);
+    border-radius: 50%;
+    background: #d7e3cd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    flex-shrink: 0;
+    min-width: clamp(8px, 1.5vw, 14px);
+}
+
+.dot:hover {
+    background: #28a745;
+    transform: scale(1.2);
+}
+
+.dot.active {
+    background: #ff8c00;
+    transform: scale(1.3);
+    box-shadow: 0 0 0 clamp(2px, 0.5vw, 3px) rgba(255, 140, 0, 0.15);
+}
+
+.dot.active::after {
+    content: '';
+    position: absolute;
+    top: clamp(-3px, -0.5vw, -4px);
+    left: clamp(-3px, -0.5vw, -4px);
+    right: clamp(-3px, -0.5vw, -4px);
+    bottom: clamp(-3px, -0.5vw, -4px);
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+/* Progress Bar */
+.progress-container {
+    max-width: clamp(200px, 30vw, 300px);
+    margin: clamp(1rem, 2vw, 2rem) auto 0;
+    padding: 0 clamp(0.75rem, 2vw, 1rem);
+}
+
+.progress-bar {
+    height: clamp(4px, 0.8vw, 6px);
+    background: #d7e3cd;
+    border-radius: clamp(2px, 0.4vw, 3px);
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #28a745 0%, #ff8c00 100%);
+    border-radius: inherit;
+    transition: width 0.1s linear;
+}
+
+/* Card Background Variations */
+.feature-card:nth-child(odd) .card-icon img {
+    background: linear-gradient(135deg, #28a745 0%, #055719 100%);
+}
+
+.feature-card:nth-child(even) .card-icon img {
+    background: linear-gradient(135deg, #34d058 0%, #28a745 100%);
+}
+
+.feature-card:nth-child(3n) .card-icon img {
+    background: linear-gradient(135deg, #40c463 0%, #28a745 100%);
+}
+
+/* Enhanced Active State for Desktop */
+@media (min-width: 768px) {
+    .feature-card.active {
+        transform: scale(1.02);
+    }
+    
+    .feature-card.active::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #28a745, #34d058, #ff8c00, #ff6b00);
+        border-radius: inherit;
+        z-index: -1;
+        opacity: 0.2;
+        filter: blur(clamp(5px, 1vw, 10px));
+        animation: cardGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes cardGlow {
+        from { opacity: 0.2; }
+        to { opacity: 0.4; }
+    }
+}
+
+/* Auto-rotation animation */
+@keyframes progressAnimation {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+.features-carousel.auto-rotating .progress-fill {
+    animation: progressAnimation 5s linear forwards;
+}
+
+/* Pause animation on hover */
+.features-carousel:hover .progress-fill {
+    animation-play-state: paused;
+}
+
+/* Smooth scrolling for track container */
+.carousel-track-container {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.carousel-track-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Prevent text overflow */
+.card-content * {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Ensure proper card spacing on large screens */
+@media (min-width: 1400px) {
+    .carousel-track {
+        padding: 0 4rem;
+        gap: 3.5rem;
+    }
+    
+    .carousel-track-container {
+        margin: 0 -4rem;
+        width: calc(100% + 8rem);
+    }
+}
+
+/* Fix for very small screens */
+@media (max-width: 320px) {
+    .features-section {
+        padding: 1.5rem 0.75rem;
+    }
+    
+    .feature-card {
+        width: calc(100vw - 1.5rem);
+        padding: 1rem;
+    }
+    
+    .carousel-track {
+        gap: 0.75rem;
+        padding: 0 0.75rem;
+    }
+}
+
+/* Fix for desktop card height */
+@media (min-width: 1024px) and (max-height: 800px) {
+    .feature-card {
+        min-height: 320px;
+        max-height: 380px;
+    }
+}
+
+/* Ensure cards are properly visible on all screens */
+.feature-card {
+    visibility: visible !important;
+    display: flex !important;
+}
+
+/* Fix for Safari/iOS */
+@supports (-webkit-touch-callout: none) {
+    .features-carousel {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .carousel-track-container {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Print styles */
+@media print {
+    .features-carousel {
+        overflow: visible !important;
+    }
+    
+    .carousel-track {
+        transform: none !important;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+    
+    .feature-card {
+        width: calc(33.333% - 1.33rem) !important;
+        opacity: 1 !important;
+        transform: none !important;
+        break-inside: avoid;
+    }
+}
+
+/* Gradient border (example, adjust as needed) */
+.gradient-border-card {
+    border: none;
+    position: relative;
+}
+
+/* --- Usage Statistics Section (Keeping as is, it wasn't the focus of this issue) --- */
+.usage-statistics-section {
+    padding: 4rem 1rem;
+    background-color: #f0f2f5;
+    text-align: center;
+}
+
+.usage-statistics-section .section-title h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 3rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.usage-statistics-section .container {
+    max-width: 1200px;
+}
+
+.usage-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.usage-item {
+    flex: 1 1 calc(33.333% - 3rem);
+    max-width: calc(33.333% - 3rem);
+    box-sizing: border-box;
+}
+
+.usage-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.usage-card .articles-content h3 {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 0.5rem;
+}
+
+.usage-card .articles-content p {
+    font-size: 1.1rem;
+    color: #555;
+}
+.quality-feedback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+.quality-good {
+    background-color: #e6f9ec;
+    color: #218838;
+    border: 1px solid #28a745;
+}
+
+.quality-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+}
+
+.quality-bad {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #dc3545;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .features-container {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        padding: 1.8rem;
+    }
+
+    .feature-card .card-content h3 {
+        font-size: 1.4rem;
+    }
+
+    .feature-card .card-content p {
+        font-size: 13px;
+    }
+
+    .usage-statistics-section .section-title h2 {
+        font-size: 2rem;
+    }
+
+    .usage-item {
+        flex: 1 1 calc(50% - 1.5rem);
+        max-width: calc(50% - 1.5rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .features-section {
+        padding: 2rem 0.75rem;
+    }
+
+    .features-container {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .feature-card .card-content img {
+        max-width: 60px;
+        margin-bottom: 0.6rem;
+    }
+
+    .feature-card .card-content h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .feature-card .card-content p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .usage-statistics-section {
+        padding: 3rem 0.75rem;
+    }
+
+    .usage-statistics-section .section-title h2 {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .usage-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+    }
+    .usage-row {
+        gap: 0;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .features-section {
+        padding: 1.5rem 0.5rem;
+    }
+
+    .features-container {
+        grid-template-columns: 1fr; /* Force single column on very small phones */
+        gap: 1rem;
+    }
+
+    .feature-card {
+        padding: 1.2rem; /* The padding you saw applied in the screenshot */
+    }
+
+    .feature-card .card-content {
+        /* Ensure content aligns correctly when it's the only item */
+        width: 100%; /* Important for centering child elements */
+        text-align: center; /* Ensure text is centered */
+    }
+
+    .feature-card .card-content img {
+        max-width: 50px;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-card .card-content h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-card .card-content p {
+        font-size: 0.8rem; /* Make text even smaller for very tight spaces */
+        line-height: 1.3;
+        /* Re-emphasize word breaking for very narrow columns */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .usage-statistics-section {
+        padding: 2rem 0.5rem;
+    }
+
+    .usage-statistics-section .section-title h2 {
+        font-size: 1.4rem;
+    }
+
+    .usage-card .articles-content h3 {
+        font-size: 2rem;
+    }
+
+    .usage-card .articles-content p {
+        font-size: 0.9rem;
+    }
+}

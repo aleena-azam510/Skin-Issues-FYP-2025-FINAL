@@ -1,0 +1,979 @@
+{% extends "dashboard/layout.html" %}
+
+{% block extra_css %}
+<style>
+:root {
+  --primary-green: #5cb910;
+  --light-green: #79d334;
+  --dark-green: #017a01;
+  --accent-coral: #FF6B6B;
+  --accent-lavender: #A78BFA;
+  --accent-sky: #38BDF8;
+  --accent-amber: #FBBF24;
+  
+  --bg-gradient: linear-gradient(135deg, #ecfdf5 0%, #b8e7b2ff 100%);
+  --card-gradient: linear-gradient(145deg, #ffffff 0%, #f8fffa 100%);
+  --text-dark: #064e3b;
+  --text-medium: #065f46;
+  --text-light: #6b7280;
+  --shadow-light: 0 10px 25px rgba(92, 185, 16, 0.1);
+  --shadow-medium: 0 15px 35px rgba(92, 185, 16, 0.15);
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  background: var(--bg-gradient);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+.journal-container { 
+  max-width: 1200px; 
+  margin: 2rem auto; 
+  padding: 1rem; 
+}
+
+.journal-header { 
+  text-align: center; 
+  margin-bottom: 3rem; 
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+.journal-header h2 { 
+  font-size: 3rem; 
+  font-weight: 800; 
+  margin-bottom: 0.5rem; 
+  background: linear-gradient(135deg, var(--dark-green), var(--primary-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+.journal-header p { 
+  color: var(--text-medium); 
+  font-size: 1.5rem; 
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.journal-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-green), var(--accent-coral));
+  border-radius: 2px;
+}
+
+/* Main Content Layout */
+.journal-main {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Form Styling */
+.journal-form { 
+  background: var(--card-gradient); 
+  border-radius: 20px; 
+  padding: 2.5rem; 
+  box-shadow: var(--shadow-card); 
+  margin-bottom: 2rem;
+  border: 1px solid rgba(92, 185, 16, 0.1);
+}
+.journal-form h3 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.journal-form h3::before {
+  content: '📝';
+}
+.form-group { margin-bottom: 1.5rem; }
+.journal-form label { 
+  display: block; 
+  margin-bottom: 0.5rem; 
+  font-weight: 600; 
+  color: var(--text-medium);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.journal-form input[type="text"],
+.journal-form input[type="number"],
+.journal-form textarea,
+.journal-form select { 
+  width: 100%; 
+  padding: 0.875rem; 
+  border-radius: 12px; 
+  border: 1px solid #d1fae5; 
+  margin-bottom: 0.5rem; 
+  font-size: 1.5rem; 
+  resize: vertical; 
+  transition: all 0.3s ease;
+  background-color: #f9fffb;
+}
+.journal-form input:focus,
+.journal-form textarea:focus,
+.journal-form select:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(92, 185, 16, 0.2);
+}
+
+.journal-form button { 
+  background: linear-gradient(135deg, var(--primary-green), var(--dark-green)); 
+  color: white; 
+  border: none; 
+  padding: 1rem 2rem; 
+  border-radius: 12px; 
+  font-weight: 700; 
+  cursor: pointer; 
+  transition: all 0.3s ease;
+  font-size: 1.05rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.journal-form button:hover { 
+  transform: translateY(-3px); 
+  box-shadow: var(--shadow-medium); 
+}
+
+/* Mood Selector Styling */
+.mood-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.mood-option {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f9fffb;
+}
+.mood-option:hover {
+  transform: translateY(-3px);
+}
+.mood-option.selected {
+  border-color: var(--primary-green);
+  background-color: rgba(92, 185, 16, 0.1);
+}
+.mood-option.happy { color: #F59E0B; }
+.mood-option.neutral { color: #6B7280; }
+.mood-option.sad { color: #EF4444; }
+.mood-option .emoji { font-size: 2rem; display: block; margin-bottom: 5px; }
+
+/* Skin Rating Styling */
+.rating-selector {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.rating-option {
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f9fffb;
+  border: 2px solid transparent;
+  flex: 1;
+  margin: 0 5px;
+}
+.rating-option:hover {
+  transform: translateY(-3px);
+}
+.rating-option.selected {
+  border-color: var(--accent-lavender);
+  background-color: rgba(167, 139, 250, 0.1);
+}
+.rating-option .rating-emoji { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+
+/* Hydration Tracker */
+.hydration-tracker {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(167, 139, 250, 0.1));
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+}
+.hydration-slider {
+  width: 100%;
+  margin: 1rem 0;
+  -webkit-appearance: none;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #38BDF8, #A78BFA);
+}
+.hydration-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-sky);
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.hydration-visual {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1rem;
+}
+.hydration-glass {
+  width: 20px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #E5E7EB;
+  border: 1px solid #D1D5DB;
+}
+.hydration-glass.filled {
+  background-color: var(--accent-sky);
+  border-color: var(--accent-sky);
+}
+
+/* Sidebar Widgets */
+.sidebar-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.widget {
+  background: var(--card-gradient);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(92, 185, 16, 0.1);
+}
+.widget h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--dark-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quote-box h4::before { content: '💭'; }
+.tip-box h4::before { content: '💡'; }
+.summary-box h4::before { content: '📊'; }
+.chart-box h4::before { content: '📈'; }
+.streak-box h4::before { content: '🔥'; }
+
+.widget p {
+  color: var(--text-medium);
+  line-height: 1.6;
+  font-size: 1.5rem;
+}
+#tipText, #quoteText {
+  font-style: italic;
+  padding: 0.75rem;
+  background-color: rgba(251, 191, 36, 0.1);
+  border-radius: 12px;
+  border-left: 3px solid var(--accent-amber);
+}
+
+/* Skin Health Chart */
+.chart-container {
+  height: 180px;
+  margin-top: 1rem;
+  position: relative;
+}
+.chart-bar {
+  position: absolute;
+  bottom: 0;
+  width: 12%;
+  background: linear-gradient(180deg, var(--primary-green), var(--light-green));
+  border-radius: 6px 6px 0 0;
+  transition: height 0.5s ease;
+}
+.chart-label {
+  position: absolute;
+  bottom: -25px;
+  font-size: 0.75rem;
+  text-align: center;
+  width: 12%;
+  color: var(--text-light);
+}
+
+/* Streak Counter */
+.streak-count {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 1rem 0;
+  background: linear-gradient(135deg, var(--accent-amber), var(--accent-coral));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.streak-label {
+  text-align: center;
+  font-size: 1.3remrem;
+  color: var(--text-light);
+}
+
+/* Entries List */
+.entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(92, 185, 16, 0.2);
+}
+.entries-header h3 {
+  font-size: 1.75rem;
+  color: var(--dark-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.entries-header h3::before {
+  content: '📓';
+}
+
+.filter-bar { 
+  display: flex; 
+  gap: 1rem; 
+  margin-bottom: 2rem; 
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+}
+.filter-bar select { 
+  padding: 0.75rem 1.25rem; 
+  border-radius: 12px; 
+  border: 1px solid #d1fae5; 
+  font-size: 0.95rem; 
+  background-color: #f9fffb;
+  color: var(--text-medium);
+  font-weight: 500;
+}
+.filter-bar select:focus {
+  outline: none;
+  border-color: var(--primary-green);
+}
+
+.entries-list { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1.5rem; 
+}
+
+.entry-card { 
+  background: white; 
+  padding: 1.75rem; 
+  border-radius: 20px; 
+  box-shadow: var(--shadow-card);
+  border-left: 5px solid var(--primary-green); 
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.entry-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(92, 185, 16, 0.15);
+}
+.entry-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary-green), var(--accent-sky));
+}
+.entry-card h4 { 
+  font-size: 1.35rem; 
+  font-weight: 700; 
+  margin-bottom: 0.5rem;
+  color: var(--dark-green);
+}
+.entry-card p { 
+  color: var(--text-medium); 
+  margin-bottom: 1rem; 
+  line-height: 1.6;
+}
+.entry-card .entry-meta { 
+  font-size: 0.9rem; 
+  color: var(--text-light); 
+  display: flex; 
+  gap: 1.5rem; 
+  flex-wrap: wrap; 
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+.entry-card button.delete-btn { 
+  position: absolute; 
+  top: 1rem; 
+  right: 1rem; 
+  background: #fef2f2; 
+  border: 1px solid #fee2e2;
+  padding: 0.5rem 1rem; 
+  color: #dc2626; 
+  border-radius: 10px; 
+  cursor: pointer; 
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.entry-card button.delete-btn:hover {
+  background-color: #fee2e2;
+  transform: scale(1.05);
+}
+
+.mood-badge { 
+  padding: 0.4rem 1rem; 
+  border-radius: 12px; 
+  font-weight: 600; 
+  font-size: 0.85rem; 
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.mood-happy { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
+.mood-neutral { background: linear-gradient(135deg, #6B7280, #9CA3AF); }
+.mood-sad { background: linear-gradient(135deg, #EF4444, #F87171); }
+
+.rating-badge { 
+  padding: 0.4rem 1rem; 
+  border-radius: 12px; 
+  font-weight: 600; 
+  font-size: 0.85rem; 
+  background: linear-gradient(135deg, var(--accent-lavender), #8B5CF6); 
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hydration-badge {
+  padding: 0.4rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: linear-gradient(135deg, var(--accent-sky), #0EA5E9);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.no-entries {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-light);
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+}
+.no-entries p:first-child {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+.no-entries p:last-child {
+  font-size: 1.25rem;
+  color: var(--text-medium);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) { 
+  .journal-main { grid-template-columns: 1fr; }
+  .journal-header h2 { font-size: 2.5rem; }
+}
+
+@media (max-width: 600px) { 
+  .journal-form { padding: 1.5rem; }
+  .journal-header h2 { font-size: 2rem; }
+  .mood-selector, .rating-selector { flex-direction: column; }
+  .mood-option, .rating-option { margin-bottom: 0.5rem; }
+  .filter-bar { flex-direction: column; }
+  .entry-card .entry-meta { flex-direction: column; gap: 0.75rem; }
+}
+</style>
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="journal-container">
+  <div class="journal-header">
+    <h2>Glow Tracker Journal</h2>
+    <p>Your personal skincare wellness diary. Track your skin's journey, understand patterns, and cultivate your healthiest glow from within.</p>
+  </div>
+
+  <div class="journal-main">
+    <!-- Left Column: Form and Entries -->
+    <div>
+      <!-- Journal Form -->
+      <div class="journal-form">
+        <h3>Today's Skin Log</h3>
+        
+        <div class="form-group">
+          <label for="entryDate">📅 Date</label>
+                {% now "Y-m-d" as today %}
+                <input type="date" id="entryDate" value="{{ today }}" />
+
+        </div>
+        
+        <div class="form-group">
+          <label>😊 How are you feeling today?</label>
+          <div class="mood-selector">
+            <div class="mood-option happy" data-value="happy">
+              <span class="emoji">😊</span>
+              <span>Happy</span>
+            </div>
+            <div class="mood-option neutral" data-value="neutral">
+              <span class="emoji">😐</span>
+              <span>Neutral</span>
+            </div>
+            <div class="mood-option sad" data-value="sad">
+              <span class="emoji">😔</span>
+              <span>Sad</span>
+            </div>
+          </div>
+          <select id="mood" style="display: none;">
+            <option value="happy">Happy</option>
+            <option value="neutral">Neutral</option>
+            <option value="sad">Sad</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>🌟 Skin Condition Today</label>
+          <div class="rating-selector">
+            <div class="rating-option" data-value="1">
+              <span class="rating-emoji">🌑</span>
+              <span>Poor</span>
+            </div>
+            <div class="rating-option" data-value="2">
+              <span class="rating-emoji">🌓</span>
+              <span>Fair</span>
+            </div>
+            <div class="rating-option" data-value="3">
+              <span class="rating-emoji">🌕</span>
+              <span>Good</span>
+            </div>
+            <div class="rating-option" data-value="4">
+              <span class="rating-emoji">✨</span>
+              <span>Glowing</span>
+            </div>
+          </div>
+          <select id="skinRating" style="display: none;">
+            <option value="1">Poor</option>
+            <option value="2">Fair</option>
+            <option value="3">Good</option>
+            <option value="4">Glowing</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="hydration">💧 Hydration Level</label>
+          <div class="hydration-tracker">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span>0 glasses</span>
+              <span id="hydrationValue">5 glasses</span>
+              <span>12+ glasses</span>
+            </div>
+            <input type="range" id="hydration" class="hydration-slider" min="0" max="12" value="5">
+            <div class="hydration-visual" id="hydrationVisual"></div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="notes">📝 Notes & Observations</label>
+          <textarea id="notes" rows="4" placeholder="How does your skin feel today? What treatments did you use? Any triggers or positive changes?"></textarea>
+        </div>
+        
+        <button id="saveEntry">
+          <span>Save Today's Log</span>
+          <span>💾</span>
+        </button>
+      </div>
+      
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <select id="filterMood">
+          <option value="">All Moods</option>
+          <option value="happy">😊 Happy</option>
+          <option value="neutral">😐 Neutral</option>
+          <option value="sad">😔 Sad</option>
+        </select>
+        <select id="filterRating">
+          <option value="">All Skin Ratings</option>
+          <option value="1">🌑 Poor</option>
+          <option value="2">🌓 Fair</option>
+          <option value="3">🌕 Good</option>
+          <option value="4">✨ Glowing</option>
+        </select>
+        <select id="filterDate">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+      </div>
+      
+      <!-- Entries List -->
+      <div class="entries-header">
+        <h3>Your Skin Journey</h3>
+        <span id="entriesCount">0 entries</span>
+      </div>
+      
+      <div class="entries-list" id="entriesList">
+        <!-- Entries will appear here -->
+      </div>
+    </div>
+    
+    <!-- Right Column: Widgets -->
+    <div class="sidebar-widgets">
+      <!-- Daily Skin Tip -->
+      <div class="widget tip-box">
+        <h4>Skin Science Tip</h4>
+        <p id="tipText">Did you know? Skin cell regeneration peaks at night. Applying retinoids before bed maximizes their effectiveness.</p>
+      </div>
+      
+      <!-- Motivational Quote -->
+      <div class="widget quote-box">
+        <h4>Mindful Moment</h4>
+        <p id="quoteText">"Your skin is a reflection of your overall wellbeing. Nurture it with kindness, patience, and consistency."</p>
+      </div>
+      
+      <!-- Skin Health Summary -->
+      <div class="widget summary-box">
+        <h4>This Week's Glow Score</h4>
+        <div id="summaryText">Log entries to see your weekly skin health summary.</div>
+        <div class="chart-container" id="skinChart">
+          <!-- Chart will be generated here -->
+        </div>
+      </div>
+      
+      <!-- Streak Counter -->
+      <div class="widget streak-box">
+        <h4>Consistency Streak</h4>
+        <div class="streak-count" id="streakCount">0</div>
+        <div class="streak-label">days in a row of skin logging</div>
+        <p style="font-size: 1.3rem; margin-top: 1rem; text-align: center;">Consistency is key to understanding your skin's unique patterns!</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block dashboard_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Elements
+  const entryDate = document.getElementById('entryDate');
+  const moodSelect = document.getElementById('mood');
+  const moodOptions = document.querySelectorAll('.mood-option');
+  const skinRatingSelect = document.getElementById('skinRating');
+  const ratingOptions = document.querySelectorAll('.rating-option');
+  const hydrationSlider = document.getElementById('hydration');
+  const hydrationValue = document.getElementById('hydrationValue');
+  const hydrationVisual = document.getElementById('hydrationVisual');
+  const notes = document.getElementById('notes');
+  const saveEntry = document.getElementById('saveEntry');
+  const entriesList = document.getElementById('entriesList');
+  const filterMood = document.getElementById('filterMood');
+  const filterRating = document.getElementById('filterRating');
+  const filterDate = document.getElementById('filterDate');
+  const entriesCount = document.getElementById('entriesCount');
+  const summaryText = document.getElementById('summaryText');
+  const quoteText = document.getElementById('quoteText');
+  const tipText = document.getElementById('tipText');
+  const streakCount = document.getElementById('streakCount');
+  const skinChart = document.getElementById('skinChart');
+  
+  // Data
+  let journalEntries = JSON.parse(localStorage.getItem('skincareJournalEntries') || '[]');
+  
+  // Enhanced content
+  const quotes = [
+    "Your skin is a reflection of your overall wellbeing. Nurture it with kindness, patience, and consistency.",
+    "True glow comes from within—hydration, nutrition, and a peaceful mind.",
+    "Your skin tells a story. Make it one of health, care, and self-love.",
+    "Consistency in skincare is self-care in action. Every day counts.",
+    "Listen to your skin—it's communicating your body's needs.",
+    "Beauty is not about perfection; it's about nurturing what makes you uniquely you."
+  ];
+  
+  const tips = [
+    "Did you know? Skin cell regeneration peaks at night. Applying retinoids before bed maximizes their effectiveness.",
+    "Drink a glass of water when you wake up to rehydrate after sleep and kickstart your metabolism.",
+    "Facial massage for 2 minutes daily can improve circulation and product absorption.",
+    "Vitamin C serum in the morning helps protect skin from environmental damage throughout the day.",
+    "Your pillowcase collects oils and bacteria. Change it weekly for clearer skin.",
+    "Stress directly impacts skin health. Try 5 minutes of mindful breathing when you feel stressed.",
+    "Don't forget your neck and décolletage—they show signs of aging first!"
+  ];
+  
+  // Initialize
+  setTodayDate();
+  renderHydrationVisual();
+  randomQuote();
+  randomTip();
+  renderEntries();
+  updateChart();
+  updateStreak();
+  
+  // Event Listeners
+  moodOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      moodOptions.forEach(opt => opt.classList.remove('selected'));
+      this.classList.add('selected');
+      moodSelect.value = this.getAttribute('data-value');
+    });
+  });
+  
+  ratingOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      ratingOptions.forEach(opt => opt.classList.remove('selected'));
+      this.classList.add('selected');
+      skinRatingSelect.value = this.getAttribute('data-value');
+    });
+  });
+  
+  hydrationSlider.addEventListener('input', function() {
+    hydrationValue.textContent = `${this.value} glass${this.value == 1 ? '' : 'es'}`;
+    renderHydrationVisual();
+  });
+  
+  saveEntry.addEventListener('click', saveJournalEntry);
+  
+  filterMood.addEventListener('change', renderEntries);
+  filterRating.addEventListener('change', renderEntries);
+  filterDate.addEventListener('change', renderEntries);
+  
+  // Functions
+  function setTodayDate() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    entryDate.value = `${yyyy}-${mm}-${dd}`;
+  }
+  
+  function renderHydrationVisual() {
+    const glasses = parseInt(hydrationSlider.value);
+    hydrationVisual.innerHTML = '';
+    
+    for (let i = 0; i < 12; i++) {
+      const glass = document.createElement('div');
+      glass.className = 'hydration-glass';
+      if (i < glasses) {
+        glass.classList.add('filled');
+      }
+      hydrationVisual.appendChild(glass);
+    }
+  }
+  
+  function randomQuote() { 
+    quoteText.textContent = quotes[Math.floor(Math.random() * quotes.length)]; 
+  }
+  
+  function randomTip() { 
+    tipText.textContent = tips[Math.floor(Math.random() * tips.length)]; 
+  }
+  
+  function saveJournalEntry() {
+    if(!entryDate.value || !notes.value.trim()) {
+      alert('Please add some notes about your skin today.');
+      return;
+    }
+    
+    const newEntry = {
+      id: Date.now(),
+      date: entryDate.value,
+      mood: moodSelect.value,
+      skinRating: skinRatingSelect.value,
+      hydration: hydrationSlider.value,
+      notes: notes.value.trim(),
+      timestamp: new Date().toISOString()
+    };
+    
+    journalEntries.unshift(newEntry);
+    localStorage.setItem('skincareJournalEntries', JSON.stringify(journalEntries));
+    
+    resetForm();
+    renderEntries();
+    updateChart();
+    updateStreak();
+    randomQuote();
+    randomTip();
+    
+    // Show success feedback
+    const btnText = saveEntry.querySelector('span');
+    const originalText = btnText.textContent;
+    btnText.textContent = 'Saved!';
+    setTimeout(() => {
+      btnText.textContent = originalText;
+    }, 1500);
+  }
+  
+  function resetForm() {
+    notes.value = '';
+    moodOptions[0].click();
+    ratingOptions[2].click();
+    hydrationSlider.value = 5;
+    hydrationValue.textContent = '5 glasses';
+    renderHydrationVisual();
+  }
+  
+  function renderEntries() {
+    entriesList.innerHTML = '';
+    
+    let filtered = journalEntries.filter(entry => {
+      return (filterMood.value === '' || entry.mood === filterMood.value) &&
+             (filterRating.value === '' || entry.skinRating === filterRating.value);
+    });
+    
+    // Sort by date
+    if (filterDate.value === 'oldest') {
+      filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    } else {
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    
+    // Update count
+    entriesCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'entry' : 'entries'}`;
+    
+    if (filtered.length === 0) {
+      entriesList.innerHTML = `
+        <div class="no-entries">
+          <p>📓</p>
+          <p>No journal entries yet.</p>
+          <p style="margin-top: 1rem; font-size: 1rem;">Start your skincare journey by logging your first entry above!</p>
+        </div>
+      `;
+      return;
+    }
+    
+    filtered.forEach(entry => {
+      const card = document.createElement('div');
+      card.className = 'entry-card';
+      
+      const moodText = entry.mood === 'happy' ? '😊 Happy' : 
+                      entry.mood === 'neutral' ? '😐 Neutral' : '😔 Sad';
+                      
+      const ratingText = entry.skinRating === '1' ? '🌑 Poor' :
+                        entry.skinRating === '2' ? '🌓 Fair' :
+                        entry.skinRating === '3' ? '🌕 Good' : '✨ Glowing';
+      
+      const formattedDate = new Date(entry.date).toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+      
+      card.innerHTML = `
+        <h4>${formattedDate}</h4>
+        <p>${entry.notes}</p>
+        <div class="entry-meta">
+          <span class="mood-badge mood-${entry.mood}">${moodText}</span>
+          <span class="rating-badge">${ratingText}</span>
+          <span class="hydration-badge">💧 ${entry.hydration} glass${entry.hydration == 1 ? '' : 'es'}</span>
+        </div>
+        <button class="delete-btn" data-id="${entry.id}">Delete</button>
+      `;
+      
+      entriesList.appendChild(card);
+    });
+    
+    // Add delete functionality
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const id = parseInt(this.getAttribute('data-id'));
+        journalEntries = journalEntries.filter(entry => entry.id !== id);
+        localStorage.setItem('skincareJournalEntries', JSON.stringify(journalEntries));
+        renderEntries();
+        updateChart();
+        updateStreak();
+      });
+    });
+  }
+  
+  function updateChart() {
+    if (journalEntries.length === 0) {
+      summaryText.textContent = 'Log entries to see your weekly skin health summary.';
+      skinChart.innerHTML = '';
+      return;
+    }
+    
+    // Get last 7 days of data
+    const lastWeek = journalEntries.slice(0, 7);
+    const avgRating = (lastWeek.reduce((sum, e) => sum + parseInt(e.skinRating), 0) / lastWeek.length).toFixed(1);
+    
+    summaryText.textContent = `Your average skin rating this week: ${avgRating}/4`;
+    
+    // Create chart
+    skinChart.innerHTML = '';
+    
+    lastWeek.forEach((entry, index) => {
+      const bar = document.createElement('div');
+      bar.className = 'chart-bar';
+      bar.style.height = `${entry.skinRating * 25}%`;
+      bar.style.left = `${index * 14}%`;
+      
+      const label = document.createElement('div');
+      label.className = 'chart-label';
+      label.textContent = new Date(entry.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+      label.style.left = `${index * 14}%`;
+      
+      skinChart.appendChild(bar);
+      skinChart.appendChild(label);
+    });
+  }
+  
+  function updateStreak() {
+    if (journalEntries.length === 0) {
+      streakCount.textContent = '0';
+      return;
+    }
+    
+    // Calculate consecutive days with entries
+    const sortedEntries = [...journalEntries].sort((a, b) => new Date(b.date) - new Date(a.date));
+    let streak = 1;
+    let currentDate = new Date(sortedEntries[0].date);
+    
+    for (let i = 1; i < sortedEntries.length; i++) {
+      const prevDate = new Date(currentDate);
+      const entryDate = new Date(sortedEntries[i].date);
+      
+      // Check if entries are consecutive days
+      prevDate.setDate(prevDate.getDate() - 1);
+      
+      if (prevDate.toDateString() === entryDate.toDateString()) {
+        streak++;
+        currentDate = entryDate;
+      } else {
+        break;
+      }
+    }
+    
+    streakCount.textContent = streak;
+  }
+  
+  // Set initial selections
+  moodOptions[0].classList.add('selected');
+  ratingOptions[2].classList.add('selected');
+});
+</script>
+{% endblock %}

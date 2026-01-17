@@ -1,0 +1,38 @@
+{% extends "dashboard/layout.html" %}
+
+{% block content %}
+<h2>My Reports</h2>
+
+{% if reports %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Detected Issues</th>
+            <th>AI Confidence</th>
+            <th>Status</th>
+            <th>Reviewed By</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in reports %}
+        <tr>
+            <td>{{ report.created_at|date:"M d, Y" }}</td>
+            <td>{{ report.progress.detection_result }}</td>
+            <td>{{ report.progress.ai_confidence }}%</td>
+            <td>{{ report.status|capfirst }}</td>
+            <td>
+                {% if report.reviewed_by %}
+                    Dr. {{ report.reviewed_by.user.username }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>You have no reports yet. Try uploading a skin image in the <a href="{% url 'skin_tracker' %}">Skin Tracker</a>.</p>
+{% endif %}
+{% endblock %}

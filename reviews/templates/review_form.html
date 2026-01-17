@@ -1,0 +1,41 @@
+{# reviews/templates/reviews/review_form.html #}
+
+<form action="{% url 'reviews:submit_review' %}" method="post" id="review-form"
+      hx-post="{% url 'reviews:submit_review' %}"
+      hx-target="#review-messages-container"
+      hx-swap="outerHTML" {# This swaps the entire container, including the messages #}
+      hx-indicator="#loading-spinner"> {# Optional: Add a loading spinner next to the submit button #}
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="reviewer-name">Your Name <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="reviewer-name" name="reviewer_name" placeholder="E.g., Jane Doe" required aria-required="true"
+               value="{{ reviewer_name|default:'' }}"> {# Retain value on error #}
+    </div>
+
+    <div class="form-group">
+        <label for="review-rating">Your Rating <span class="text-danger">*</span></label>
+        <select class="form-control" id="review-rating" name="rating" required aria-required="true">
+            <option value="" disabled {% if not rating %}selected{% endif %}>Select your rating out of 5 stars</option>
+            <option value="5" {% if rating == 5 %}selected{% endif %}>★★★★★ Excellent</option>
+            <option value="4" {% if rating == 4 %}selected{% endif %}>★★★★☆ Very Good</option>
+            <option value="3" {% if rating == 3 %}selected{% endif %}>★★★☆☆ Good</option>
+            <option value="2" {% if rating == 2 %}selected{% endif %}>★★☆☆☆ Fair</option>
+            <option value="1" {% if rating == 1 %}selected{% endif %}>★☆☆☆☆ Poor</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="review-text">Your Review <span class="text-danger">*</span></label>
+        <textarea class="form-control" rows="5" id="review-text" name="review_text" placeholder="Tell us about your experience, what you loved, or how we can improve..." required aria-required="true">{{ review_text|default:'' }}</textarea> {# Retain value on error #}
+    </div>
+
+    <div class="form-group text-center">
+        <button type="submit" class="section-btn btn btn-primary smoothScroll">
+            Submit Review
+            <span id="loading-spinner" class="htmx-indicator ml-2">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </span>
+        </button>
+    </div>
+</form>

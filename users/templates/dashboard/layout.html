@@ -1,0 +1,391 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Skin Wellness Dashboard{% endblock %}</title>
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     {% comment %} <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}"> {% endcomment %}
+     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+     <link href="{% static 'images/TabLogo.png' %}" rel="icon" type="image/x-icon"  sizes="256x256">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+     {% comment %} <link rel="stylesheet" href="{% static 'css/articles.css' %}"> {% endcomment %}
+     {% comment %} <link rel="stylesheet" href="{% static 'css/chatbot.css' %}"> {% endcomment %}
+     <!-- Font Awesome CDN -->
+     <!-- Font Awesome CDN -->
+<style>
+/* ====== Global Styles ====== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Updated Navbar Style */
+        .navbar.custom-navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #e0f0e2;
+        }
+        .navbar .navbar-nav > li > a {
+            color: #555; /* Or any other color you want for the links */
+            transition: all 0.3s ease; /* Keep the transition for a smooth hover effect */
+        }
+/* ===============================
+   QUOTE SECTION – FIXED DESIGN
+================================ */
+
+.quote-section {
+  margin: 2rem auto 3rem;
+  max-width: 900px;
+  padding: 0 15px;
+}
+
+.quote-box {
+  background: linear-gradient(135deg, #f0fdf4, #ecfeff);
+  border-radius: 18px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Decorative quote icon */
+.quote-box::before {
+  content: "❝";
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  font-size: 120px;
+  color: rgba(42, 107, 78, 0.12);
+  font-family: serif;
+}
+
+.quote-text {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #2d3748;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.quote-author {
+  font-size: 1.6rem;
+  color: #2A6B4E;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* ===============================
+   DOT NAVIGATION
+================================ */
+
+.quote-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.quote-dot {
+  width: 10px;
+  height: 10px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quote-dot:hover {
+  transform: scale(1.2);
+}
+
+.quote-dot.active {
+  background: #2A6B4E;
+  width: 26px;
+  border-radius: 12px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+  .quote-text {
+    font-size: 1.15rem;
+  }
+
+  .quote-box {
+    padding: 2rem 1.5rem;
+  }
+}
+
+    </style>
+
+  {% block extra_css %}{% endblock %}
+    </head>
+
+     <!-- Font Awesome CDN -->
+     {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> {% endcomment %}
+
+ 
+<body>
+    
+
+     <!-- PRE LOADER -->
+    <section class="preloader">
+     <div class="spinner">
+          <span class="spinner-rotate"></span>
+         </div>
+    </section>
+
+<section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="{% url 'index_page' %}" class="navbar-brand">
+        <img src="{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo">
+      </a>
+
+      <button type="button" class="navbar-toggle" id="mobileToggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    
+
+    <!-- Menu items -->
+    <div class="navbar-collapse" id="mainNavbar">
+      <ul class="nav navbar-nav navbar-nav-first">
+        <li><a href="{% url 'index_page' %}">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="{% url 'developer_team_page' %}">Developer Team</a></li>
+        <li><a href="{% url 'article_page' %}">Article</a></li>
+        <li><a href="{% url 'skin_identifier' %}">Skin Type Identifier</a></li>
+         <li><a href="#contact">Contact</a></li>
+        <li><a href="{%url 'doctors_list' %}">Doctors</a></li> 
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          {# 🔔 Notifications #}
+          <li class="notification-item">
+            <a href="{% url 'notifications' %}" class="notification-bell">
+              <i class="fas fa-bell"></i>
+
+              {% if unread_notifications|length > 0 %}
+                <span class="badge">
+                  {{ unread_notifications|length }}
+                </span>
+              {% endif %}
+            </a>
+          </li>
+
+          <li><a href="{% url 'model_page' %}" class="section-btn">Skin-Diagnose</a></li>
+          <li><a href="{% url 'dashboard_redirect' %}"><i class="fa fa-user-circle"></i> My Dashboard</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'auth_page' %}" class="section-btn">Login / Sign Up</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+
+    
+
+  <section class="dashboard-wrapper">
+
+    <!-- QUOTE -->
+    <!-- QUOTE SECTION -->
+    <div class="quote-section">
+      <div class="quote-box animate__animated animate__fadeIn">
+        <div class="quote-text" id="quoteText">"Healthy skin is a reflection of overall wellness."</div>
+        <div class="quote-author" id="quoteAuthor">- Unknown</div>
+        <div class="quote-nav">
+          <div class="quote-dot active" data-index="0"></div>
+          <div class="quote-dot" data-index="1"></div>
+          <div class="quote-dot" data-index="2"></div>
+          <div class="quote-dot" data-index="3"></div>
+          <div class="quote-dot" data-index="4"></div>
+        </div>
+      </div>
+    </div>
+
+    {% block dashboard_content %}{% endblock %}
+
+  </section>
+  <footer id="footer" data-stellar-background-ratio="0.5">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Find us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>Institute of Mathematics and Computer Science,<br>University of Sindh, Jamshoro — Sindh, Pakistan</p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Email us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>We’re just an email away from helping you!</p>
+                                   <p>0307-2515985 | 0300-3000000</p>
+                                   <p><a href="mailto:skinissuesfyp@gmail.com">skinissuesfyp@gmail.com</a></p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-8">
+                         <div class="footer-info footer-open-hour">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Glow Genies <span style="color: red;">.</span></h2>
+                              </div>
+                              <div class="wow fadeInUp" data-wow-delay="0.4s">
+                              <p>Our advanced AI engine quickly and efficiently evaluates the face,<br> 
+                                   identifying essential skin health and provides you with unparalleled insights into your complexion, guiding you towards optimal skin well-being.</p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-4">
+                           <div class="footer-info">
+                            <h2 class="wow fadeInUp" data-wow-delay="0.2s">Social</h2>
+                            <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
+                                 <li><a href="#" class="fa-brands fa-facebook-f" attr="facebook icon"></a></li>
+                                 <li><a href="#" class="fa-brands fa-twitter"></a></li>
+                                 <li><a href="#" class="fa-brands fa-instagram"></a></li>
+                                 <li><a href="#" class="fa-brands fa-whatsapp"></a></li>
+                            </ul>
+                            <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s"> 
+                              <p><br>Copyright &copy; 2025 <br>Glow Genie</p>
+                              <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click for Skin Diagnosis</a>
+
+                              
+                              <!-- <br><br>Design: <a rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a></p> -->
+                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </footer>
+    
+
+ <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% comment %} <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-bc8Gc1Lppn/H07GgNq9B2S7t+02zWn+vK9g32XlK5uWz2q67sK7Gz10d1uV" crossorigin="anonymous"></script> {% endcomment %}
+
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/chatbot.js' %}"></script>
+    <script src="{% static 'js/skin_tracker.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('mainNavbar');
+
+  toggleBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    navMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!toggleBtn.contains(event.target) && !navMenu.contains(event.target)) {
+      navMenu.classList.remove('open');
+    }
+  });
+});
+
+    </script>
+    <script>
+    // Skin-related quotes
+    const quotes = [
+      {
+        text: "Healthy skin is a reflection of overall wellness.",
+        author: "Unknown"
+      },
+      {
+        text: "Invest in your skin. It is going to represent you for a very long time.",
+        author: "Linden Tyler"
+      },
+      {
+        text: "Beautiful skin requires commitment, not a miracle.",
+        author: "Erno Laszlo"
+      },
+      {
+        text: "Your skin is the fingerprint of what is going on inside your body.",
+        author: "Georgiana Donadio"
+      },
+      {
+        text: "Glowing skin is always in.",
+        author: "Unknown"
+      }
+    ];
+
+    // Initialize quote display
+    let currentQuoteIndex = 0;
+    const quoteText = document.getElementById('quoteText');
+    const quoteAuthor = document.getElementById('quoteAuthor');
+    const quoteDots = document.querySelectorAll('.quote-dot');
+
+    function updateQuote(index) {
+      quoteText.textContent = `"${quotes[index].text}"`;
+      quoteAuthor.textContent = `- ${quotes[index].author}`;
+      
+      // Update active dot
+      quoteDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      
+      // Add animation
+      quoteText.parentElement.classList.remove('animate__fadeIn');
+      void quoteText.parentElement.offsetWidth; // Trigger reflow
+      quoteText.parentElement.classList.add('animate__fadeIn');
+    }
+
+    // Set up quote navigation
+    quoteDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        currentQuoteIndex = parseInt(dot.getAttribute('data-index'));
+        updateQuote(currentQuoteIndex);
+      });
+    });
+
+    // Auto-rotate quotes
+    setInterval(() => {
+      currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+      updateQuote(currentQuoteIndex);
+    }, 5000);
+
+    </script>
+
+  {% block dashboard_js %}{% endblock %}
+</body>
+</html>

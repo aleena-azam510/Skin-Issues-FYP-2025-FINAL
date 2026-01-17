@@ -1,0 +1,4056 @@
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+  body {
+    background: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /*---------------------------------------
+     TYPOGRAPHY              
+  -----------------------------------------*/
+
+  h1,h2,h3,h4,h5,h6 {
+    font-weight: bold;
+    line-height: inherit;
+  }
+
+  h1 {
+    color: #252525;
+    font-size: 3em;
+    line-height: 50px;
+  }
+
+  h2 {
+    color: #353535;
+    font-size: 2em;
+    padding-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    margin-bottom: 0;
+  }
+
+  h3,
+  h3 a {
+    color: #454545;
+  }
+
+  /* p {
+    color: #757575;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 24px;
+  } */
+
+
+
+  /*---------------------------------------
+     GENERAL               
+  -----------------------------------------*/
+
+  html{
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: #252525;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    text-decoration: none !important;
+  }
+
+  a:hover, a:active, a:focus {
+    color: #ce3232;
+    /* color: #3B7A57  ; */
+    outline: none;
+  }
+
+  ::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background: #000000;
+  }
+
+  .section-title {
+    padding-bottom: 40px;
+  }
+
+  .section-title h2 {
+    margin: 0;
+  }
+
+  .section-title h4 {
+    color: #bfbdbd;
+    /* color: yellow; */
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 0;
+  }
+
+  .overlay {
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  section {
+    position: relative;
+    padding: 100px 0;
+  }
+
+  #team, 
+  #menu,
+  #testimonial {
+    text-align: center;
+  }
+
+  .about-image img,
+  .team-thumb img {
+    width: 100%;
+  }
+  
+  #google-map iframe {
+    border: 0;
+    width: 100%;
+    height: 390px;
+  }
+
+
+  /*---------------------------------------
+     BUTTONS               
+  -----------------------------------------*/
+
+  .section-btn  {
+    /* background: #ce3232; */
+    background: #3B7A57;
+    border-radius: 0;
+    border: 0;
+    color: #f9f9f9 !important;
+    font-size: inherit;
+    font-weight: normal;
+    padding: 10px 25px;
+    transition: 0.5s 0.2s;
+  }
+
+
+
+  /*---------------------------------------
+       PRE LOADER              
+  -----------------------------------------*/
+
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    background: none repeat scroll 0 0 #ffffff;
+  }
+
+  .spinner {
+    border: 1px solid transparent;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 1px solid #575757;
+    border-top-color: #ffffff;
+    animation: spinner .9s linear infinite;
+  }
+
+  /* @-webkit-@keyframes spinner  {
+  to {transform: rotate(360deg);}
+} */
+
+  /* @-webkit-keyframes spinner {
+    to { transform: rotate(360deg); }
+    
+    }
+
+
+  @keyframes spinner {
+    to {transform: rotate(360deg);}
+  } */
+
+  @-webkit-keyframes spinner {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spinner {
+    to { transform: rotate(360deg); }
+  }
+
+
+/* ---------------------------------------
+   NAVBAR BASE & FIXED POSITION
+---------------------------------------- */
+.navbar-fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.custom-navbar {
+  border: none;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.custom-navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes Logo to left, Menu to right */
+  flex-wrap: nowrap; /* Prevents breaking on desktop */
+}
+
+/* ---------------------------------------
+   LOGO ALIGNMENT & SIZE
+---------------------------------------- */
+.navbar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0; /* Prevents the logo area from being squashed */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.navbar-brand img {
+  height: 130px; /* Adjust this to your preferred size */
+  width: auto;
+  display: block;
+}
+
+/* ---------------------------------------
+   DESKTOP NAV (>= 992px)
+---------------------------------------- */
+@media (min-width: 992px) {
+  .navbar-collapse {
+    display: flex !important;
+    justify-content: space-between; /* Changed from flex-end to space-between: puts left nav on left, right nav on right */
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .navbar-nav li a {
+    padding: 10px 15px;
+    font-size: 10px;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+/* ---------------------------------------
+   MOBILE NAV (<= 991px) - ULTRA COMPACT
+---------------------------------------- */
+@media (max-width: 991px) {
+  
+  .custom-navbar .container {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 15px; /* Minimized container padding */
+    position: relative; 
+  }
+
+  /* 1. Logo Size (Maintained at 140px) */
+  .navbar-brand img {
+    height: 140px !important; 
+    width: auto !important;
+  }
+
+  /* 2. Hamburger & Icon Bars */
+  .navbar-toggle {
+    display: block !important;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    padding: 8px !important; /* Slightly smaller button box */
+    margin: 0 !important;
+  }
+
+  .navbar-toggle .icon-bar {
+    display: block !important;
+    width: 22px !important;
+    height: 2px !important;
+    background-color: #3B7A57 !important; 
+    margin: 3px 0 !important; /* Tighter gap between the 3 lines */
+  }
+
+  /* 3. Dropdown Positioning */
+  .navbar-collapse {
+    display: none; 
+    position: absolute; 
+    top: 85%; /* Pulled up closer to the logo */
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    z-index: 9999;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    border-top: 1px solid #eee;
+    min-height: 60vh; /* Increased length: sets minimum height to 60% of viewport height for a longer dropdown */
+  }
+
+  .navbar-collapse.open {
+    display: block !important;
+  }
+
+  /* 4. TIGHT LINK SPACING */
+  .navbar-nav {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important; /* Removed all list padding */
+    text-align: center;
+  }
+
+  .navbar-nav li {
+    display: block !important;
+    width: 100%;
+  }
+
+  .navbar-nav li a {
+    display: block !important;
+    padding: 8px 20px !important; /* Reduced from 10px to 8px */
+    color: #333 !important;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 14px; /* Slightly smaller text helps the menu feel less bulky */
+    line-height: 1.1; /* Tighter line spacing */
+  }
+
+  /* 5. Skin-Diagnose Button (Compact Version) */
+  .navbar-nav .section-btn {
+    display: inline-block !important; 
+    width: 80% !important;
+    margin: 8px auto 12px auto !important; /* Significantly reduced margins */
+    background-color: #3B7A57 !important;
+    color: #fff !important;
+    padding: 8px !important; /* Slimmer button height */
+    border-radius: 4px;
+    float: none !important;
+    font-size: 14px !important;
+  }
+
+  /* Fix for navbar-right in mobile: remove float to keep it inside the dropdown */
+  .navbar-right {
+    float: none !important;
+  }
+}
+  /*---------------------------------------
+      HOME  / Slider            
+  -----------------------------------------*/
+
+  #home {
+    padding: 0;
+  }
+
+  #home h1 {
+    color: #ffffff;
+    padding-bottom: 30px;
+  }
+
+  #home h3 {
+    color: #f9f9f9;
+    font-size: 14px;
+    line-height: inherit;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .slider .col-md-8 {
+      padding-left: 0;
+    }
+  }
+
+  .slider .owl-dots {
+    position: absolute;
+    top: 50%;
+    right: 2em;
+    justify-content: center;
+  }
+
+  .owl-theme .owl-dots .owl-dot {
+    display: block;
+  }
+
+  .owl-theme .owl-dots .owl-dot span {
+    width: 12px;
+    height: 12px;
+    margin: 7px 10px;
+    border: 2px solid #d9d9d9;
+    background: transparent;
+    display: block;
+    -webkit-backface-visibility: visible;
+    transition: opacity 200ms ease;
+    border-radius: 30px;
+  }
+
+  .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+    background-color: #ffffff;
+    border-color: transparent;
+  }
+
+  .slider .caption {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+    background-color: rgba(20,20,20,0.2);
+    height: 100%;
+    color: #fff;
+    cursor: e-resize;
+    padding: 4em 0 0 2em;
+  }
+
+  .slider .item {
+    background-position: inherit;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    background-size: cover;
+    height: 650px;
+  }
+
+  .slider .item-first {
+    background-image: url(../images/landing_page1.jpg);
+    background-position: center 40%;
+  }
+
+  .slider .item-second {
+    background-image: url(../images/landing_page_2.jpg);
+    background-position: center 30%;
+  }
+
+  .slider .item-third {
+    background-image: url(../images/landing_page3.jpg);
+    background-position: center 40%;
+  }
+
+  .slider .item-second .section-btn {
+    /* background: #292929; */
+    background: #3B7A57;
+  }
+
+  .slider .item-second .section-btn:hover {
+    /* background: #ffffff; */
+    background: #3B7A57;
+
+  }
+
+  .slider .item-third .section-btn {
+    /* background: transparent; */
+    /* border: 1px solid #ffffff; */
+    background: #3B7A57;
+  }
+
+  .slider .item-third .section-btn:hover,
+  .slider .item-third .section-btn:focus,
+  .slider .item-second .section-btn:hover,
+  .slider .item-first .section-btn:hover {
+    /* background: #ce3232; */
+    background: #d66306;
+    border-color: transparent;
+    color: #ffffff;
+  }
+
+@media (max-width: 1024px) {
+  .slider .item-first {
+    background-position: center left 70%;
+  }
+  .slider .item-second {
+    background-position: center left 70%;
+  }
+  .slider .item-third {
+    background-position: center left 70;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider .item-first {
+    background-position: center left 70%;
+  }
+  .slider .item-second {
+    background-position: center left 70%;
+  }
+  .slider .item-third {
+    background-position: center left 70%;
+  }
+}
+
+  /*---------------------------------------
+      ABOUT              
+  -----------------------------------------*/
+
+  #about {
+    padding-bottom: 0;
+  }
+
+  .about-info {
+    padding: 0 6em 5em 0;
+  }
+
+  .about-info .section-title {
+    padding-bottom: 20px;
+  }
+
+  .about-image {
+    position: absolute;
+  }
+/* Variables for easy color theme changes */
+
+
+  /*---------------------------------------
+      TEAM              
+  -----------------------------------------*/
+
+  #team {
+    background: #f9f9f9;
+  }
+
+  .team-thumb {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .team-info {
+    padding: 10px 30px 20px 30px;
+  }
+
+  .team-thumb .team-hover {
+    position: absolute;
+    background: #1c1c1c;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: 0.5s 0.2s;
+  }
+
+  .team-thumb:hover .team-hover {
+    opacity: 0.95;
+    transition-delay: 0.3s;
+    transform: translateY(0);
+  }
+
+  .team-thumb img {
+    transition: 0.5s 0.2s;
+  }
+
+  .team-thumb:hover img {
+    transform: scale(1.2);
+  }
+
+  .team-thumb .social-icon li a {
+    background: #292929;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    color: #d9d9d9;
+    font-size: 20px;
+    margin: 15px 5px 0 5px;
+  }
+
+  .team-thumb .team-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+  }
+
+  .team-item h4 {
+    color: #ffffff;
+  }
+
+  .team-info p {
+    color: #bfbdbd;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+
+
+  /* Skin Gallery Section Styles */
+.skin-gallery-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f9fbf8 0%, #f0f5e9 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.skin-gallery-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="%23e0e8d9" stroke-width="0.5"><circle cx="50" cy="50" r="40"/></svg>');
+    opacity: 0.3;
+    z-index: 0;
+}
+
+/* .section-header {
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 1;
+} */
+
+/* .section-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+    letter-spacing: -0.5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+} */
+
+/* .section-subtitle {
+    font-size: 1.25rem;
+    color: #6c757d;
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 400;
+    line-height: 1.6;
+} */
+
+.section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.divider-line {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(76,175,80,0.3), rgba(76,175,80,0.8), rgba(76,175,80,0.3));
+    margin: 0 15px;
+}
+
+.divider-icon {
+    color: #4CAF50;
+    font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Condition Card Styles */
+.condition-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    height: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.condition-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.card-image {
+    position: relative;
+    overflow: hidden;
+    height: 240px;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.condition-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.9);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #4CAF50;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(44,62,80,0.1), rgba(44,62,80,0.7));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    z-index: 1;
+}
+
+.overlay-content {
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+    color: white;
+    width: 100%;
+}
+
+.overlay-content h4 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.overlay-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.overlay-content ul li {
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.overlay-content ul li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+}
+
+.condition-card:hover .image-overlay {
+    opacity: 1;
+}
+
+.condition-card:hover .overlay-content {
+    transform: translateY(0);
+}
+
+.condition-card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.card-body {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.condition-category {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #4CAF50;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #2c3e50;
+    line-height: 1.3;
+    
+}
+
+.condition-severity {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.severity-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    margin-right: 6px;
+}
+
+.severity-dot.high {
+    background: #ff7043;
+}
+
+.card-text {
+    color: #6c757d;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    line-height: 1.6;
+    font-size: 1.65rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.btn-learn-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
+}
+
+.btn-learn-more i {
+    margin-left: 8px;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-learn-more:hover {
+    background: linear-gradient(135deg, #43A047, #4CAF50);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-learn-more:hover i {
+    transform: translateX(3px);
+}
+
+.condition-age {
+    font-size: 1.2rem;
+    color: #9e9e9e;
+    font-weight: 500;
+}
+
+.condition-severity-wrapper {
+    display: flex;
+    justify-content: space-between; /* This will push elements to opposite sides */
+    align-items: baseline;
+    margin-bottom: 15px;
+}
+
+.severity-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #004e0e;
+    padding-top: 3px;
+    /* Remove margin-right since we're using space-between */
+}
+
+.condition-severity {
+    display: flex;
+    gap: 6px;
+}
+
+.severity-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    margin-top: 3px;
+}
+
+.severity-dot.high {
+    background: #ff7043;
+}
+
+.btn-view-all {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 30px;
+    background: white;
+    color: #4CAF50;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid #4CAF50;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.1);
+    margin-top: 20px;
+}
+
+.btn-view-all i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.btn-view-all:hover {
+    background: #4CAF50;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+}
+
+.btn-view-all:hover i {
+    transform: translateY(2px);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gallery-grid {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1199.98px) {
+    .card-image {
+        height: 220px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .skin-gallery-section {
+        padding: 80px 0;
+    }
+
+    /* Adjust column width for tablets */
+    .col-md-4 {
+        flex: 0 0 50%; /* Two cards per row on medium screens */
+        max-width: 50%;
+    }
+
+    .card-image {
+        height: 200px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .skin-gallery-section {
+        padding: 60px 0;
+    }
+
+    /* Stack cards on small screens */
+    .col-sm-6 {
+        flex: 0 0 100%; /* One card per row on small screens */
+        max-width: 100%;
+    }
+
+    .card-image {
+        height: 180px;
+    }
+
+    .card-body {
+        padding: 18px;
+    }
+
+    .btn-learn-more {
+        padding: 8px 16px;
+        font-size: 0.85rem; /* Slightly smaller button text */
+    }
+
+    .card-text {
+        font-size: 0.9rem; /* Adjust text size for readability */
+    }
+}
+
+@media (max-width: 575.98px) {
+    .skin-gallery-section {
+        padding: 40px 0; /* More compact padding on very small screens */
+    }
+
+    .section-header {
+        margin-bottom: 40px; /* Reduce header margin */
+    }
+
+    .section-title {
+        font-size: 2rem; /* Smaller title */
+        margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+        font-size: 1rem; /* Smaller subtitle */
+    }
+
+    .section-divider {
+        margin-top: 15px; /* Adjust divider margin */
+    }
+
+    .card-image {
+        height: 160px;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .card-text {
+        font-size: 0.85rem; /* Further adjustment for very small screens */
+    }
+
+    .condition-badge {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+    }
+
+    .btn-learn-more {
+        font-size: 0.8rem; /* Smallest button text */
+        padding: 7px 14px;
+    }
+
+    .condition-age {
+        font-size: 0.7rem; /* Smaller age text */
+    }
+
+    .overlay-content h4 {
+        font-size: 1rem; /* Smaller overlay title */
+    }
+
+    .overlay-content ul {
+        font-size: 0.8rem; /* Smaller overlay list items */
+    }
+
+    .divider-line {
+        width: 60px; /* Shorter divider lines */
+    }
+
+    .divider-icon {
+        font-size: 1rem; /* Smaller icon */
+        width: 30px;
+        height: 30px;
+    }
+}
+
+  /*---------------------------------------
+      TESTIMONIAL             
+  -----------------------------------------*/
+
+  #testimonial {
+    background: url('../images/register.jpg') center center no-repeat;
+    background-size: cover;
+  }
+
+  #testimonial .owl-dots {
+    position: relative;
+    top: 0;
+    right: 0;
+    justify-content: center;
+  }
+
+  #testimonial .owl-theme .owl-dots .owl-dot,
+  #testimonial .owl-theme .owl-dots .owl-dot span {
+    display: inline-block;
+  }
+
+  #testimonial .owl-theme .owl-dots .owl-dot span {
+    margin: 20px 5px;
+  }
+
+  #testimonial h2 {
+    color: #ffffff;
+  }
+
+  #testimonial p,
+  .tst-author h4,
+  .tst-author span {
+    display: inline;
+  }
+
+  #testimonial p {
+    color: #d9d9d9;
+    font-size: 20px;
+    line-height: 35px;
+  }
+
+  .tst-author {
+    margin-top: 20px;
+  }
+
+  .tst-author h4,
+  .tst-author span {
+    color: #b2b2b2;
+  }
+
+  .tst-author span {
+    margin-left: 5px;
+  }
+
+
+  /*---------------------------------------
+      CONTACT             
+  -----------------------------------------*/
+
+  #contact .section-title {
+    padding-bottom: 0;
+  }
+
+  #contact .text-success,
+  #contact .text-danger {
+    display: none;
+  }
+
+  #contact .form-control {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #dddddd;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 15px;
+    transition: all ease-in-out 0.4s;
+  }
+
+  #contact .form-control:hover,
+  #contact .form-control:focus {
+    border-bottom-color: #c9c9c9;
+  }
+
+  #contact input {
+    height: 55px;
+  }
+
+  #contact button#cf-submit {
+    /* background: #ce3232; */
+    background-color: #3B7A57;
+    
+    border-radius: 0;
+    border: 0;
+    color: #ffffff;
+    font-weight: bold;
+    height: 50px;
+  }
+
+  #contact button#cf-submit:hover {
+    background: #292929;
+    color: #ffffff;
+  }
+
+
+
+
+  /*---------------------------------------
+  FOOTER
+-----------------------------------------*/
+
+footer {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 120px 0;
+    padding-bottom: 80px;
+    background: #f8f8f8; /* A light background for contrast */
+}
+
+footer .section-title {
+    padding-bottom: 10px;
+}
+
+footer h2 {
+    font-size: 20px;
+    color: #2c3e50; /* Darker color for headings */
+}
+
+footer a,
+footer p {
+    color: #6c757d; /* Softer color for text */
+    line-height: 1.6;
+}
+
+footer strong {
+    color: #34495e; /* Stronger color for emphasis */
+}
+
+footer address p {
+    margin-bottom: 0;
+}
+
+.footer-info,
+footer .social-icon {
+    margin-top: 20px;
+}
+
+.footer-open-hour {
+    background: url('../images/240_F_1404157016_PHrIJf1ESS6y5f0CYurjGaZLdsi7oI9d.webp') center center no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    margin-top: 0;
+    padding: 40px 0 40px 80px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1; /* Changed z-index for clarity */
+    right: 20px;
+    bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Add a subtle shadow */
+}
+
+.footer-open-hour::after {
+    background: rgba(29,29,29,0.85);
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Changed z-index for clarity */
+}
+
+.footer-open-hour h2 {
+    color: #ffffff;
+}
+
+.footer-open-hour p {
+    color: #d9d9d9;
+}
+
+.footer-open-hour strong {
+    color: #f9f9f9;
+}
+
+/*---------------------------------------
+  SOCIAL ICON
+-----------------------------------------*/
+
+.social-icon {
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.social-icon li {
+    display: inline-block;
+    list-style: none;
+    margin-bottom: 5px;
+    margin-right: 10px; /* Add some spacing between icons */
+}
+
+.social-icon li a {
+    border-radius: 100px;
+    color: #3B7A57;
+    font-size: 18px; /* Slightly larger icons */
+    width: 40px; /* Larger click area */
+    height: 40px; /* Larger click area */
+    line-height: 40px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.4s ease-in-out;
+    position: relative;
+    border: 1px solid #3B7A57; /* Add a subtle border */
+}
+
+.social-icon li a:hover {
+    background: #3B7A57;
+    color: #ffffff;
+    transform: translateY(-2px); /* Subtle lift on hover */
+}
+
+/* Custom button for diagnosis link */
+.footer-info .section-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-top: 20px;
+    background-color: #4CAF50; /* Green primary button */
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.footer-info .section-btn:hover {
+    background-color: #43A047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/*---------------------------------------
+  RESPONSIVE STYLES
+-----------------------------------------*/
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 991.98px) {
+    footer {
+        padding: 80px 0 60px; /* Adjust padding for medium screens */
+    }
+
+    footer h2 {
+        font-size: 18px; /* Slightly smaller headings */
+    }
+
+    footer a,
+    footer p {
+        font-size: 15px; /* Slightly smaller text */
+    }
+
+    .footer-open-hour {
+        right: 0; /* Align to the edge of the column */
+        bottom: 0; /* Align to the bottom of the column */
+        padding: 30px; /* More balanced padding */
+        margin-bottom: 30px; /* Space between stacked elements */
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767.98px) {
+    footer {
+        padding: 60px 0 40px; /* Adjust padding for small screens */
+    }
+
+    .col-sm-8, .col-sm-4 {
+        flex: 0 0 100%; /* Stack all columns on small screens */
+        max-width: 100%;
+        margin-bottom: 30px; /* Add spacing between stacked sections */
+    }
+
+    /* Reset specific column widths that were previously set for sm-8/sm-4 if necessary, though
+       flex: 0 0 100% and max-width: 100% should override them. */
+    .col-md-3, .col-md-4, .col-md-2 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .footer-info {
+        text-align: center; /* Center align text for better readability on small screens */
+        margin-top: 0; /* Remove top margin if columns are already spaced */
+    }
+
+    .footer-open-hour {
+        padding: 25px; /* Further reduced padding */
+        border-radius: 10px; /* Slightly smaller border-radius */
+        margin-left: auto; /* Center the box */
+        margin-right: auto; /* Center the box */
+        width: 90%; /* Give it a bit of horizontal padding */
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+
+    .footer-open-hour h2 {
+        font-size: 1.5em; /* Make title more prominent */
+    }
+
+    .social-icon {
+        text-align: center; /* Center social icons */
+    }
+
+    .social-icon li {
+        margin-right: 8px; /* Slightly less spacing for small screens */
+    }
+
+    .copyright-text {
+        text-align: center; /* Center copyright text */
+        margin-top: 20px;
+    }
+
+    .footer-info .section-btn {
+        width: 100%; /* Make button full width */
+        padding: 10px 20px; /* Adjust button padding */
+        font-size: 0.9em;
+    }
+}
+
+/* Extra small devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+    footer {
+        padding: 40px 0 20px; /* Minimal padding for very small screens */
+    }
+
+    footer h2 {
+        font-size: 16px; /* Even smaller headings */
+    }
+
+    footer a,
+    footer p {
+        font-size: 14px; /* Even smaller text */
+    }
+
+    .footer-open-hour {
+        padding: 20px; /* Minimal padding */
+        width: 95%; /* Almost full width */
+    }
+
+    .social-icon li a {
+        font-size: 16px; /* Smaller icons */
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+    }
+}
+
+
+
+  /*---------------------------------------
+     RESPONSIVE STYLES              
+  -----------------------------------------*/
+/* Existing media query for tablets (768px to 991px) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .custom-navbar .nav li a {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    /* Font sizes for medium screens (tablets) */
+    h1 {
+        font-size: 2.8em; /* Slightly smaller than desktop */
+    }
+    h2 {
+        font-size: 2.2em; /* Adjusted for tablets */
+    }
+    h3 {
+        font-size: 1.8em; /* Adjusted for tablets */
+    }
+    h4 {
+        font-size: 1.4em; /* Adjusted for tablets */
+    }
+}
+
+/* Existing media query for small screens (max-width: 767px) - phones */
+@media only screen and (max-width: 767px) {
+    /* Base adjustments for all headings on small screens */
+    h1, h2, h3, h4 {
+        line-height: normal; /* Ensures consistent line height */
+    }
+
+    h1 {
+        font-size: 2.2em; /* Smaller for phones */
+    }
+    h2 {
+        font-size: 1.8em; /* Adjusted for phones */
+    }
+    h3 {
+        font-size: 1.4em; /* Adjusted for phones */
+    }
+    h4 {
+        font-size: 1.1em; /* Adjusted for phones */
+    }
+
+    .custom-navbar {
+        background: #ffffff;
+        -webkit-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .custom-navbar .nav li a {
+        line-height: normal;
+        padding: 10px;
+    }
+
+    .custom-navbar .navbar-brand,
+    .top-nav-collapse .navbar-brand {
+        color: #252525;
+        font-weight: 600;
+    }
+
+    .custom-navbar .nav li a,
+    .top-nav-collapse .nav li a {
+        color: #575757;
+    }
+
+    .custom-navbar .navbar-nav.navbar-right li {
+        display: inline-block;
+    }
+
+    .custom-navbar .navbar-nav.navbar-right .section-btn {
+        display: block !important;
+        width: 50%;
+        margin: 10px auto 10px auto;
+        padding: 10px;
+    }
+
+    .custom-navbar .section-btn a {
+        color: #ffffff !important;
+    }
+
+    .slider .caption {
+        padding: 0;
+    }
+
+    .menu-thumb .menu-info {
+        top: 80%;
+    }
+
+    footer {
+        padding: 60px 0;
+        padding-bottom: 60px;
+    }
+
+    .footer-open-hour {
+        right: 0;
+        bottom: 0;
+        margin-top: 30px;
+    }
+}
+
+/* New media query for very small screens (e.g., <= 480px) */
+@media only screen and (max-width: 480px) {
+    h1 {
+        font-size: 15px; /* Even smaller for very small phones */
+    }
+    h2 {
+        font-size: 14px;
+    }
+    h3 {
+        font-size: 1.2em;
+    }
+    h4 {
+        font-size: 1em; /* Often body text size for very small screens */
+    }
+}
+
+/* Existing media query for very small screens */
+@media only screen and (max-width: 580px) {
+    .menu-thumb .menu-info {
+        top: 60%;
+    }
+    /* Note: The h1-h4 styles from 480px will override if this is a larger breakpoint */
+    /* Ensure the order of media queries (largest to smallest or vice versa) is logical */
+}
+
+
+
+ /*---------------------------------------
+     ARTICLES              
+-----------------------------------------*/
+#articles .menu-thumb {
+  background: #ffffff;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s;
+}
+
+#articles .articles-content {
+  position: relative;
+  z-index: 2;
+}
+
+#articles .category {
+  /* color: #ce3232; */
+  color: #3B7A57;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+#articles h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #454545;
+}
+
+#articles .article-meta {
+  color: #bfbdbd;
+  font-size: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#articles .section-btn {
+  margin-top: 25px;
+  padding: 8px 25px;
+  font-size: 12px;
+}
+
+/* Hover Effects */
+#articles .menu-thumb:hover {
+  transform: translateY(-10px);
+}
+
+#articles .menu-thumb:hover h3 {
+  /* color: #ce3232; */
+  color: #3B7A57;
+}
+
+
+
+/* ------------------------------
+card 
+------------------------------ */
+
+/* General Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Section Styling */
+.card-section {
+  padding: 40px 20px;
+}
+
+/* Card Container */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual Card */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #1a202c;
+}
+
+.card p {
+  font-size: 15px;
+  margin-bottom: 12px;
+  color: #555;
+}
+
+.card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.card ul li {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+/* Icon Box */
+.icon-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #fff;
+}
+
+/* Themed Icon Colors */
+.icon-blue {
+  background-color: #3182ce;
+}
+
+.icon-yellow {
+  background-color: #f6ad55;
+}
+
+.icon-green {
+  background-color: #48bb78;
+}
+
+.icon-purple {
+  background-color: #9f7aea;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .card {
+    padding: 20px;
+  }
+
+  .card h3 {
+    font-size: 18px;
+  }
+
+  .card p,
+  .card ul li {
+    font-size: 14px;
+  }
+}
+
+/* ---------------------------------
+      why-ai-dermatologist
+ ---------------------------------*/
+
+.why-ai-dermatologist {
+  padding: 60px 20px;
+  /* background-color: #f9f9f9; */
+  background-color: #2fb84f28;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.why-ai-dermatologist .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.why-ai-dermatologist h2 {
+  font-size: 38px;
+  font-weight: 700;
+  color: #0c1c48;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.why-ai-dermatologist h2 .highlight {
+  color: #3B7A57; 
+}
+
+.why-ai-dermatologist .subtitle {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+.why-ai-dermatologist .features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.why-ai-dermatologist ul {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.why-ai-dermatologist li {
+  position: relative;
+  padding-left: 32px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #0c1c48;
+  line-height: 1.7;
+}
+
+.why-ai-dermatologist li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  color: #28a745;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* ------------------
+ Blog Card or Title
+------------------*/
+
+    /* Global reset only for this component */
+  .herbal-skin-component * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  
+  /* Component container with unique namespace */
+  .herbal-skin-component {
+      font-family: 'Manrope', sans-serif;
+      background: linear-gradient(135deg, #f0f9f0 0%, #e4f5e4 100%);
+      padding: 60px 20px;
+      color: #2c3e30;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .herbal-skin-container {
+      max-width: 1200px;
+      width: 100%;
+      text-align: center;
+  }
+  
+  .herbal-skin-header {
+      margin-bottom: 50px;
+      position: relative;
+  }
+  
+  .herbal-leaf-decoration {
+      position: absolute;
+      opacity: 0.15;
+      z-index: 0;
+      pointer-events: none;
+  }
+  
+  .herbal-leaf-1 {
+      top: -30px;
+      left: 10%;
+      font-size: 8rem;
+      transform: rotate(-15deg);
+      color: #2e7d32;
+  }
+  
+  .herbal-leaf-2 {
+      bottom: -40px;
+      right: 12%;
+      font-size: 6rem;
+      transform: rotate(25deg);
+      color: #388e3c;
+  }
+  
+  .herbal-main-title {
+      font-family: 'Crimson Pro', serif;
+      font-size: 3.2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #1b5e20 0%, #4caf50 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 15px;
+      letter-spacing: -0.5px;
+  }
+  
+  .herbal-subtitle {
+      font-size: 1.2rem;
+      color: #4a6350;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      position: relative;
+      padding: 0 20px;
+  }
+  
+  .herbal-subtitle::before, 
+  .herbal-subtitle::after {
+      content: "❧";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4caf50;
+      opacity: 0.7;
+  }
+  
+  .herbal-subtitle::before {
+      left: 0;
+  }
+  
+  .herbal-subtitle::after {
+      right: 0;
+  }
+  
+  .herbal-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      justify-content: center;
+  }
+  
+  .herbal-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      border: 1px solid #e8f5e9;
+  }
+  
+  .herbal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #2e7d32, #8bc34a);
+      opacity: 0.8;
+      transition: height 0.3s ease;
+  }
+  
+  .herbal-card:hover::before {
+      height: 8px;
+  }
+  
+  .herbal-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(76, 175, 80, 0.2);
+  }
+  
+  .herbal-card-image {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+  }
+  
+  .herbal-card-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(27, 94, 32, 0.3), rgba(139, 195, 74, 0.3));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+  }
+  
+  .herbal-card:hover .herbal-card-image::before {
+      opacity: 1;
+  }
+  
+  .herbal-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+  }
+  
+  .herbal-card:hover .herbal-card-image img {
+      transform: scale(1.05);
+  }
+  
+  .herbal-card-body {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+  }
+  
+  .herbal-card-date {
+      font-size: 0.85rem;
+      color: #2e7d32;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+  }
+  
+  .herbal-card-date::before {
+      content: "🌿";
+      margin-right: 8px;
+      font-size: 1.1rem;
+  }
+  
+  .herbal-card-title {
+      font-family: 'Crimson Pro', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #1b5e20;
+      margin-bottom: 15px;
+      line-height: 1.4;
+      transition: color 0.3s ease;
+  }
+  
+  .herbal-card:hover .herbal-card-title {
+      color: #388e3c;
+  }
+  
+  .herbal-card-text {
+      color: #5a6b5c;
+      line-height: 1.7;
+      margin-bottom: 25px;
+      flex-grow: 1;
+  }
+  
+  .herbal-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 25px 25px;
+      border-top: 1px dashed #c8e6c9;
+      margin-top: auto;
+      padding-top: 20px;
+  }
+  
+  .herbal-card-mini-date {
+      font-size: 0.85rem;
+      color: #7e9d80;
+      font-weight: 500;
+      background: #f1f8e9;
+      padding: 4px 12px;
+      border-radius: 20px;
+  }
+  
+  .herbal-card-button {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 600;
+      color: #2e7d32;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      padding: 8px 16px;
+      background: rgba(46, 125, 50, 0.1);
+      border-radius: 30px;
+  }
+  
+  .herbal-card-button .herbal-arrow {
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+      color: #2e7d32;
+  }
+  
+  .herbal-card-button:hover {
+      background: rgba(46, 125, 50, 0.2);
+      color: #1b5e20;
+  }
+  
+  .herbal-card-button:hover .herbal-arrow {
+      transform: translateX(4px);
+  }
+  
+  .herbal-tag-container {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+  }
+  
+  .herbal-tag {
+      background: rgba(76, 175, 80, 0.1);
+      color: #2e7d32;
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+  }
+  
+  .herbal-tag i {
+      margin-right: 5px;
+      font-size: 0.8rem;
+  }
+  
+  .herbal-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #e8f5e9;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2e7d32;
+      font-size: 1.2rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      z-index: 2;
+  }
+  
+  @media (max-width: 768px) {
+      .herbal-card-grid {
+          grid-template-columns: 1fr;
+      }
+      
+      .herbal-main-title {
+          font-size: 2.4rem;
+      }
+      
+      .herbal-leaf-decoration {
+          display: none;
+      }
+  }
+  
+  .herbal-watermark {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(46, 125, 50, 0.1);
+      font-size: 12rem;
+      z-index: 0;
+      font-weight: 800;
+      opacity: 0.1;
+      white-space: nowrap;
+      pointer-events: none;
+  }
+  
+  /* Unique decorative elements */
+  .herbal-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #4caf50, transparent);
+      margin: 30px auto;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 50%;
+  }
+
+  /* ---------------------------------------
+   Enhanced Developer Team Styles 
+   --------------------------------------- */
+/* ---------------------------------------
+   Herbal Styles (Main container and wrapper)
+   --------------------------------------- */
+.herbal-dev-container {
+    --herbal-primary: #1b5e20;
+    --herbal-secondary: #4caf50;
+    --herbal-accent: #64ea6b;
+    --herbal-light: #e8f5e9;
+    --herbal-dark: #263238;
+    --herbal-text: #37474f;
+    --herbal-light-text: #607d8b;
+    --herbal-card-bg: #ffffff;
+    --herbal-section-bg: rgba(255, 255, 255, 0.96);
+    
+    font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #f5fff5 0%, #ebf7eb 100%);
+    color: var(--herbal-text);
+    padding: 80px 20px;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.herbal-dev-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "images/herbal-pattern.png" %}') repeat;
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+.herbal-dev-wrapper {
+    max-width: 1400px; /* Max content width */
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Herbal Header */
+.herbal-dev-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+.herbal-dev-header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--herbal-primary), var(--herbal-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.herbal-dev-header p {
+    font-size: 1.8rem;
+    color: var(--herbal-light-text);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+.herbal-dev-divider {
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--herbal-primary), transparent);
+    width: 80%;
+    max-width: 500px;
+    margin: 40px auto;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+/* ---------------------------------------
+   Team Grid - Key Adjustments Here
+   --------------------------------------- */
+.herbal-dev-team-grid {
+    display: grid;
+    /* Adjusted minmax to allow more cards per row.
+       300px is a good common width for cards before wrapping.
+       If your cards are truly narrow, you could go even lower (e.g., 280px).
+       'auto-fill' can sometimes be better than 'auto-fit' if you want
+       empty columns to be created when not enough content for a full row.
+       However, 'auto-fit' is generally preferred for filling space.
+    */
+    margin-top: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 40px; /* Space between cards */
+    justify-content: center; /* Centers the grid items horizontally */
+    align-items: stretch; /* Ensures all cards in a row have the same height */
+}
+
+/* ---------------------------------------
+   Team Card - Adjustments for image display
+   --------------------------------------- */
+.herbal-dev-team-card {
+    background: var(--herbal-card-bg);
+    border-radius: 20px;
+    overflow: hidden; 
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    width: 100%; /* Ensures the card takes the full width of its grid cell */
+}
+
+.herbal-dev-team-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(46, 125, 50, 0.2);
+}
+
+.herbal-dev-team-card:hover .herbal-dev-floating-icons i {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.herbal-dev-card-header {
+    padding: 0;
+    background-color: white; /* Fallback/background for any unused space by image */
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    /* This height is crucial. It must accommodate your full banner image.
+       Based on your last screenshot (image_ad9419.png), a fixed 200px or 350px is
+       likely still too short if you want the *entire* banner to be visible.
+       You need to set this to the actual height of your banner image,
+       or a height that visually crops it as intended.
+       Let's try a larger value for now, assuming the full image should be seen.
+    */
+    height: 300px; /* Increased height. Adjust as needed for your specific banner image. */
+    /* If you still see dark bars with 'object-fit: contain', decrease this height slightly.
+       If the image is still cropped, increase it. */
+}
+
+.herbal-dev-card-header img {
+    width: 100%;
+    height: 100%; /* Make image fill the header's height */
+    object-fit: contain; /* IMPORTANT: Ensures the *entire* image is visible,
+                           letterboxing (showing dark background) if aspect ratios don't match.
+                           If you prefer cropping for visual fill, use 'cover', but you'll
+                           need to precisely match `height` of header to image aspect ratio. */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.herbal-dev-team-card:hover .herbal-dev-card-header img { /* Corrected selector for img hover */
+    transform: scale(1.05);
+}
+
+/* Remove the ::before overlay if not desired */
+.herbal-dev-card-header::before {
+    content: none;
+}
+
+/* This .herbal-dev-header-image wrapper is no longer needed in the HTML
+   if you're putting the <img> directly in .herbal-dev-card-header.
+   So, this CSS rule can be removed entirely.
+*/
+.herbal-dev-header-image {
+    /* REMOVE THIS BLOCK IF YOU'VE UPDATED HTML AS SUGGESTED IN LAST REPLY */
+    /* It's redundant if <img> is direct child of .herbal-dev-card-header */
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: var(--herbal-dark);
+    position: relative;
+    margin-bottom: 0;
+}
+
+/* NEW: Styles for the green information bar below the image */
+.herbal-dev-info-bar {
+     background-image: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+    background-color: #4CAF50; /* Fallback solid color */
+    color: white;
+    padding: 20px 30px; 
+    text-align: center;
+    position: relative;
+    z-index: 2; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+}
+
+.herbal-dev-info-bar h3 {
+    font-size: 2.2rem;
+    margin-bottom: 5px; 
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.herbal-dev-info-bar .herbal-dev-role {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Floating icons */
+.herbal-dev-floating-icons {
+    position: absolute;
+    top: 20px; 
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 3; 
+}
+
+.herbal-dev-floating-icons i {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.herbal-dev-team-card:hover .herbal-dev-floating-icons i:nth-child(1) {
+    transition-delay: 0.1s;
+}
+.herbal-dev-team-card:hover .herbal-dev-floating-icons i:nth-child(2) {
+    transition-delay: 0.2s;
+}
+.herbal-dev-team-card:hover .herbal-dev-floating-icons i:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+/* Card Body */
+.herbal-dev-card-body {
+    padding: 35px 30px;
+}
+
+.herbal-dev-card-body p {
+    color: var(--herbal-light-text);
+    line-height: 1.7;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+/* Skills */
+.herbal-dev-skills-title {
+    font-weight: 600;
+    color: var(--herbal-dark);
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.3px;
+}
+
+.herbal-dev-skills-title i {
+    margin-right: 12px;
+    color: var(--herbal-accent);
+    font-size: 1.8rem;
+}
+
+.herbal-dev-skill {
+    margin-bottom: 20px;
+}
+
+.herbal-dev-skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+    color: var(--herbal-light-text);
+    font-weight: 500;
+}
+
+.herbal-dev-skill-bar {
+    height: 8px;
+    background: #e0e9e1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.herbal-dev-skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--herbal-primary), var(--herbal-accent));
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.herbal-dev-skill-progress::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0.1) 0%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(255,255,255,0.1) 100%);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Social Links */
+.herbal-dev-social-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px dashed #c8e6c9;
+}
+
+.herbal-dev-social-links a {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--herbal-light);
+    color: var(--herbal-primary);
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.herbal-dev-social-links a:hover {
+    background: var(--herbal-accent);
+    color: white;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+}
+
+/* ---------------------------------------
+   Responsive Adjustments - Important for Grid
+   --------------------------------------- */
+@media (max-width: 1200px) {
+    .herbal-dev-team-grid {
+        /* Allow cards to be slightly smaller to fit 3 per row on common desktop widths */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    }
+}
+
+@media (max-width: 992px) { /* Added breakpoint for tablets/medium screens */
+    .herbal-dev-team-grid {
+        /* Often good to drop to 2 columns around this size */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    }
+}
+
+@media (max-width: 768px) {
+    .herbal-dev-header h1 {
+        font-size: 2.8rem;
+    }
+    
+    .herbal-dev-header p,
+    .herbal-dev-team-header p {
+        font-size: 1.5rem;
+    }
+    
+    .herbal-dev-team-header h2 { /* Assuming you have this somewhere, not in provided snippet */
+        font-size: 2.4rem;
+    }
+    
+    /* Assuming .herbal-dev-team-section wraps the grid, adjust its padding */
+    .herbal-dev-team-section { /* If you have this element */
+        padding: 50px 25px;
+    }
+
+    .herbal-dev-team-grid {
+        /* On smaller tablets, explicitly allow 1 or 2 columns based on card width */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px; /* Slightly reduce gap */
+    }
+}
+
+@media (max-width: 576px) { /* Added breakpoint for smaller phones */
+     .herbal-dev-team-grid {
+        /* Force single column on smaller mobile screens for better readability */
+        grid-template-columns: 1fr; 
+        gap: 25px; /* Adjust gap for single column */
+    }
+}
+
+@media (max-width: 480px) {
+    .herbal-dev-container {
+        padding: 60px 15px;
+    }
+    
+    .herbal-dev-header h1 {
+        font-size: 2.4rem;
+    }
+    
+    /* No need to set grid-template-columns here again if 576px handles 1fr */
+    /* .herbal-dev-team-grid {
+        grid-template-columns: 1fr;
+    } */
+    
+    .herbal-dev-card-header h3 { /* This is now in .herbal-dev-info-bar, so this rule is likely ineffective */
+        font-size: 2rem;
+    }
+
+    /* Target the h3 in the info bar for responsive font-size */
+    .herbal-dev-info-bar h3 {
+        font-size: 2rem;
+    }
+}
+  
+
+/* //////////////////// 
+PREDICTION
+////////////////////*/
+/* Variables for consistent styling */
+
+:root {
+    --primary-color: #4CAF50; /* Green */
+    --secondary-color: #2E7D32; /* Darker Green */
+    --accent-color: #FFC107; /* Amber */
+    --light-color: #FFFFFF;
+    --dark-color: #333333;
+    --gray-color: #DDDDDD;
+    --light-gray-color: #F8F8F8;
+
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+/* Base styles */
+/* body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-gray-color);
+    color: var(--dark-color);
+    line-height: 1.6;
+} */
+
+/* Main container for the whole application */
+.herbal-container {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Decorative leaf elements */
+.herbal-leaf-decoration {
+    position: absolute;
+    font-size: 8rem; /* Large leaves */
+    color: rgba(76, 175, 80, 0.1); /* Primary color with transparency */
+    z-index: 0; /* Behind content */
+}
+
+.herbal-leaf-1 {
+    top: -50px;
+    left: -50px;
+    transform: rotate(30deg);
+}
+
+.herbal-leaf-2 {
+    bottom: -50px;
+    right: -50px;
+    transform: rotate(-45deg);
+}
+
+/* Main content area */
+.herbal-main-content {
+    flex-grow: 1;
+    position: relative; /* For z-index to work */
+    z-index: 1; /* Above decorative leaves */
+    padding: 2rem; /* Add some padding around the grid */
+}
+
+/* Base card styles */
+.card {
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    box-sizing: border-box;
+    transition: var(--transition);
+    border: 1px solid var(--gray-color);
+    color: var(--dark-color);
+    /* Ensure content inside doesn't overflow horizontally */
+    overflow-x: hidden; /* Added to prevent horizontal overflow within any .card */
+}
+/* Ensure .card-content-padded doesn't restrict width unnecessarily */
+.card-content-padded {
+    /* If this class exists and has fixed width/max-width, it could be a culprit */
+    width: 100%; /* Ensure it always takes full width of its parent .card */
+    box-sizing: border-box; /* Include its padding in the width */
+    /* Check its padding, it should be reasonable */
+    padding: 1.5rem; /* Or whatever value you want */
+}
+/* Add space between the dynamically loaded issue card and remedy card */
+.herbal-detailed-remedies-grid .herbal-issue-card {
+    margin-bottom: 20px; /* Or 30px, to match your desired gap */
+}
+
+/* Titles */
+.herbal-section-title {
+    color:#246f08;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Icons in titles */
+.herbal-section-title i {
+    color: var(--secondary-color);
+}
+
+.herbal-btn {
+    border: none;
+    padding: 0.9rem 1.5rem; /* Increased padding */
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem; /* Slightly increased font size */
+}
+
+.herbal-btn-primary {
+    background-color: green;
+    color: white;
+}
+
+.herbal-btn-primary:hover:not(:disabled) {
+    background-color: var(--secondary-color);
+}
+
+.herbal-btn-secondary {
+    background-color: var(--light-gray-color);
+    color: var(--dark-color);
+    border: 1px solid var(--gray-color);
+}
+
+.herbal-btn-secondary:hover:not(:disabled) {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Disabled buttons */
+.herbal-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Style for the info text below buttons */
+.herbal-info-text {
+    display: block; /* Make it take its own line */
+    margin-top: 1.5rem; /* Space from buttons above */
+    padding: 1rem; /* Inner padding */
+    background-color: rgba(76, 175, 80, 0.05); /* Very light primary background */
+    color: #2E7D32; /* Text color to primary green */
+    border: 1px solid rgba(76, 175, 80, 0.2); /* Light primary border */
+    border-radius: var(--border-radius); /* Rounded corners */
+    font-size: 16px; /* Slightly smaller text for info */
+    line-height: 1.5;
+    max-width: 100%;
+}
+
+/* Style for the icon within the info text */
+.herbal-info-text i {
+    font-size: 1.2em; /* Make the icon slightly larger than the text */
+    color: var(--secondary-color); /* A slightly darker green for the icon */
+    min-width: 20px; /* Ensure consistent spacing if icon size varies */
+    text-align: center; /* Center the icon itself */
+}
+
+/* Status indicator */
+.herbal-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.herbal-status-dot {
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+/* Confidence meter */
+.herbal-confidence-meter {
+    width: 100%;
+    height: 12px;
+    background-color: var(--gray-color);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0.5rem 0 1rem 0;
+}
+
+.herbal-confidence-level {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.4s ease;
+    border-radius: 8px 0 0 8px;
+}
+
+/* Text for confidence */
+#diagnosisConfidenceText {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+/* Main Grid Container - MODIFIED FOR COLUMN LAYOUT */
+.herbal-card-grid {
+    display: flex;
+    flex-direction: column; /* ALWAYS stack vertically */
+    gap: 30px;
+    align-items: center; /* Center cards horizontally in the column */
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: var(--light-gray-color);
+    max-width: 1000px; /* Sets the maximum width for the entire grid */
+    width: 100%; /* Ensure it takes full width up to max-width */
+    margin: 0 auto; /* Center the grid itself on the page */
+}
+
+/* Prediction Input Section (Top Card) */
+.herbal-upload-section {
+    width: 100%;
+    max-width: 1000px;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    background-color: #d7e3cd;
+    transition: all ease-in-out 0.4s;
+    box-shadow: 0 4px 8px rgba(11, 67, 0, 0.934);/* Initial subtle shadow */
+}
+
+.herbal-upload-section:hover {
+    transform: translateY(-5px); /* Moves element up by 5px */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.078); /* Deeper shadow on hover */
+}
+
+/* Diagnosis Results Summary (Bottom Card - The "green card") */
+.herbal-results-section {
+    width: 100%;
+    max-width: 1000px;
+    min-width: 280px;
+    background-color: #d7e3cd; /* This is your 'green card' background */
+    transition: all ease-in-out 0.4s;
+    box-shadow: 0 4px 8px rgba(11, 67, 0, 0.934); /* Initial subtle shadow */
+}
+
+.herbal-results-section:hover {
+    transform: translateY(-5px); /* Moves element up by 5px */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.78); /* Deeper shadow on hover */
+}
+
+/* --- Core structure adjustments for white cards within the green card --- */
+
+/* Ensure the .herbal-card-body can contain its children properly */
+.herbal-results-section .herbal-card-body {
+    display: flex;
+    flex-direction: column; /* Stack contents vertically: summary, then detailed remedies */
+    gap: 1.5rem; /* Space between summary and detailed remedies grid */
+    padding: 1.5rem; /* Ensure consistent padding within the card body */
+    overflow-x: hidden; /* ADDED: Crucial to prevent horizontal overflow of internal elements */
+}
+
+/* New Grid for Detailed Issue and Remedy Cards (the white cards are children of this grid) */
+.herbal-detailed-remedies-grid {
+    display: grid;
+    /* Default: 2 columns if space allows, otherwise 1. Min size for a column is 300px. */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Adjusted gap */
+    align-items: flex-start; /* Align cards at the top */
+    margin-top: 0; /* Managed by parent gap now */
+    width: 100%; /* CRUCIAL: Ensure it takes full width of its parent container */
+    box-sizing: border-box; /* Include padding/border in width calculation for this grid */
+    overflow-x: hidden; /* Added as a safeguard for this grid itself */
+}
+
+/* Individual Issue Card & Individual Remedy Card (the "white cards") */
+.herbal-issue-card{
+    /* Inherits .card styles, which now includes overflow-x: hidden; */
+    display: flex;
+    flex-direction: column; /* Stack content vertically within each card */
+    min-width: unset; /* CRUCIAL: Allow cards to shrink as needed, preventing fixed width overflow */
+    width: 100%; /* Ensure they take up 100% of their grid column */
+    box-sizing: border-box; /* Include padding/border in width calculation */
+}
+/* And ensure herbal-remedy-card itself doesn't limit its internal content */
+.herbal-remedy-card {
+    width: 100%; /* Ensure it always takes full width of its grid column */
+    min-width: unset; /* Very important for responsiveness */
+    box-sizing: border-box; /* Include padding/border in width */
+    overflow-x: hidden; /* As a safeguard */
+}
+/* Make sure lists don't overflow due to large bullets or long words */
+.remedy-steps {
+    list-style-type: disc; /* Or your preferred bullet style */
+    padding-left: 1.5em; /* Ensure enough space for bullets */
+    margin-left: 0; /* Reset default margin if any */
+}
+
+.remedy-steps li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+/* --- Updated CSS for consistent full-width remedy images --- */
+
+.remedy-card .remedy-image-wrapper {
+    /* Ensure the wrapper also takes full width and doesn't introduce extra spacing */
+    width: 100%;
+    /* No padding here, let the image fill it */
+    overflow: hidden; /* Important if the image is slightly bigger than its wrapper */
+    margin-top: 1rem; /* Space above the image */
+    margin-bottom: 0; /* No extra space below if not needed */
+}
+
+.remedy-card .remedy-image {
+    width: 100%; /* Make image take full width of its container (remedy-image-wrapper) */
+    height: 200px; /* FIXED HEIGHT: All images will be this height */
+    object-fit: cover; /* Crops the image to fit the 100% width and fixed height, maintaining aspect ratio */
+    border-radius: 8px; /* Apply border-radius directly to the image */
+    display: block; /* Ensure it behaves as a block element for proper sizing */
+    /* Remove any margins if previously set for centering, as it's now full width */
+    margin: 0;
+    padding: 0;
+}
+
+
+/* --- Responsive Adjustments (Refined for card overflow and image consistency) --- */
+
+@media (max-width: 1024px) {
+    .herbal-results-section .herbal-card-body {
+        gap: 1.2rem;
+    }
+    .herbal-detailed-remedies-grid {
+        gap: 18px;
+    }
+    .herbal-issue-card, .herbal-remedy-card {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) { /* Tablets (portrait) and large phones */
+    .herbal-results-section .herbal-card-body {
+        gap: 1rem;
+        padding: 1.2rem; /* Reduce padding inside the card body */
+    }
+    .card {
+        padding: 1rem; /* Reduce general card padding as well */
+    }
+
+    /* IMPORTANT: Force detailed remedies grid to single column on tablets */
+    .herbal-detailed-remedies-grid {
+        grid-template-columns: 1fr; /* Stack issue and remedy vertically */
+        gap: 15px; /* Smaller gap when stacked */
+        overflow-x: hidden; /* Added as a safeguard */
+    }
+
+    .herbal-issue-card,
+    .herbal-remedy-card {
+        min-width: unset; /* Explicitly remove min-width constraint */
+        width: 100%; /* Ensure they take up 100% of the single column */
+        padding: 1rem; /* Adjust padding for inner cards */
+    }
+
+    /* Further text/element sizing for smaller screens */
+    .herbal-section-title {
+        font-size: 1.3rem;
+    }
+    .herbal-status-indicator span {
+        font-size: 0.9em;
+    }
+    .herbal-issue-card .herbal-issue-name {
+        font-size: 1.1rem;
+    }
+    .remedy-card h4 {
+        font-size: 1rem;
+    }
+    .remedy-card p, .remedy-steps li, .herbal-collapsible-content p {
+        font-size: 0.85rem;
+        word-wrap: break-word; /* ADDED: Ensure long words break within content */
+        overflow-wrap: break-word; /* ADDED: Ensure long words break within content */
+    }
+    .remedy-card .remedy-image {
+        max-height: 180px; /* Limit image height to prevent dominance */
+        height: 180px; /* Fixed height for consistency */
+        object-fit: cover; /* Ensure image covers space without distortion */
+    }
+}
+
+@media (max-width: 480px) { /* Smaller mobile devices */
+    .herbal-results-section .herbal-card-body {
+        gap: 0.8rem;
+        padding: 1rem; /* Further reduce padding inside */
+    }
+    .card {
+        padding: 0.8rem; /* Further reduce general card padding */
+    }
+    .herbal-section-title {
+        font-size: 1.1rem;
+    }
+    .herbal-status-indicator span {
+        font-size: 0.85em;
+    }
+    .herbal-issue-card .herbal-issue-name {
+        font-size: 1rem;
+    }
+    .remedy-card h4 {
+        font-size: 0.95rem;
+    }
+    .remedy-card p, .remedy-steps li, .herbal-collapsible-content p {
+        font-size: 0.8rem;
+    }
+    .herbal-detailed-remedies-grid {
+        gap: 10px;
+    }
+    .remedy-card .remedy-image {
+        max-height: 150px;
+        height: 150px; /* Fixed height for consistency */
+    }
+}
+
+/* Individual Issue Card */
+.herbal-issue-card {
+    /* Inherits .card styles and new width/min-width from above */
+    flex: 1; /* Allows it to grow within the detailed grid */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    /* min-width: 280px; -- REMOVED/OVERRIDDEN by 'min-width: unset;' in responsive queries */
+}
+
+/* Individual Remedy Card */
+.herbal-remedy-card {
+    /* Inherits .card styles and new width/min-width from above */
+    flex: 1; /* Allows it to grow within the detailed grid */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    /* min-width: 280px; -- REMOVED/OVERRIDDEN by 'min-width: unset;' in responsive queries */
+}
+
+/* Styling for remedy image within the card */
+.remedy-card .remedy-image {
+    max-width: 100%;
+    /* height: auto; -- Removed in favor of fixed height + object-fit */
+    height: 200px; /* ADDED: Fixed height for consistent image display */
+    object-fit: cover; /* ADDED: Ensure image covers the area, cropping as needed */
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: block; /* ADDED: Important for height and width to behave correctly */
+}
+.remedy-card .remedy-image-placeholder {
+    width: 100%;
+    height: 150px; /* Placeholder height */
+    background-color: var(--gray-color);
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-color);
+    font-style: italic;
+}
+
+
+/* Responsive Adjustments - These are now less critical for the main card layout,
+    as we've forced column direction globally. */
+@media (min-width: 1200px) {
+    /* On larger screens, the detailed remedies grid can still be two columns */
+    .herbal-detailed-remedies-grid {
+        grid-template-columns: 1fr 1fr; /* Explicitly two columns */
+    }
+}
+
+@media (max-width: 900px) {
+    /* This media query can now be simplified or removed for the main cards,
+        as flex-direction: column is global.
+        However, it still applies to the detailed remedies grid if needed. */
+    /* REMOVED: This rule is redundant now as the 768px query handles stacking */
+    /* .herbal-detailed-remedies-grid {
+        grid-template-columns: 1fr;
+    } */
+}
+
+/* Existing styles for images, video, canvas */
+.herbal-preview-container {
+    position: relative;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#imagePreview, #herbal-camera-feed {
+    max-width: 100%;
+    max-height: 400px;
+    display: block; /* Ensure they take up space when active */
+    margin: 0 auto; /* Center them */
+}
+
+#imagePreview, #herbal-camera-feed, #canvas {
+    width: 100%; /* Ensure they fill their container */
+    height: auto; /* Maintain aspect ratio */
+    display: none; /* Hidden by default, JS toggles */
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Allows clicks to pass through to elements behind */
+}
+
+/* Spinner (commented out in original, keeping it that way) */
+/* .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--primary-color);
+    animation: spin 1s ease infinite;
+    display: none;
+    margin: 20px auto;
+} */
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Remedy card specific styles */
+.remedy-card {
+    display: flex;
+    flex-direction: column; /* Stack content and image */
+    height: 100%; /* Ensure cards in a flex/grid row are same height */
+}
+
+.remedy-card .remedy-content {
+    flex-grow: 1; /* Allow content to take up available space */
+}
+
+.remedy-card h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.remedy-card p {
+    margin-bottom: 0.5rem;
+}
+
+.remedy-steps {
+    padding-left: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.remedy-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto; /* Push navigation to the bottom */
+    padding-top: 1rem; /* Space from content above */
+    border-top: 1px solid var(--light-gray-color);
+}
+
+.remedy-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.remedy-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.remedy-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- NEW ADDITIONS FOR COLLAPSIBLE CAUSES/SYMPTOMS --- */
+
+/* Styles for the issue card's title and buttons */
+.herbal-issue-card .herbal-issue-name {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.herbal-issue-card .herbal-issue-name i {
+    color: var(--secondary-color);
+}
+
+.herbal-issue-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem; /* Space between buttons and collapsible content */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+/* Styles for collapsible content */
+.herbal-collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Smooth transition for height and padding */
+    padding: 0 1rem; /* Initial padding */
+    box-sizing: border-box;
+    border-left: 3px solid var(--accent-color); /* Little visual indicator */
+    margin-top: 1rem;
+}
+
+.herbal-collapsible-content.active {
+    max-height: 500px; /* Or a value large enough to contain content, adjust as needed. This allows transition. */
+    padding: 1rem; /* Padding when active */
+}
+
+.herbal-collapsible-content h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.herbal-collapsible-content p {
+    line-height: 1.6;
+    color: var(--dark-color);
+}
+
+/* Existing styles for images, video, canvas */
+.herbal-preview-container {
+    position: relative;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#imagePreview, #herbal-camera-feed {
+    max-width: 100%;
+    max-height: 400px;
+    display: block; /* Ensure they take up space when active */
+    margin: 0 auto; /* Center them */
+}
+
+#imagePreview, #herbal-camera-feed, #canvas {
+    width: 100%; /* Ensure they fill their container */
+    height: auto; /* Maintain aspect ratio */
+    display: none; /* Hidden by default, JS toggles */
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Allows clicks to pass through to elements behind */
+}
+
+/* Spinner */
+/* .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--primary-color);
+    animation: spin 1s ease infinite;
+    display: none;
+    margin: 20px auto;
+} */
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Remedy card specific styles */
+.remedy-card {
+    display: flex;
+    flex-direction: column; /* Stack content and image */
+    height: 100%; /* Ensure cards in a flex/grid row are same height */
+}
+
+.remedy-card .remedy-content {
+    flex-grow: 1; /* Allow content to take up available space */
+}
+
+.remedy-card h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.remedy-card p {
+    margin-bottom: 0.5rem;
+}
+
+.remedy-steps {
+    padding-left: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.remedy-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto; /* Push navigation to the bottom */
+    padding-top: 1rem; /* Space from content above */
+    border-top: 1px solid var(--light-gray-color);
+}
+
+.remedy-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.remedy-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.remedy-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- NEW ADDITIONS FOR COLLAPSIBLE CAUSES/SYMPTOMS --- */
+
+/* Styles for the issue card's title and buttons */
+.herbal-issue-card .herbal-issue-name {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.herbal-issue-card .herbal-issue-name i {
+    color: var(--secondary-color);
+}
+
+.herbal-issue-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem; /* Space between buttons and collapsible content */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+/* Styles for collapsible content */
+.herbal-collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Smooth transition for height and padding */
+    padding: 0 1rem; /* Initial padding */
+    box-sizing: border-box;
+    border-left: 3px solid var(--accent-color); /* Little visual indicator */
+    margin-top: 1rem;
+}
+
+.herbal-collapsible-content.active {
+    max-height: 500px; /* Or a value large enough to contain content, adjust as needed. This allows transition. */
+    padding: 1rem; /* Padding when active */
+}
+
+.herbal-collapsible-content h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.herbal-collapsible-content p {
+    line-height: 1.6;
+    color: var(--dark-color);
+}
+/* --------------------------- 
+Face Analysis
+------------------------------- */
+.video-banner {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 101vw;    /* Overfill slightly to remove flicker */
+  height: 101vh;   /* Overfill slightly to remove flicker */
+  object-fit: cover;
+  pointer-events: none;  /* Prevent scroll issues */
+  z-index: -1;
+  display: block;
+}
+
+/* popup.css */
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of everything */
+    visibility: hidden; /* Hidden by default */
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+}
+
+.popup-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+}
+
+.popup-overlay.active .popup-content {
+    transform: scale(1);
+}
+
+.popup-content h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.popup-content p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.popup-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.2s ease-in-out;
+    margin: 5px;
+}
+
+.popup-button:hover {
+    background-color: #45a049;
+}
+
+.popup-button.popup-close {
+    background-color: #f44336; /* Red */
+}
+
+.popup-button.popup-close:hover {
+    background-color: #da190b;
+}
+
+/* Optional: Add a subtle animation for entry */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.popup-content {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* --- Add Your Review Section Styles --- */
+
+/* Ensure the parent .row is a flex container for equal height columns */
+.row {
+    display: flex;
+    flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+    align-items: stretch; /* Ensures flex items stretch to the height of the tallest item */
+}
+
+/* Base styles for both content areas */
+.reviews-display-area,
+.review-form-area {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    height: 100%; /* Crucial for equal height within the flex row */
+    display: flex; /* Make them flex containers to manage their internal vertical layout */
+    flex-direction: column;
+}
+
+/* Styles specific to the reviews display area (left column) */
+.reviews-display-area {
+    background-color: #f8f8f8; /* Light background as per original design */
+    justify-content: space-between; /* Pushes the CTA banner to the bottom */
+}
+
+.reviews-display-area h2 {
+    font-size: 2.5em; /* Larger font size for the main title */
+    font-weight: bold;
+    margin-bottom: 20px; /* Space below the title */
+    color: #333;
+    line-height: 1.2; /* Adjust line height for multi-line title */
+}
+
+.reviews-display-area h2 .heart-icon {
+    color: #e74c3c; /* Red heart icon, as seen in the reference image */
+    font-size: 0.8em; /* Adjust size relative to text */
+    vertical-align: middle; /* Align with text */
+}
+/* * New/Updated Styles for image-with-counter and review-counter */ */
+.image-with-counter {
+    position: relative; /* VERY IMPORTANT: Establishes a positioning context for absolute children */
+    width: 250px; /* Define the fixed width for this container */
+    height: 250px; /* Define the fixed height for this container (e.g., make it square) */
+    margin-bottom: 20px; /* Space below this block */
+    border-radius: 8px; /* Rounded corners for the entire image container */
+    overflow: hidden; /* Ensures image and counter stay within rounded bounds */
+    background-color: #e0e0e0; /* Fallback background */
+}
+
+.image-with-counter img {
+    width: 100%; /* Make the image fill the width of its parent */
+    height: 100%; /* Make the image fill the height of its parent */
+    object-fit: cover; /* Crucial: Scales and crops image to fill, maintaining aspect ratio */
+    display: block; /* Remove extra space below image */
+    border-radius: 8px; /* Apply rounded corners directly to the image */
+}
+
+.review-counter {
+    position: absolute; /* VERY IMPORTANT: Positions relative to the nearest positioned ancestor (.image-with-counter) */
+    bottom: 15px; /* Adjust as needed for vertical position from bottom */
+    right: 15px; /* Adjust as needed for horizontal position from right */
+    background-color: rgba(28, 94, 0, 0.6); /* Semi-transparent black background */
+    color: white; /* White text color */
+    padding: 8px 12px; /* Padding inside the counter box */
+    border-radius: 5px; /* Slightly rounded corners for the counter box */
+    font-size: 1.2em; /* Adjust font size */
+    font-weight: bold;
+    text-align: center; /* Center the text within the counter box */
+    line-height: 1; /* Adjust line height for single line of text */
+}
+
+.review-counter .count {
+  color: white;
+  font-size: smaller;
+    /* No specific styling needed for .count span, inherits from .review-counter */
+}
+
+/* Wrapper for image and counter to manage their horizontal layout */
+/* Wrapper for image and counter to manage their horizontal layout */
+.image-wrapper-and-counter {
+    display: flex;
+    align-items: center; /* Vertically align image and counter */
+    margin-bottom: 20px; /* Space below this block */
+    gap: 20px; /* Space between image and counter */
+}
+
+/* Ensure the image container is exactly the size you want */
+.image-display {
+    flex-shrink: 0; /* Prevent it from shrinking */
+    width: 250px; /* Set your desired fixed width for the image area */
+    height: 250px; /* Set your desired fixed height for the image area (e.g., make it square) */
+    border-radius: 8px; /* Rounded corners for the container */
+    overflow: hidden; /* Crucial: Clips anything outside the container's bounds */
+}
+
+/* Make the image itself fill its container */
+.image-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.review-counter {
+    display: flex; /* Make .review-counter a flex container */
+    flex-direction: column; /* Stack its children (the new span and the div) vertically */
+    align-items: center; /* Horizontally center the content of each line within .review-counter */
+    gap: 5px; /* Vertical space between the "count +" line and the "Happy Customers" line. Adjust as needed. */
+
+    /* Keep your existing .review-counter styles */
+    font-size: 3.5em; /* Applies to the entire flex container, inherited by children */
+    font-weight: bold;
+    color: #3B7A57;
+    line-height: 1; /* Adjust line height for the overall block */
+}
+
+.count-and-plus {
+    display: flex; /* Make this new span a flex container */
+    align-items: baseline; /* Align the number and '+' to their text baseline */
+    gap: -3px; /* Horizontal space between the number and the '+' sign. Adjust this negative value (e.g., -5px, -8px) to get the desired closeness. */
+    /* These elements will inherit font-size and color from .review-counter */
+}
+
+.review-counter .count {
+    color: #3B7A57; /* Ensure this specific color, it will override inherited color if needed */
+}
+
+.review-counter .plus-sign {
+    font-size: 0.6em; /* Smaller plus sign relative to its parent's (count-and-plus) font size */
+    vertical-align: super; /* Raise the plus sign */
+    margin: 0; /* Remove any previous conflicting margins */
+    /* The 'gap' property on .count-and-plus handles the spacing, so no need for margin-left here */
+}
+
+.review-counter .counter-label {
+    font-size: 0.3em; /* Smaller label relative to .review-counter's font-size (3.5em) */
+    font-weight: normal;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0; /* Remove any previous margin-top, as 'gap' on .review-counter handles vertical spacing */
+}
+
+/* Remove the old counter styles */
+.image-with-counter,
+.review-counter {
+    position: static;
+    background-color: transparent;
+    padding: 0;
+}
+/* Styles for "No reviews yet" message if present */
+.no-reviews-message {
+    font-size: 1.1em;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Styles for the scrollable reviews container */
+.reviews-scroll-container {
+    max-height: 400px; /* Set your desired max height for the scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling when content exceeds max-height */
+    padding-right: 15px; /* Add padding to prevent scrollbar from cutting into content */
+    margin-bottom: 20px; /* Space between the scrollable reviews and the CTA banner */
+    flex-grow: 1; /* Allows it to take up available vertical space within .reviews-display-area */
+    flex-shrink: 1;
+    flex-basis: auto; /* Allows content to define initial size */
+}
+
+/* Review Block Colors and Text Colors */
+.review-block {
+    background-image: url('/static/images/review_bgg.jpg'); /* Corrected path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative; /* VERY IMPORTANT: Needed for positioning the ::before pseudo-element */
+    z-index: 1; /* Ensures content is above the overlay */
+
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.1);
+
+    /* Ensure text color is light for readability against potential dark overlay */
+    /* If your text (like review-block p, reviewer-info) is currently dark, change it to white: */
+    /* color: #ffffff; */
+}
+
+/* Create the semi-transparent overlay */
+.review-block::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Use rgba for a semi-transparent color. Example: a dark overlay with 50% opacity */
+    background-color: rgba(0, 0, 0, 0.562); /* Black overlay with 50% opacity */
+    /* You can adjust the rgba values:
+       - First three numbers (0,0,0) for RGB color (e.g., 0,0,0 is black; 255,255,255 is white)
+       - Last number (0.5) for alpha (opacity) from 0 (fully transparent) to 1 (fully opaque)
+    */
+    border-radius: inherit; /* Inherit border-radius from parent for rounded corners */
+    z-index: -1; /* Place the overlay behind the content but above the background image */
+}
+
+.review-block:first-child {
+    margin-top: 0; /* Remove top margin for the very first review block */
+}
+
+/* Apply the base styling to the .stars container */
+.review-block .stars {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    /* You might remove color here if you want individual icons to determine it */
+}
+
+/* Style for solid stars (filled stars) */
+.review-block .stars .fa-star {
+    color: #c7c52b; /* Your desired gold/yellow color for filled stars */
+}
+
+/* Style for outline stars (empty stars) */
+.review-block .stars .fa-star-o {
+    color: #cccccc; /* A light grey color for outline stars to make them appear "empty" */
+    /* Alternatively, you can use a semi-transparent version of the solid color for a softer look: */
+    /* color: rgba(199, 197, 43, 0.4); */
+}
+.review-block p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #ffffff;
+    margin-bottom: 15px;
+
+    /* CSS for text truncation - Keep for consistent look if full text is not desired */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.reviewer-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #ccc;
+}
+
+.reviewer-info strong {
+    font-size: 1.1em;
+    color: #ffffff;
+}
+
+.reviewer-info small {
+    color: #e0e0e0;
+}
+
+/* Styles for the call to action banner */
+.call-to-action-banner {
+    background-color: #81c784; /* Green background */
+    color: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: auto; /* Pushes it to the bottom within the flex container */
+    flex-shrink: 0; /* Prevents it from shrinking too much */
+}
+
+.call-to-action-banner h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.call-to-action-banner .btn {
+    background-color: white;
+    color: #81c784;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.call-to-action-banner .btn:hover {
+    background-color: #f0f0f0;
+    color: #66bb6a;
+}
+
+/* Styles for the review form section (right column) */
+.review-form-area {
+    background-color: #ffffff; /* White background for the form */
+    /* Height and flex properties are already set in the combined rule above */
+    justify-content: space-between; /* To push the bottom image down if needed */
+}
+
+.review-form-area .section-title h2 {
+    color: #333;
+}
+
+.review-form-area .section-title h4 {
+    color: #666;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #555;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* NEW: Styles for the image at the bottom of the form area */
+.form-bottom-image {
+    margin-top: auto; /* Pushes it to the bottom if content above is short */
+    flex-shrink: 0; /* Prevents it from shrinking */
+    text-align: center; /* Center the image within its container */
+    padding-top: 20px; /* Add some padding above the image */
+}
+
+.form-bottom-image img {
+    max-width: 100%; /* Ensure image fits its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Match other rounded elements */
+}
+
+
+/* Bootstrap 5 Alert Close Button Adjustments */
+.alert .btn-close {
+    filter: invert(1); /* Makes a dark close icon appear white for better contrast */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 991.98px) { /* Adjust breakpoint for tablets/smaller desktops */
+    .reviews-display-area,
+    .review-form-area {
+        margin-bottom: 30px; /* Add space between stacked columns on smaller screens */
+        min-height: auto; /* Allow height to be auto on smaller screens if content is too much */
+        padding-bottom: 20px; /* Add some padding bottom when stacked */
+    }
+    .reviews-display-area h2 {
+        font-size: 1.8em; /* Adjust font size for smaller screens */
+    }
+    .image-wrapper-and-counter {
+        flex-direction: column; /* Stack image and counter vertically on small screens */
+        align-items: flex-start;
+    }
+    .review-counter {
+        text-align: center; /* Center the number when stacked */
+        width: 100%; /* Take full width when stacked */
+    }
+    .reviews-scroll-container {
+        max-height: 300px; /* Reduce scrollable height on smaller screens */
+    }
+    .form-bottom-image {
+        margin-top: 20px; /* Adjust margin for smaller screens if needed */
+    }
+}
+
+.website-description {
+    margin-top: 30px; /* Adjust spacing from the button above */
+    text-align: center; /* Center the text content */
+    padding: 20px; /* Add some internal padding */
+    background-color: #f8f8f8; /* A subtle background to distinguish it, similar to the left card */
+    border-radius: 10px; /* Match the border-radius of the cards */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+}
+
+.website-description h3 {
+    font-size: 1.8em; /* Slightly larger for the main title */
+    font-weight: bold;
+    color: #333; /* Darker text color for headings */
+    margin-bottom: 15px; /* Space below the heading */
+}
+
+.website-description p {
+    font-size: 1em; /* Standard paragraph font size */
+    line-height: 1.6; /* Good readability */
+    color: #555; /* Softer text color for body */
+    margin-bottom: 0; /* No bottom margin if it's the last element */
+}
+
+/* You might want to adjust media queries if this text needs different styling on smaller screens */
+@media (max-width: 768px) {
+    .website-description {
+        margin-top: 20px;
+        padding: 15px;
+    }
+    .website-description h3 {
+        font-size: 1.5em;
+    }
+    .website-description p {
+        font-size: 0.95em;
+    }
+}
+
+
+
+/* Styling for important photo upload guidelines */
+.photo-upload-guidelines {
+    color: #CC0000; /* A slightly softer red than pure red, commonly used for warnings/important notes */
+    font-size: 15px; /* Slightly larger text to make it stand out */
+    margin-top: 20px; /* Add some space above the paragraph */
+    margin-bottom: 20px; /* Add some space below the paragraph */
+    padding: 15px; /* Add some internal padding */
+    border-radius: 8px; /* Slightly rounded corners */
+    background-color: #FFF0F0; /* A very light red background to emphasize it as a note */
+    border: 1px solid #FFCCCC; /* A light red border */
+    line-height: 1.6; /* Improve readability */
+    text-align: center; /* Center the text if it's a standalone block */
+    max-width: 700px; /* Limit width for better readability on large screens */
+    margin-left: auto; /* Center the block itself */
+    margin-right: auto; /* Center the block itself */
+}
+
+/* Optional: Adjust for smaller screens */
+@media (max-width: 576px) {
+    .photo-upload-guidelines {
+        font-size: 0.95rem;
+        padding: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+        
+/* Confidence meter styles */
+.herbal-confidence-meter {
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.herbal-confidence-level {
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.5s ease;
+}
+
+/* Confidence badge for issue cards */
+.herbal-confidence-badge {
+    background-color: #4CAF50;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Other issues list */
+.herbal-other-issues {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.herbal-other-issues ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+.herbal-other-issues li {
+    padding: 3px 0;
+    color: #666;
+}
+/* Probability Distribution Styles */
+.probability-distribution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4CAF50;
+}
+
+.probability-header h4 {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+.probability-header p {
+    margin: 0 0 15px 0;
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+.probability-bars {
+    margin-top: 10px;
+}
+
+.probability-item {
+    margin-bottom: 10px;
+}
+
+.probability-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #34495e;
+    font-size: 0.95em;
+}
+
+.probability-bar-container {
+    width: 100%;
+    height: 24px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.probability-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    border-radius: 4px;
+    transition: width 0.8s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+}
+
+.probability-value {
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}

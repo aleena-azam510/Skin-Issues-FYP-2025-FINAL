@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ plan.condition_name }} - Lifestyle Plan</title>
+    <style>
+        /* Base styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 14px; 
+            margin: 0;
+            padding: 30px;
+            color: #333;
+            background: linear-gradient(135deg, #f8fff8 0%, #f0f9f0 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header section with gradient */
+        .header {
+            background: linear-gradient(135deg, #1a7f37 0%, #2ecc71 100%);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(30, 130, 76, 0.15);
+        }
+        
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            margin: 0 0 8px 0;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+        
+        .header .subtitle {
+            text-align: center;
+            font-size: 16px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        /* Condition tag */
+        .condition-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-top: 12px;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Content cards */
+        .content-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #2ecc71;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Section headers with gradient */
+        .section-header {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            margin: 0 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, #2ecc71, #1a7f37) 1;
+            color: #1a5d1a;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-header::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 20px;
+            background: linear-gradient(to bottom, #2ecc71, #1a7f37);
+            margin-right: 12px;
+            border-radius: 4px;
+        }
+        
+        /* Content styling */
+        .card-content {
+            line-height: 1.7;
+            color: #444;
+            font-size: 14.5px;
+        }
+        
+        .card-content p {
+            margin: 0 0 12px 0;
+        }
+        
+        /* Icon styling */
+        .icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #d4f1d4, #a8e6a8);
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .icon-diet::before { content: "🥗"; position: absolute; top: 8px; left: 10px; font-size: 20px; }
+        .icon-skincare::before { content: "✨"; position: absolute; top: 8px; left: 10px; font-size: 20px; }
+        .icon-exercise::before { content: "🏃"; position: absolute; top: 8px; left: 10px; font-size: 20px; }
+        .icon-sleep::before { content: "😴"; position: absolute; top: 8px; left: 10px; font-size: 20px; }
+        .icon-tips::before { content: "💡"; position: absolute; top: 8px; left: 10px; font-size: 20px; }
+        
+        /* Flex container for icons */
+        .section-container {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .footer .generated-date {
+            color: #1a7f37;
+            font-weight: 500;
+        }
+        
+        /* Print optimizations */
+        @media print {
+            body {
+                padding: 15px;
+                background: white;
+            }
+            
+            .content-card {
+                box-shadow: none;
+                border: 1px solid #e0e0e0;
+                page-break-inside: avoid;
+            }
+            
+            .header {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Personalized Lifestyle Plan</h1>
+        <p class="subtitle">Your customized guide to better health and wellness</p>
+        <div style="text-align: center;">
+            <span class="condition-tag">{{ plan.condition_name }}</span>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <div class="section-container">
+            <div class="icon icon-diet"></div>
+            <div style="flex: 1;">
+                <h2 class="section-header">Diet Guidance</h2>
+                <div class="card-content">
+                    {{ plan.diet_guidance|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <div class="section-container">
+            <div class="icon icon-skincare"></div>
+            <div style="flex: 1;">
+                <h2 class="section-header">Skincare Routine</h2>
+                <div class="card-content">
+                    {{ plan.skincare_routine|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <div class="section-container">
+            <div class="icon icon-exercise"></div>
+            <div style="flex: 1;">
+                <h2 class="section-header">Exercise Routine</h2>
+                <div class="card-content">
+                    {{ plan.exercise_routine|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-card">
+        <div class="section-container">
+            <div class="icon icon-sleep"></div>
+            <div style="flex: 1;">
+                <h2 class="section-header">Sleep Habits</h2>
+                <div class="card-content">
+                    {{ plan.sleep_habits|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if plan.additional_tips %}
+    <div class="content-card">
+        <div class="section-container">
+            <div class="icon icon-tips"></div>
+            <div style="flex: 1;">
+                <h2 class="section-header">Additional Tips</h2>
+                <div class="card-content">
+                    {{ plan.additional_tips|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="footer">
+        <p>This personalized lifestyle plan was generated on <span class="generated-date">{% now "F j, Y" %}</span></p>
+        <p>Consult with your healthcare provider before making significant changes to your lifestyle.</p>
+    </div>
+</body>
+</html>

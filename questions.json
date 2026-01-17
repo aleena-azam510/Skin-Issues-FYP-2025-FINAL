@@ -1,0 +1,131 @@
+{
+  "acne": {
+    "questions": {
+      "pustule": "Do you have pus-filled pimples?",
+      "papule": "Do you have small red raised bumps?",
+      "tiny_bumps": "Do you notice tiny bumps on your skin?",
+      "pain": "Do the affected areas feel painful?"
+    },
+    "auto_confirm": "Acne symptoms detected if any answer is Yes."
+  },
+  "black_heads": {
+    "questions": {
+      "dark_bumps": "Do you have small dark bumps on the skin?",
+      "open_pores": "Do you notice open pores?",
+      "on_nose": "Are they mostly present on your nose?"
+    },
+    "auto_confirm": "Blackheads detected if any answer is Yes."
+  },
+  "dark_circles": {
+    "questions": {
+      "dark_crescents": "Do you have dark shadows under your eyes?",
+      "hollows_under_eyes": "Do your under-eye areas look hollow?",
+      "sunken_eye_appearance": "Do your eyes appear sunken?"
+    },
+    "auto_confirm": "Dark circles detected if any answer is Yes."
+  },
+  "eye_bags": {
+    "questions": {
+      "mild_swelling_under_eyes": "Do you have mild swelling under your eyes?",
+      "puffiness_under_eyes": "Do your eyes look puffy?",
+      "tired_appearance": "Do your eyes make you look tired?"
+    },
+    "auto_confirm": "Eye bags detected if any answer is Yes."
+  },
+  "freckles": {
+    "questions": {
+      "small_flat_circular_spots": "Do you have small flat circular spots?",
+      "appear_in_clusters": "Do these spots appear in clusters?",
+      "darken_with_sun_exposure": "Do they darken after sun exposure?"
+    },
+    "auto_confirm": "Freckles detected if any answer is Yes."
+  },
+  "pigmentation": {
+    "questions": {
+      "dark_patches_or_spots": "Do you have dark patches or spots?",
+      "uneven_skin_tone": "Is your skin tone uneven?",
+      "worsen_with_sun_exposure": "Does it worsen with sun exposure?"
+    },
+    "auto_confirm": "Pigmentation detected if any answer is Yes."
+  },
+  "sun_spots": {
+    "questions": {
+      "flat_oval_dark_spots": "Do you have flat oval dark spots?",
+      "even_in_texture": "Are the spots smooth in texture?",
+      "well_defined_edges": "Do the spots have clear edges?"
+    },
+    "auto_confirm": "Sun spots detected if any answer is Yes."
+  },
+  "wrinkles": {
+    "questions": {
+      "fine_lines_on_skin": "Do you notice fine lines on your skin?",
+      "deeper_folds_or_creases": "Do you have deep skin folds or creases?",
+      "loose_or_sagging_skin": "Does your skin appear loose or sagging?"
+    },
+    "auto_confirm": "Wrinkles detected if any answer is Yes."
+  },
+  "rosacea": {
+    "questions": {
+      "persistent_facial_redness": "Do you have persistent facial redness?",
+      "visible_blood_vessels": "Are blood vessels visible on your face?",
+      "burning_or_stinging": "Do you feel burning or stinging sensations?"
+    },
+    "auto_confirm": "Rosacea detected if any answer is Yes."
+  },
+  "eczema": {
+    "questions": {
+      "dry_itchy_skin": "Do you have dry and itchy skin?",
+      "red_or_inflamed_patches": "Do you have red or inflamed patches?",
+      "severe_itching": "Is the itching severe?"
+    },
+    "auto_confirm": "Eczema detected if any answer is Yes."
+  },
+  "psoriasis": {
+    "questions": {
+      "thick_raised_patches_of_skin": "Do you have thick raised patches of skin?",
+      "well_defined_borders": "Do these patches have well-defined borders?",
+      "pain_or_soreness": "Do you feel pain or soreness?"
+    },
+    "auto_confirm": "Psoriasis detected if any answer is Yes."
+  },
+  "chicken_pox": {
+    "questions": {
+      "itchy_skin_rash_with_red_spots": "Do you have an itchy rash with red spots?",
+      "fluid_filled_blisters": "Do you have fluid-filled blisters?",
+      "mild_fever": "Do you have a mild fever?"
+    },
+    "auto_confirm": "Chicken pox symptoms detected if any answer is Yes."
+  },
+  "shingles": {
+    "questions": {
+      "fluid_filled_blisters": "Do you have fluid-filled blisters?",
+      "localized_pain": "Do you feel pain in a specific area?",
+      "red_rash_one_side": "Is the rash present on only one side of the body?"
+    },
+    "auto_confirm": "Shingles detected if any answer is Yes."
+  },
+  "hives": {
+    "questions": {
+      "raised_itchy_welts": "Do you have raised itchy welts?",
+      "intense_itching": "Is the itching intense?",
+      "temporary_appearance": "Do the welts appear and disappear?"
+    },
+    "auto_confirm": "Hives detected if any answer is Yes."
+  },
+  "warts": {
+    "questions": {
+      "small_rough_raised_bumps": "Do you have small rough raised bumps?",
+      "slow_growing": "Are the bumps slow growing?",
+      "rough_texture": "Do they feel rough to touch?"
+    },
+    "auto_confirm": "Warts detected if any answer is Yes."
+  },
+  "skin_cancer": {
+    "questions": {
+      "new_or_changing_growths": "Do you have new or changing skin growths?",
+      "uneven_colour": "Do the spots have uneven color?",
+      "increases_in_size_or_thickness": "Are they increasing in size or thickness?"
+    },
+    "auto_confirm": "Possible skin cancer detected if any answer is Yes."
+  }
+}

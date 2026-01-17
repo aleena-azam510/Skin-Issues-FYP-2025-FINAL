@@ -1,0 +1,618 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Glow Genesis Organic Care</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link href="{% static 'images/TabLogo.png' %}" rel="icon" type="image/x-icon" sizes="256x256">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ====== Global Styles ====== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Updated Navbar Style */
+        .navbar.custom-navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #e0f0e2;
+        }
+        .navbar .navbar-nav > li > a {
+            color: #555; /* Or any other color you want for the links */
+            transition: all 0.3s ease; /* Keep the transition for a smooth hover effect */
+        }
+body {
+  background: #f5f9f5;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+.result-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 100, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards, containerFloat 8s ease-in-out infinite;
+  border: 1px solid #e0e8e0;
+}
+
+/* ====== Header Styles ====== */
+.result-header {
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 20px;
+  animation: fadeIn 0.8s 0.2s both, headerShine 3s ease-in-out infinite;
+}
+
+.result-header h1 {
+  color: #2d4a2d;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.result-header h1:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #4CAF50, #2E7D32);
+  border-radius: 4px;
+  animation: lineExpand 1s ease-out 0.5s both;
+}
+
+.skin-type-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  margin-top: 15px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  animation: pulse 2s infinite, badgeEntrance 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.3s both;
+  position: relative;
+  overflow: hidden;
+}
+
+.skin-type-badge:after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255,255,255,0) 45%,
+    rgba(255,255,255,0.8) 50%,
+    rgba(255,255,255,0) 55%
+  );
+  animation: shine 3s infinite;
+}
+
+.concern-tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.concern-tag {
+  background: #e8f5e9;
+  color: #2E7D32;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #c8e6c9;
+  animation: tagPopIn 0.5s ease-out both;
+  animation-delay: calc(var(--tag-index) * 0.1s + 0.5s);
+  transform-origin: center bottom;
+}
+
+/* ====== Content Sections ====== */
+.result-section {
+  margin-bottom: 30px;
+  animation: fadeInUp 0.6s forwards;
+  animation-delay: 0.3s;
+}
+
+.result-section h2 {
+  color: #1B5E20;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  padding-left: 15px;
+  border-left: 4px solid #4CAF50;
+  animation: underlineGrow 1s ease-out 0.5s both;
+}
+
+.result-section p {
+  color: #424242;
+  line-height: 1.7;
+  margin-bottom: 15px;
+  animation: textFadeIn 1s ease-out 0.7s both;
+}
+
+/* ====== Card Styles ====== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  perspective: 1000px;
+}
+
+.recommendation-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.08);
+  border: 1px solid #e0e8e0;
+  transition: all 0.4s ease;
+  animation: cardEntrance 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: calc(var(--card-index) * 0.1s + 0.5s);
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.recommendation-card:hover {
+  transform: translateY(-10px) rotateX(5deg);
+  box-shadow: 0 15px 30px rgba(76, 175, 80, 0.15);
+}
+
+.recommendation-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4CAF50, #2E7D32);
+  border-radius: 12px 12px 0 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.recommendation-card:hover:before {
+  transform: scaleX(1);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  background: #e8f5e9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  color: #2E7D32;
+  font-size: 18px;
+  animation: iconBounce 0.8s ease both;
+  animation-delay: calc(var(--card-index) * 0.1s + 0.7s);
+}
+
+.card-title {
+  font-weight: 600;
+  color: #2d4a2d;
+  margin: 0;
+  animation: textFadeIn 0.8s ease both;
+  animation-delay: calc(var(--card-index) * 0.1s + 0.8s);
+}
+
+.card-desc {
+  color: #616161;
+  font-size: 16px;
+  line-height: 1.6;
+  animation: textFadeIn 0.8s ease both;
+  animation-delay: calc(var(--card-index) * 0.1s + 0.9s);
+}
+
+/* ====== Button Styles ====== */
+.try-again-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #66BB6A 0%, #388E3C 100%);
+  color: white;
+  font-weight: 600;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.25);
+  transition: all 0.4s ease;
+  font-size: 17PX;
+  text-decoration: none;
+  margin-top: 20px;
+  animation: fadeIn 0.8s 1s both, btnPulse 2s infinite 2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.try-again-btn:hover {
+  color: white;
+  background: linear-gradient(135deg, #57a85a 0%, #2E7D32 100%);
+  box-shadow: 0 8px 16px rgba(76, 175, 80, 0.35);
+  transform: translateY(-3px);
+}
+
+.try-again-btn:after {
+  content: '';
+  position: absolute;
+  color: white;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255,255,255,0) 45%,
+    rgba(255,255,255,0.8) 50%,
+    rgba(255,255,255,0) 55%
+  );
+  animation: shine 3s infinite;
+  animation-delay: 1.5s;
+}
+
+/* ====== Background Elements ====== */
+.result-container:before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.05) 0%, transparent 70%);
+  animation: bgPulse 12s ease infinite;
+  z-index: -1;
+}
+
+/* ====== Animations ====== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes containerFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes headerShine {
+  0% { opacity: 1; }
+  50% { opacity: 0.95; }
+  100% { opacity: 1; }
+}
+
+@keyframes lineExpand {
+  from { width: 0; opacity: 0; }
+  to { width: 100px; opacity: 1; }
+}
+
+@keyframes badgeEntrance {
+  from {
+    transform: scale(0.5) rotate(-15deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes tagPopIn {
+  from {
+    transform: scale(0.8) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes underlineGrow {
+  from {
+    border-left-width: 0;
+    padding-left: 30px;
+  }
+  to {
+    border-left-width: 4px;
+    padding-left: 15px;
+  }
+}
+
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotateX(30deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes btnPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(30deg);
+  }
+  80% {
+    transform: translateX(100%) translateY(100%) rotate(30deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(30deg);
+  }
+}
+
+@keyframes bgPulse {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(50px, -50px);
+  }
+  66% {
+    transform: translate(-50px, 50px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* ====== Responsive Styles ====== */
+@media (max-width: 768px) {
+  .result-container {
+    padding: 25px;
+    margin: 20px;
+    animation: none;
+  }
+  
+  .result-header h1 {
+    font-size: 2rem;
+  }
+  
+  .skin-type-badge {
+    font-size: 0.9rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recommendation-card {
+    animation: fadeInUp 0.8s ease both !important;
+    animation-delay: 0.3s !important;
+  }
+}
+</style>
+<body>
+<section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="{% url 'index_page' %}" class="navbar-brand">
+        <img src="{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo">
+      </a>
+
+      <button type="button" class="navbar-toggle" id="mobileToggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    
+
+    <!-- Menu items -->
+    <div class="navbar-collapse" id="mainNavbar">
+      <ul class="nav navbar-nav navbar-nav-first">
+        <li><a href="{% url 'index_page' %}">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="{% url 'developer_team_page' %}">Developer Team</a></li>
+        <li><a href="{% url 'article_page' %}">Article</a></li>
+        <li><a href="{% url 'skin_identifier' %}">Skin Type Identifier</a></li>
+         <li><a href="#contact">Contact</a></li>
+        <li><a href="{%url 'doctors_list' %}">Doctors</a></li> 
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          {# 🔔 Notifications #}
+          <li class="notification-item">
+            <a href="{% url 'notifications' %}" class="notification-bell">
+              <i class="fas fa-bell"></i>
+
+              {% if unread_notifications|length > 0 %}
+                <span class="badge">
+                  {{ unread_notifications|length }}
+                </span>
+              {% endif %}
+            </a>
+          </li>
+
+          <li><a href="{% url 'model_page' %}" class="section-btn">Skin-Diagnose</a></li>
+          <li><a href="{% url 'dashboard_redirect' %}"><i class="fa fa-user-circle"></i> My Dashboard</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'auth_page' %}" class="section-btn">Login / Sign Up</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+<div class="result-container">
+    <div class="result-header">
+        <h1>Your Skin Analysis Results</h1>
+        
+        <div class="skin-type-badge">{{ result.skin_type_name }}</div>
+        
+        {% if result.concerns_list %}
+            <div class="concern-tags">
+                {% for concern in result.concerns_list %}
+                    <span class="concern-tag" style="--tag-index: {{ forloop.counter }}">{{ concern }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="result-section" style="animation-delay: 0.2s">
+        <h2>Personalized Advice</h2>
+        <p>{{ result.advice }}</p>
+    </div>
+    
+    <div class="result-section" style="animation-delay: 0.3s">
+        <h2>Recommended Products</h2>
+        <div class="card-grid">
+            {% for product in result.products %}
+            <div class="recommendation-card" style="--card-index: {{ forloop.counter }}">
+                <div class="card-header">
+                    <div class="card-icon">{% cycle "🧴" "💧" "🧼" "🧪" %}</div>
+                    <h3 class="card-title">{{ product.item }}</h3>
+                </div>
+                <p class="card-desc">{{ product.desc }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="result-section" style="animation-delay: 0.4s">
+        <h2>DIY Home Remedies</h2>
+        <div class="card-grid">
+            {% for remedy in result.diy %}
+            <div class="recommendation-card" style="--card-index: {{ forloop.counter|add:4 }}">
+                <div class="card-header">
+                    <div class="card-icon">{% cycle "🥑" "🍯" "🍵" "🌿" %}</div>
+                    <h3 class="card-title">{{ remedy.item }}</h3>
+                </div>
+                <p class="card-desc">{{ remedy.desc }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div style="text-align: center;">
+        <a href="{% url 'skin_identifier' %}" class="try-again-btn">
+            Analyze Another Skin Concern
+        </a>
+    </div>
+</div>
+<!-- Chatbot popup container -->
+    <div id="chatbox-container">
+    <!-- Toggle Button -->
+    <button id="chat-toggle">
+    <span id="chat-icon"><i class="fa-solid fa-comments " style="color:white;"></i></span>
+    <span id="chat-close" style="display: none;"><i class="fa-solid fa-leaf" style="color:white;"></i></span>
+</button>
+
+    <!-- Chat Popup -->
+    <div id="chat-popup" style="display: none;">
+        <!-- Header -->
+        <div id="chat-header">
+            {% comment %} <img src="{% static 'images\logo_web-removebg-preview1.png' %}" alt="Glow.Genie Logo" class="chat-logo" /> {% endcomment %}
+            <div>
+                <h3 style="color:white">GenieGlow</h3>
+                <p>Your Personalized AI Assistant</p>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages"></div>
+
+        <!-- Input Area -->
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask about your skin issue..." />
+            <button id="chat-send" disabled>
+              <div style="background: white; padding: 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+                    <!-- Arrow SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" viewBox="0 0 24 24">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+             </button>
+
+        </div>
+    </div> 
+</div>
+
+</body>
+</html>

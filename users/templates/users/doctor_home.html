@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard</title>
+
+  <style>
+    :root {
+      --dark-green: #1a472a;
+      --medium-green: #2d5a3c;
+      --light-green: #3c7a4f;
+      --accent-green: #4caf50;
+      --warning-red: #d32f2f;
+      --white: #ffffff;
+      --light-gray: #f5f5f5;
+      --text-dark: #333333;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-gray);
+      color: var(--text-dark);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--dark-green), var(--medium-green));
+      color: var(--white);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logout-btn {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 4px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--accent-green);
+    }
+
+    h2 {
+      color: var(--dark-green);
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #eaeaea;
+      padding-bottom: .5rem;
+    }
+
+    /* Profile */
+    .profile-list li {
+      list-style: none;
+      padding: .6rem 0;
+      display: flex;
+    }
+
+    .profile-label {
+      min-width: 160px;
+      font-weight: 600;
+      color: var(--medium-green);
+    }
+
+    /* Badges */
+    .verified-badge {
+      background: var(--accent-green);
+      color: white;
+      padding: .25rem .8rem;
+      border-radius: 20px;
+      font-size: .8rem;
+      font-weight: 600;
+    }
+
+    .pending-badge {
+      background: #ff9800;
+      color: white;
+      padding: .25rem .8rem;
+      border-radius: 20px;
+      font-size: .8rem;
+      font-weight: 600;
+    }
+
+    /* Actions */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+
+    .action-card {
+      background: var(--light-gray);
+      padding: 1.2rem;
+      border-radius: 6px;
+      text-align: center;
+      border-top: 3px solid var(--light-green);
+      text-decoration: none;
+      color: var(--text-dark);
+    }
+
+    .locked {
+      opacity: .5;
+      pointer-events: none;
+    }
+
+    /* Audit */
+    .audit-log {
+      font-size: .9rem;
+      background: #fafafa;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    @media(max-width:768px){
+      .profile-list li { flex-direction: column; }
+      .profile-label { margin-bottom: .2rem; }
+    }
+     .action-buttons {
+    margin-top: 1rem;
+    display: flex;
+    gap: .6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-action {
+    padding: .45rem .9rem;
+    font-size: .85rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all .2s ease;
+  }
+
+  .btn-primary {
+    background: var(--accent-green);
+    color: white;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--medium-green);
+    border: 1px solid var(--medium-green);
+  }
+
+  .btn-action:hover {
+    transform: translateY(-1px);
+    opacity: .95;
+  }
+
+  .locked .btn-action {
+    pointer-events: none;
+    opacity: .6;
+  }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>
+    Welcome Dr. {{ request.user.username }}
+    {% if request.user.is_doctor_verified %}
+      <span class="verified-badge">✔ Verified</span>
+    {% endif %}
+  </h1>
+  <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+</header>
+
+<main>
+
+  <!-- PROFILE -->
+  <section>
+    <h2>Your Profile</h2>
+    <ul class="profile-list">
+      <li>
+        <span class="profile-label">Email:</span>
+        {{ request.user.email }}
+      </li>
+      <li>
+        <span class="profile-label">License No:</span>
+        {{ request.user.license_number }}
+      </li>
+      <li>
+        <span class="profile-label">Verification Status:</span>
+        {% if request.user.is_doctor_verified %}
+          <span class="verified-badge">Verified Doctor</span>
+        {% elif request.user.rejection_reason %}
+          <span class="pending-badge">Rejected</span>
+          <p style="color: var(--warning-red); margin-top: 0.25rem;">
+            Reason: {{ request.user.rejection_reason }}
+          </p>
+        {% else %}
+          <span class="pending-badge">Pending Verification</span>
+        {% endif %}
+      </li>
+    </ul>
+  </section>
+
+  <!-- ACTIONS -->
+  <section>
+    <h2>Available Actions</h2>
+
+    {% if not request.user.is_doctor_verified %}
+      <p style="color:var(--warning-red)">
+        Your account is under admin review. Features will unlock after verification.
+      </p>
+    {% endif %}
+
+    <div class="actions-grid">
+
+      <!-- Patient Reports -->
+<div class="action-card {% if not request.user.is_doctor_verified %}locked{% endif %}">
+  <h3>Patient Reports</h3>
+  <p>View and manage patient reports</p>
+
+  <div class="action-buttons">
+    <a href="{% url 'doctor_reports' %}" class="btn-action btn-primary">
+      Open
+    </a>
+  </div>
+</div>
+
+<!-- Public Profile -->
+<!-- Public Profile -->
+<div class="action-card {% if not request.user.is_doctor_verified %}locked{% endif %}">
+  <h3>Public Profile</h3>
+  <p>Create or edit your public doctor profile</p>
+
+  <div class="action-buttons">
+    {% if request.user.doctorprofile %}
+      <a href="{% url 'doctor_profile' %}" class="btn-action btn-primary">
+        Edit Profile
+      </a>
+      <a href="{% url 'public_doctor_profile' request.user.doctorprofile.id %}"
+         class="btn-action btn-secondary">
+        View Public
+      </a>
+    {% else %}
+      <a href="{% url 'doctor_profile' %}" class="btn-action btn-primary">
+        Create Profile
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+
+<!-- Appointments -->
+<div class="action-card {% if not request.user.is_doctor_verified %}locked{% endif %}">
+  <h3>Appointments</h3>
+  <p>View your schedule</p>
+
+  <div class="action-buttons">
+    <a href="{% url 'doctor_appointments' %}" class="btn-action btn-primary">
+      View Appointments
+    </a>
+  </div>
+</div>
+
+<!-- Prescriptions -->
+<!-- New Feature: Medical Resources -->
+    {% comment %} <div class="action-card {% if not request.user.is_doctor_verified %}locked{% endif %}">
+      <h3>Medical Resources</h3>
+      <p>Access guidelines, references, and educational materials</p>
+
+      <div class="action-buttons">
+        <a href="{% url 'medical_resources' %}" class="btn-action btn-primary">
+          View Resources
+        </a>
+      </div>
+    </div> {% endcomment %}
+
+
+    </div>
+  </section>
+
+  <!-- AUDIT LOG -->
+  <section>
+    <h2>Verification Audit</h2>
+    <div class="audit-log">
+      {% if request.user.is_doctor_verified %}
+        <p>✔ Approved by Admin</p>
+        <p>🕒 {{ request.user.verified_at|date:"F j, Y, g:i a" }}</p>
+      {% else %}
+        <p>⏳ Awaiting admin approval</p>
+      {% endif %}
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

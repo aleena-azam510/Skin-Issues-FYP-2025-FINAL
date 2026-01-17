@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Reports | Healthcare System</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #25eb6e;
+            --primary-dark: #309900;
+            --primary-light: #d2ffcc;
+            --secondary: #3db910;
+            --secondary-light: #d5fad1;
+            --accent: #5cf67b;
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --border: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --radius-sm: 6px;
+            --transition: all 0.2s ease;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter', sans-serif; background: linear-gradient(135deg,#f0f9ff 0%,#f8fafc 100%); color:var(--text-dark); line-height:1.6; min-height:100vh; padding:20px; }
+        .container { max-width:1200px; margin:0 auto; }
+        /* Header */
+        .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; padding:20px; background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--card-shadow); }
+        .header-content h1 { font-size:1.75rem; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
+        .header-content p { color:var(--text-light); font-size:0.9375rem; }
+        .header-stats { display:flex; gap:20px; }
+        .stat-card { padding:16px 24px; background:var(--primary-light); border-radius:var(--radius-md); text-align:center; min-width:120px; }
+        .stat-value { font-size:1.5rem; font-weight:700; color:var(--primary); margin-bottom:4px; }
+        .stat-label { font-size:0.875rem; color:var(--text-medium); }
+
+        /* Main Content */
+        .main-content { background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--card-shadow); overflow:hidden; }
+        .table-container { overflow-x:auto; }
+        .report-table { width:100%; border-collapse:collapse; }
+        .report-table thead { background:var(--bg-light); border-bottom:2px solid var(--border); }
+        .report-table th { padding:18px 16px; text-align:left; font-weight:600; color:var(--text-dark); font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap; }
+        .report-table tbody tr { border-bottom:1px solid var(--border); transition:var(--transition); }
+        .report-table tbody tr:hover { background:var(--bg-light); }
+        .report-table td { padding:20px 16px; vertical-align:middle; color:var(--text-medium); }
+
+        /* Patient Info Cell */
+        .patient-info { display:flex; align-items:center; gap:12px; }
+        .patient-avatar { width:40px; height:40px; border-radius:50%; background:var(--primary-light); display:flex; align-items:center; justify-content:center; color:var(--primary); font-weight:600; font-size:1rem; flex-shrink:0; }
+        .patient-details { flex:1; }
+        .patient-name { font-weight:600; color:var(--text-dark); margin-bottom:2px; }
+        .patient-id { font-size:0.75rem; color:var(--text-light); }
+        .patient-meta { font-size:0.75rem; color:var(--text-light); margin-top:2px; }
+
+        /* Date Cell */
+        .date-cell { display:flex; flex-direction:column; gap:4px; }
+        .date-value { font-weight:500; color:var(--text-dark); }
+        .date-time { font-size:0.75rem; color:var(--text-light); }
+
+        /* Condition Cell */
+        .condition-badge { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; background:var(--primary-light); color:var(--primary); border-radius:20px; font-size:0.8125rem; font-weight:500; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .condition-badge.high-priority { background:#fee2e2; color:var(--error); }
+        .condition-badge.medium-priority { background:#fef3c7; color:var(--warning); }
+
+        /* Actions Cell */
+        .actions-cell { text-align:center; display:flex; gap:10px; justify-content:center; }
+        .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 20px; border-radius:var(--radius-md); font-weight:600; font-size:0.875rem; text-decoration:none; border:none; cursor:pointer; transition:var(--transition); font-family:'Inter', sans-serif; }
+        .btn-review { background:var(--primary); color:var(--white); min-width:100px; }
+        .btn-review:hover { background:var(--primary-dark); transform:translateY(-2px); box-shadow:var(--card-shadow-hover); }
+        .btn-delete { background:var(--error); color:var(--white); min-width:100px; }
+        .btn-delete:hover { background:#b91c1c; transform:translateY(-2px); box-shadow:var(--card-shadow-hover); }
+        .btn-back { background:var(--white); color:var(--text-dark); border:2px solid var(--border); padding:12px 24px; }
+        .btn-back:hover { background:var(--bg-light); border-color:var(--primary-light); }
+
+        /* Empty State */
+        .empty-state { text-align:center; padding:60px 40px; }
+        .empty-state-icon { font-size:3rem; color:var(--success); margin-bottom:20px; }
+        .empty-state h3 { font-size:1.25rem; font-weight:600; color:var(--text-dark); margin-bottom:12px; }
+        .empty-state p { color:var(--text-light); max-width:400px; margin:0 auto 30px; }
+
+        /* Status Indicators */
+        .status-indicator { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:20px; font-size:0.75rem; font-weight:500; }
+        .status-pending { background:#fef3c7; color:var(--warning); }
+        .status-urgent { background:#fee2e2; color:var(--error); animation:pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:0.7;} }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <!-- Header with Stats -->
+        <div class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-clipboard-list"></i> Pending Medical Reports</h1>
+                <p>Review and provide feedback on patient health reports</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-value">{{ reports|length }}</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            {% if reports %}
+            <div class="table-container">
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Patient Information</th>
+                            <th>Submission Date</th>
+                            <th>Health Condition</th>
+                            <th>Priority</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for report in reports %}
+                        <tr>
+                            <!-- Patient Info -->
+                            <td data-label="Patient">
+                                <div class="patient-info">
+                                    <div class="patient-avatar">
+                                        {% if report.user %}
+                                            {{ report.user.first_name|first|default:"U" }}{{ report.user.last_name|first|default:"" }}
+                                        {% else %}
+                                            AI
+                                        {% endif %}
+                                    </div>
+                                    <div class="patient-details">
+                                        <div class="patient-name">
+                                            {% if report.user %}
+                                                {{ report.user.get_full_name|default:report.user.username }}
+                                            {% else %}
+                                                AI Model Submission
+                                            {% endif %}
+                                        </div>
+                                        <div class="patient-id">
+                                            {% if report.user %}
+                                                ID: {{ report.user.id|stringformat:"06d" }}
+                                            {% else %}
+                                                ID: —
+                                            {% endif %}
+                                        </div>
+                                        <div class="patient-meta">
+                                            Age: {{ report.age|default:"—" }} &nbsp;|&nbsp; Gender: {{ report.gender|default:"—" }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- Submission Date -->
+                            <td data-label="Submitted">
+                                <div class="date-cell">
+                                    <span class="date-value">{{ report.created_at|date:"M d, Y" }}</span>
+                                    <span class="date-time">{{ report.created_at|time:"H:i" }}</span>
+                                </div>
+                            </td>
+
+                            <!-- Condition -->
+                            <td data-label="Condition">
+                                <div class="condition-badge">
+                                    <i class="fas fa-stethoscope"></i>
+                                    {{ report.prediction|default:"Awaiting Analysis" }}
+                                </div>
+                            </td>
+
+                            <!-- Priority -->
+                            <td data-label="Priority">
+                                {% if report.age_days < 1 %}
+                                    <span class="status-indicator status-pending"><i class="fas fa-clock"></i> Recent</span>
+                                {% elif report.age_days < 2 %}
+                                    <span class="status-indicator status-pending"><i class="fas fa-exclamation-circle"></i> Due Soon</span>
+                                {% else %}
+                                    <span class="status-indicator status-urgent"><i class="fas fa-exclamation-triangle"></i> Overdue</span>
+                                {% endif %}
+                            </td>
+
+                            <!-- Actions -->
+                            <td data-label="Actions" class="actions-cell">
+                                <a href="{% url 'review_report' report.id %}" class="btn btn-review"><i class="fas fa-eye"></i> Review</a>
+
+                                <form action="{% url 'delete_report' report.id %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-delete">
+                                        <i class="fas fa-trash-alt"></i> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon"><i class="fas fa-check-circle"></i></div>
+                <h3>All Caught Up!</h3>
+                <p>There are no pending reports requiring your review at this moment.</p>
+                <a href="{% url 'doctor_home' %}" class="btn btn-back"><i class="fas fa-arrow-left"></i> Return to Dashboard</a>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+    
+    <script>
+        // Add interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add row click functionality (except action buttons)
+            const tableRows = document.querySelectorAll('.report-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function(e) {
+                    // Don't trigger if clicking on a button
+                    if (!e.target.closest('.btn')) {
+                        const reviewBtn = this.querySelector('.btn-review');
+                        if (reviewBtn) {
+                            reviewBtn.click();
+                        }
+                    }
+                });
+            });
+
+            // Add hover effect for rows
+            tableRows.forEach(row => {
+                row.style.cursor = 'pointer';
+            });
+
+            // Update time indicators every minute
+            function updateTimeIndicators() {
+                document.querySelectorAll('.date-cell').forEach(cell => {
+                    const timeElement = cell.querySelector('.date-time');
+                    if (timeElement) {
+                        // Simulate live time updates
+                        const now = new Date();
+                        timeElement.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    }
+                });
+            }
+
+            // Update every minute
+            setInterval(updateTimeIndicators, 60000);
+
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Escape key goes back
+                if (e.key === 'Escape') {
+                    const backBtn = document.querySelector('.btn-back');
+                    if (backBtn) backBtn.click();
+                }
+                // R key refreshes (simulate)
+                if (e.key === 'r' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    window.location.reload();
+                }
+            });
+
+            // Add loading animation for review buttons
+            document.querySelectorAll('.btn-review').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Add loading state
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                    this.style.opacity = '0.8';
+                    this.style.cursor = 'wait';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

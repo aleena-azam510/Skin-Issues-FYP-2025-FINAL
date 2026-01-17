@@ -1,0 +1,1390 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>Glow Genesis Organic Care</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link href="{% static 'images/TabLogo.png' %}" rel="icon" type="image/x-icon" sizes="256x256">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+
+     <!-- Font Awesome CDN -->
+     {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> {% endcomment %}
+
+ 
+<body>
+    
+
+     <!-- PRE LOADER -->
+    <section class="preloader">
+     <div class="spinner">
+          <span class="spinner-rotate"></span>
+         </div>
+    </section>
+
+  <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="{% url 'index_page' %}" class="navbar-brand">
+        <img src="{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo">
+      </a>
+
+      <button type="button" class="navbar-toggle" id="mobileToggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    
+
+    <!-- Menu items -->
+    <div class="navbar-collapse" id="mainNavbar">
+      <ul class="nav navbar-nav navbar-nav-first">
+        <li><a href="{% url 'index_page' %}">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="{% url 'developer_team_page' %}">Developer Team</a></li>
+        <li><a href="{% url 'article_page' %}">Article</a></li>
+        <li><a href="{% url 'skin_identifier' %}">Skin Type Identifier</a></li>
+         <li><a href="#contact">Contact</a></li>
+        <li><a href="{%url 'doctors_list' %}">Doctors</a></li> 
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          {# 🔔 Notifications #}
+          <li class="notification-item">
+            <a href="{% url 'notifications' %}" class="notification-bell">
+              <i class="fas fa-bell"></i>
+
+              {% if unread_notifications|length > 0 %}
+                <span class="badge">
+                  {{ unread_notifications|length }}
+                </span>
+              {% endif %}
+            </a>
+          </li>
+
+          <li><a href="{% url 'model_page' %}" class="section-btn">Skin-Diagnose</a></li>
+          <li><a href="{% url 'dashboard_redirect' %}"><i class="fa fa-user-circle"></i> My Dashboard</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'auth_page' %}" class="section-btn">Login / Sign Up</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+
+     <!-- HOME -->
+     <section id="home" class="slider" data-stellar-background-ratio="0.5">
+          <div class="row">
+
+                    <div class="owl-carousel owl-theme">
+                         <div class="item item-first">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Skin Diseases Recognition &amp; Diagnosis System</h3>
+                                             <h1>Our mission is to deliver an AI-powered skin diagnosis experience you’ll never forget.</h1>
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-second">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Smart Skin Analysis</h3>  
+                                             <h1>Experience AI-Powered Skin Diagnosis Instantly!</h1>  
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll">Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-third">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Smart Skin Analysis, Natural Healing</h3>  
+                                             <h1>AI-Powered Diagnosis with Home Remedy Suggestions</h1>  
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll">Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+          </div>
+     </section>
+     
+
+    <!-- ABOUT -->
+    <section id="about" data-stellar-background-ratio="0.5">
+        <div class="container">
+         <div class="section-title wow fadeInUp" data-wow-delay="0.2s" style="text-align:center;">
+           <h4 style="color: white; background: #3B7A57; padding: 10px 20px; border-radius: 5px; display: inline-block;">Read our story</h4> 
+            <h2>Advanced AI Skin Analysis & Personalized Natural Remedies</h2>  
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 text-center">
+                <video class="img-responsive" autoplay muted loop playsinline>
+
+                   <source src="{% static 'images/about_us_vid.mp4' %}" type="video/mp4">
+
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+              </div>
+    </section>
+
+    <!-- Information Sections -->
+      
+    <div class="section-title wow fadeInUp" data-wow-delay="0.1s" style="text-align:center;">
+        <h2>Discover More About Our Skin AI</h2>
+        <h4 style="color:#055719">Detailed Insights for a Healthier You</h4>
+    </div>
+
+    <section class="info-section-wrapper" id="main-info-section">
+            <div class="info-card-custom wow fadeInUp" data-wow-delay="0.2s"> <div class="info-card-content-custom">
+                    <div class="info-text-custom">
+                        <h2>About Our Model</h2>
+                        <p>Our model is designed to detect common skin issues using machine learning. It aims to provide quick, preliminary skin condition analysis from images. The model predicts likely issues and retrieves related symptoms, causes, and remedies. It is accessible through a user-friendly web interface for broad usability. This helps increase awareness, especially in medically underserved regions. It supports early health monitoring but is not a substitute for professional diagnosis.</p>
+                    </div>
+                    <div class="image-placeholder model-image"></div>
+                </div>
+            </div>
+
+            <div class="info-card-custom wow fadeInUp" data-wow-delay="0.4s"> <div class="info-card-content-custom info-card-content-reverse-custom">
+                    <div class="info-text-custom">
+                        <h2>Our Goal</h2>
+                        <p>To bridge the gap between early skin issue detection and medical consultation. Enable individuals to recognize potential skin conditions at home. Reduce anxiety by offering an informed first step toward understanding skin health. Support those in rural or under-resourced areas with minimal access to dermatologists. Encourage proactive skincare by promoting awareness and education. Empower users to take timely action with confidence and informed knowledge.</p>
+                    </div>
+                    <div class="image-placeholder goal-image"></div>
+                </div>
+            </div>
+
+            <div class="info-card-custom wow fadeInUp" data-wow-delay="0.6s"> <div class="info-card-content-custom">
+                    <div class="info-text-custom">
+                        <h2>How It Works</h2>
+                        <p>Users start by capturing or uploading an image of their skin concern. The image is processed through a trained deep learning model. The model analyzes visual patterns associated with common skin issues. It predicts the most likely condition based on the input image. The system then sends the prediction back to the user interface. Alongside this, it fetches useful information like causes and remedies.</p>
+                    </div>
+                    <div class="image-placeholder works-image"></div>
+                </div>
+            </div>
+
+            <div class="info-card-custom wow fadeInUp" data-wow-delay="0.8s"> <div class="info-card-content-custom info-card-content-reverse-custom">
+                    <div class="info-text-custom">
+                        <h2>Remedies and More</h2>
+                        <p>After prediction, the app provides a detailed description of the skin issue. It includes common symptoms users may relate to for confirmation. Causes are listed to help users understand possible triggers or habits. The app offers natural and medical remedies for quick at-home care. It encourages users to consult professionals if symptoms persist. All content is designed to be easy to understand and actionable.</p>
+                    </div>
+                    <div class="image-placeholder remedies-image"></div>
+                </div>
+            </div>
+    </section>
+
+
+
+    <!-- Educationa Card -->          
+    <section class="card-section" id="educational-cards-section">
+            <div class="section-title wow fadeInUp" data-wow-delay="0.1s" style="text-align:center;">
+                <h2>Empower Your Skin Health Journey</h2>
+                <h4 style="color:#055719">Knowledge is your first step towards lasting wellness.</h4>
+            </div>
+
+            <div class="card-container">
+
+                <div class="card wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="icon-box icon-blue">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 style="color:#055719">Early Detection: The ABCDEs</h3>
+                    <p>Master the simple ABCDE rule for recognizing early signs of potentially problematic skin changes. Knowing these can make a significant difference in outcomes.</p>
+                    <ul>
+                        <li>Asymmetry: One half differs from the other.</li>
+                        <li>Border: Irregular, scalloped, or poorly defined edges.</li>
+                        <li>Color: Varied from one area to another.</li>
+                        <li>Diameter: Larger than 6mm (pencil eraser size).</li>
+                        <li>Evolution: Changes in size, shape, or color over time.</li>
+                    </ul>
+                </div>
+
+                <div class="card wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="icon-box icon-yellow">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3>Smart Sun Protection Strategies</h3>
+                    <p>Shield your skin effectively from harmful UV radiation with these essential daily practices. Consistent protection is key to preventing sun damage and reducing risks.</p>
+                    <ul>
+                        <li>Daily SPF 30+: Apply broad-spectrum sunscreen liberally.</li>
+                        <li>Seek Shade: Avoid peak UV hours (10 AM to 4 PM).</li>
+                        <li>Protective Apparel: Wear hats, UV-blocking clothing, and sunglasses.</li>
+                        <li>Avoid Tanning Beds: They significantly increase skin cancer risk.</li>
+                        <li>Regular Checks: Perform self-skin exams and professional screenings.</li>
+                    </ul>
+                </div>
+
+                <div class="card wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="icon-box icon-green">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 style="color:#055719">Understanding Common Skin Concerns</h3>
+                    <p>Familiarize yourself with the most prevalent skin conditions. Awareness empowers you to identify potential issues early and seek appropriate guidance.</p>
+                    <ul>
+                        <li>Eczema: Dry, itchy, inflamed skin patches.</li>
+                        <li>Acne: Clogged pores leading to pimples.</li>
+                        <li>Psoriasis: Red, scaly, itchy patches (autoimmune).</li>
+                        <li>Rosacea: Facial redness, visible blood vessels.</li>
+                        <li>Dermatitis: General skin inflammation from irritants.</li>
+                    </ul>
+                </div>
+
+                <div class="card wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="icon-box icon-purple">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 style="color:#055719">Holistic Skin Wellness & Prevention</h3>
+                    <p>Adopt proactive habits that nourish your skin from within and protect it from external aggressors, contributing to overall long-term skin health.</p>
+                    <ul>
+                        <li>Stay Hydrated: Drink water & use moisturizers.</li>
+                        <li>Balanced Diet: Eat antioxidant-rich foods for healthy skin.</li>
+                        <li>Stress Management: Practice relaxation techniques.</li>
+                        <li>Regular Exercise: Promotes blood flow to skin.</li>
+                        <li>Avoid Harsh Products: Use gentle, pH-balanced skincare.</li>
+                    </ul>
+                </div>
+
+            </div> 
+    </section> 
+
+
+    <!-- GALLERY-->
+    <section id="skin-conditions-gallery" class="skin-gallery-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2 class="section-title">Discover Skin Conditions</h2>
+            <p class="section-subtitle" style="font-size: 1.3rem;">Comprehensive visual guide to common dermatological concerns</p>
+            <div class="section-divider">
+                <span class="divider-line"></span>
+                <span class="divider-icon"><i class="fas fa-leaf"></i></span>
+                <span class="divider-line"></span>
+            </div>
+        </div>
+
+        <div class="row gallery-grid" id="initialConditions">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/acne.jpg' %}" alt="Acne" class="img-fluid">
+                <div class="condition-badge">Common</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Symptoms</h4>
+                        <ul>
+                            <li>Whiteheads</li>
+                            <li>Blackheads</li>
+                            <li>Inflamed bumps</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Acne & Blemishes</div>
+                <h3 class="card-title">Acne Vulgaris</h3>
+                <div class="condition-severity-wrapper"> {# CORRECTLY WRAPPED #}
+                    <span class="severity-title">Severity:</span>
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Blocked skin follicles leading to oil, bacteria and dead skin buildup in pores.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='acne' %}" class="btn btn-learn-more">
+                        Explore Treatment <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">Teens to Adults</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/Rosacea.jpg' %}" alt="Rosacea" class="img-fluid">
+                <div class="condition-badge">Chronic</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Symptoms</h4>
+                        <ul>
+                            <li>Facial redness</li>
+                            <li>Visible blood vessels</li>
+                            <li>Bumps/pimples</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Inflammatory</div>
+                <h3 class="card-title">Rosacea</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Chronic inflammatory skin condition primarily affecting the face.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='rosacea' %}" class="btn btn-learn-more">
+                        Explore Treatment <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">Adults 30+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/freckles.jpg' %}" alt="Freckles" class="img-fluid">
+                <div class="condition-badge">Harmless</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Characteristics</h4>
+                        <ul>
+                            <li>Small brown spots</li>
+                            <li>Sun-exposed areas</li>
+                            <li>Genetic predisposition</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Pigmentation</div>
+                <h3 class="card-title">Freckles</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Small, concentrated spots of melanin most visible on fair skin.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='freckles' %}" class="btn btn-learn-more">
+                        Explore Options <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">All Ages</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/eyebags.jpg' %}" alt="Eyebags" class="img-fluid">
+                <div class="condition-badge">Common</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Symptoms</h4>
+                        <ul>
+                            <li>Puffiness</li>
+                            <li>Swelling</li>
+                            <li>Dark circles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Aging Concern</div>
+                <h3 class="card-title">Eye Bags</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Mild swelling or puffiness under the eyes from various causes.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='eye-bags' %}" class="btn btn-learn-more">
+                        Explore Solutions <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">Adults 25+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/darkcircles.jpg' %}" alt="Dark Circles" class="img-fluid">
+                <div class="condition-badge">Common</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Symptoms</h4>
+                        <ul>
+                            <li>Under-eye darkness</li>
+                            <li>Hollow appearance</li>
+                            <li>Bluish/purple tint</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Aging Concern</div>
+                <h3 class="card-title">Dark Circles</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Discoloration under the eyes appearing as shades of blue, purple or black.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='dark-circles' %}" class="btn btn-learn-more">
+                        Explore Solutions <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">All Ages</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/rashes.jpg' %}" alt="Rashes" class="img-fluid">
+                <div class="condition-badge">Acute</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Symptoms</h4>
+                        <ul>
+                            <li>Redness</li>
+                            <li>Itching</li>
+                            <li>Irritation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Inflammatory</div>
+                <h3 class="card-title">Rashes</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">An Outbreak of red,itchy or irritated skin caused by allergies or infections. </p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='rashes' %}" class="btn btn-learn-more">
+                        Explore Treatment <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">All Ages</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/darkspots.jpg' %}" alt="Pigmentation" class="img-fluid">
+                <div class="condition-badge">Chronic</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Symptoms</h4>
+                        <ul>
+                            <li>Uneven skin tone</li>
+                            <li>Dark spots</li>
+                            <li>Patchy coloration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Pigmentation</div>
+                <h3 class="card-title">Hyperpigmentation</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Darkening of skin areas due to excess melanin production.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='pigmentation' %}" class="btn btn-learn-more">
+                        Explore Treatment <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">Adults 25+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/wrinkles.jpg' %}" alt="Wrinkles" class="img-fluid">
+                <div class="condition-badge">Aging</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Symptoms</h4>
+                        <ul>
+                            <li>Fine lines</li>
+                            <li>Deep creases</li>
+                            <li>Loss of elasticity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Aging Concern</div>
+                <h3 class="card-title">Wrinkles</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Creases in the skin developing from aging and sun exposure.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='wrinkles' %}" class="btn btn-learn-more">
+                        Explore Solutions <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">Adults 30+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/skincancer.jpg' %}" alt="Skin Cancer" class="img-fluid">
+                <div class="condition-badge">Serious</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Symptoms</h4>
+                        <ul>
+                            <li>Unusual moles</li>
+                            <li>Changing lesions</li>
+                            <li>Non-healing sores</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Medical Condition</div>
+                <h3 class="card-title">Skin Cancer</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot high"></span>
+                    </div>
+                </div>
+                <p class="card-text">Uncontrolled growth of abnormal skin cells, often from UV exposure.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='skin-cancer' %}" class="btn btn-learn-more">
+                        Seek Evaluation <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">Adults 40+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/blackheads.jpg' %}" alt="Blackheads" class="img-fluid">
+                <div class="condition-badge">Common</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Characteristics</h4>
+                        <ul>
+                            <li>Open comedones</li>
+                            <li>Dark appearance</li>
+                            <li>Clogged pores</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Acne & Blemishes</div>
+                <h3 class="card-title">Blackheads</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Open clogged pores with oxidized sebum creating dark appearance.</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='black-heads' %}" class="btn btn-learn-more">
+                        Explore Treatment <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">Teens to Adults</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/sunspots.jpg' %}" alt="Sun Spots" class="img-fluid">
+                <div class="condition-badge">Sun Damage</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Characteristics</h4>
+                        <ul>
+                            <li>Flat brown spots</li>
+                            <li>Sun-exposed areas</li>
+                            <li>Gradual appearance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Pigmentation</div>
+                <h3 class="card-title">Sun Spots</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Flat, brown spots from chronic sun exposure (not freckles).</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='sun-spots' %}" class="btn btn-learn-more">
+                        Explore Options <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">Adults 30+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="condition-card">
+            <div class="card-image">
+                <img src="{% static 'images/oilyvsdry.jpg' %}" alt="Oily & Dry Skin" class="img-fluid">
+                <div class="condition-badge">Common</div>
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h4>Key Characteristics</h4>
+                        <ul>
+                            <li>Excess sebum or flaking</li>
+                            <li>Combination skin possible</li>
+                            <li>Seasonal variations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="condition-category">Skin Type</div>
+                <h3 class="card-title">Sebum Imbalance</h3>
+                <div class="condition-severity-wrapper"> {# ADDED WRAPPER #}
+                    <span class="severity-title">Severity:</span> {# ADDED TITLE #}
+                    <div class="condition-severity">
+                        <span class="severity-dot high"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                        <span class="severity-dot"></span>
+                    </div>
+                </div>
+                <p class="card-text">Skin producing too much oil (oily) or lacking moisture (dry).</p>
+                <div class="card-footer">
+                    <a href="{% url 'predictor:skin_condition_detail' condition_slug='oily-dry-skin' %}" class="btn btn-learn-more">
+                        Explore Solutions <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <span class="condition-age">All Ages</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+     <!-- TESTIMONIAL -->
+<section id="testimonial" data-stellar-background-ratio="0.5">
+          <div class="overlay"></div>
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                              <h2>Testimonials</h2>
+                         </div>
+                    </div>  
+
+                    <div class="col-md-offset-2 col-md-8 col-sm-12">
+                         <div class="owl-carousel owl-theme">
+                              <div class="item">
+                                   <p>Using AI-based skin analysis, I discovered natural remedies tailored to my skin's needs. The personalized suggestions truly made a difference!</p>
+                                        <div class="tst-author">
+                                             <h4>Saba-e-Yasrab</h4>
+                                             <span>Home Remedies Enthusiast</span>
+                                        </div>
+                              </div>
+
+                              <div class="item">
+                                   <p>The AI diagnosis accurately identified my skin issues and recommended effective home treatments. I noticed visible improvements within weeks!</p>
+                                        <div class="tst-author">
+                                             <h4>Zainab Noor</h4>
+                                             <span>Skincare Advocate</span>
+                                        </div>
+
+                              </div>
+
+                              <div class="item">
+                                   <p>The AI skin detector suggested natural treatments that I could easily do at home. My skin feels healthier and more radiant now!</p>
+                                        <div class="tst-author">
+                                             <h4>Aleena Naveed</h4>
+                                             <span>Natural Skincare Follower</span>
+                                        </div>                                   
+                              </div>
+
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </section>  
+
+        <!-- Review-->
+{% load static %}
+{% load review_filters %} {# Keep this, it's for your star filter #}
+
+<section id="reviews-and-form-section" class="section-padding" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row">
+            {# Left Column: Reviews Display Area #}
+            <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="reviews-display-area wow fadeInUp" data-wow-delay="0.1s">
+                    {# Updated Title and Icon #}
+                    <h2 style="color: #3B7A57;">We'd Love to Hear From You: Leave a Review! <span style="font-size: 2em;">&#9829;</span></h2>
+                    <div>
+                        <p style="color: #3B7A57;">Your satisfaction is our top priority, and your insights are invaluable! By sharing your experience, you not only help future customers make informed decisions, but also guide us in continuously improving. Tell us what you loved!</p>
+                    </div>
+
+                    {# New wrapper for image and counter side by side #}
+                    <div class="image-wrapper-and-counter">
+                        <div class="image-display">
+                            <img src="{% static 'images/revieww_bg.jpg' %}" alt="Nature background with moss" class="img-fluid">
+                        </div>
+                        <div class="review-counter">
+                            <span class="count-and-plus">
+                                {# IMPORTANT: Added id="total-reviews-count" here #}
+                                <span class="count" id="total-reviews-count">{{ total_reviews_count|default:0 }}</span>
+                                <span class="plus-sign">+</span>
+                            </span>
+                            <div class="counter-label">Happy Customers</div>
+                        </div>
+                    </div>
+
+                    {# IMPORTANT: Added id="reviews-list-container" here and included the partial #}
+                    <div id="reviews-list-container" class="reviews-scroll-container">
+                        {% include 'reviews/partials/reviews_list_partial.html' %}
+                    </div>
+                </div>
+            </div>
+            {# ... rest of your template ... #}
+
+            {# Right Column: Review Form Area #}
+            <div class="col-md-6 col-lg-6 col-sm-12">
+                <div id="review-form-section" class="review-form-area wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="section-title" style="text-align: center;">
+                        <h2 style="color: #3B7A57;">Share Your Experience</h2>
+                        <h4 style="color: #3B7A57;">We value your feedback on Glow Genesis Organic Care!</h4>
+                    </div>
+
+                    <div id="form-response-messages">
+                        {% if messages %}
+                            <div class="alert-container">
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <form action="{% url 'reviews:submit_review' %}" method="post" id="review-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="reviewer-name">Your Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="reviewer-name" name="reviewer_name" placeholder="E.g., Jane Doe" required aria-required="true">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="review-rating">Your Rating <span class="text-danger">*</span></label>
+                            <select class="form-control" id="review-rating" name="rating" required aria-required="true">
+                                <option value="" disabled selected>Select your rating out of 5 stars</option>
+                                <option value="5">★★★★★ Excellent</option>
+                                <option value="4">★★★★☆ Very Good</option>
+                                <option value="3">★★★☆☆ Good</option>
+                                <option value="2">★★☆☆☆ Fair</option>
+                                <option value="1">★☆☆☆☆ Poor</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="review-text">Your Review <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="5" id="review-text" name="review_text" placeholder="Tell us about your experience, what you loved, or how we can improve..." required aria-required="true"></textarea>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="section-btn btn btn-primary smoothScroll">
+                                Submit Review
+                                <span id="loading-spinner" class="ml-2" style="display: none;">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                </span>
+                            </button>
+                            <div class="website-description mt-3"> 
+                                <h3 style="color: #3B7A57;">Glow Genesis Organic Care</h3>
+                                    <p style="color: #3B7A57;">Your ultimate destination for advanced skincare solutions! We are proud to offer a cutting-edge <strong>Skin Diseases Recognition &amp; Diagnosis System</strong> designed to help you understand and care for your skin. Our platform combines organic principles with modern technology to provide personalized insights and recommendations for a healthier, more radiant you. Discover the power of nature and innovation working in harmony for your skin's well-being.
+                                    </p>
+                                </div>
+                            </div>
+                    </form>
+
+                    {# NEW: Image to fill the remaining space #}
+                    <div class="form-bottom-image mt-4"> {# Add margin-top for spacing #}
+                        {# Use a relevant image that complements the form #}
+                        <img src="{% static 'images/botanical_filler.jpg' %}" alt="Complementary image" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+<!-- CONTACT -->
+<section id="contact" data-stellar-background-ratio="0.5">
+        <div class="container">
+        <div class="row">
+            <div class="wow fadeInUp col-md-6 col-sm-12" data-wow-delay="0.4s">
+                <div id="google-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.564151031367!2d68.26203667517125!3d25.419396077568504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x394c7969bcd3111d%3A0xe45107ac7274c48c!2sInstitute%20of%20Mathematics%20and%20Computer%20Science!5e0!3m2!1sen!2s!4v1751955536702!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"> </iframe>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
+                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                        <h2>Contact Us</h2>
+                    </div>
+                </div>
+
+                <div id="contact-form-messages"></div>
+
+                <form action="{% url 'contact_submit' %}" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
+                    {% csrf_token %} <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control" id="cf-name" name="name" placeholder="Full name" required>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                        <input type="email" class="form-control" id="cf-email" name="email" placeholder="Email address" required>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                        <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Subject (Optional)">
+                        <textarea class="form-control" rows="6" id="cf-message" name="message" placeholder="Your message" required></textarea>
+                        <button type="submit" class="form-control" id="cf-submit" name="submit">
+                            Send Message
+                            <span id="contact-loading-spinner" class="ml-2" style="display: none;">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+</section>
+
+<!-- CONTACT SECTION SCRIPT -->
+
+    <!-- FAQs -->
+<div id="faqs">
+    <div class="faq-container" style="max-width: 900px; margin: 40px auto; background-color: #fff; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08); padding: 40px 50px; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+        <h1 class="faq-main-title" style="text-align: center; color: #2c3e50; margin-bottom: 50px; font-size: 2.8em; font-weight: 800; position: relative; letter-spacing: -0.5px;">
+            <span style="background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Frequently Asked Questions</span>
+            <div style="width: 80px; height: 4px; background: linear-gradient(90deg, #4CAF50, #8BC34A); margin: 15px auto 0; border-radius: 2px;"></div>
+        </h1>
+
+        <div class="faq-section">
+            <h2 class="faq-section-title" style="color: #4CAF50; margin-top: 45px; margin-bottom: 30px; font-size: 1.8em; font-weight: 700; position: relative; padding-left: 20px;">
+                <span style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 8px; height: 30px; background: linear-gradient(to bottom, #4CAF50, #8BC34A); border-radius: 4px;"></span>
+                About Glow Genesis Organic Care
+            </h2>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>What is Glow Genesis Organic Care?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <p style="padding: 25px 0; margin: 0;"><strong style="color: #4CAF50;">Glow Genesis Organic Care</strong> is your ultimate destination for advanced skincare solutions, combining organic principles with modern technology. We offer personalized insights and recommendations for healthier, more radiant skin, including a cutting-edge <strong>Skin Diseases Recognition & Diagnosis System</strong>.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>What kind of content can I find on your website?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <div style="padding: 25px 0; margin: 0;">
+                        <p>Our website features a comprehensive "Skin Health Guide" with articles covering:</p>
+                        <ul style="padding: 10px 20px 20px 40px; margin: 0;">
+                            <li style="margin-bottom: 10px; position: relative; padding-left: 25px;">
+                                <span style="position: absolute; left: 0; top: 6px; width: 12px; height: 12px; background-color: #4CAF50; border-radius: 50%; opacity: 0.6;"></span>
+                                Understanding your skin basics and identifying skin types.
+                            </li>
+                            <li style="margin-bottom: 10px; position: relative; padding-left: 25px;">
+                                <span style="position: absolute; left: 0; top: 6px; width: 12px; height: 12px; background-color: #4CAF50; border-radius: 50%; opacity: 0.6;"></span>
+                                Detailed information and natural remedies for common skin issues like acne, freckles, eye bags, dark circles, rashes, pigmentation, wrinkles, blackheads, and dark spots.
+                            </li>
+                            <li style="margin-bottom: 10px; position: relative; padding-left: 25px;">
+                                <span style="position: absolute; left: 0; top: 6px; width: 12px; height: 12px; background-color: #4CAF50; border-radius: 50%; opacity: 0.6;"></span>
+                                DIY home remedy recipes for face serums, creams, and washes.
+                            </li>
+                            <li style="margin-bottom: 10px; position: relative; padding-left: 25px;">
+                                <span style="position: absolute; left: 0; top: 6px; width: 12px; height: 12px; background-color: #4CAF50; border-radius: 50%; opacity: 0.6;"></span>
+                                Spotlights on natural ingredients like Aloe Vera, Lemon Juice, and Honey.
+                            </li>
+                            <li style="margin-bottom: 10px; position: relative; padding-left: 25px;">
+                                <span style="position: absolute; left: 0; top: 6px; width: 12px; height: 12px; background-color: #4CAF50; border-radius: 50%; opacity: 0.6;"></span>
+                                Essential daily skincare practices, sun protection importance, and lifestyle/diet tips for skin health.
+                            </li>
+                            <li style="margin-bottom: 0; position: relative; padding-left: 25px;">
+                                <span style="position: absolute; left: 0; top: 6px; width: 12px; height: 12px; background-color: #4CAF50; border-radius: 50%; opacity: 0.6;"></span>
+                                Crucial information on when to seek professional medical advice for your skin.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2 class="faq-section-title" style="color: #4CAF50; margin-top: 45px; margin-bottom: 30px; font-size: 1.8em; font-weight: 700; position: relative; padding-left: 20px;">
+                <span style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 8px; height: 30px; background: linear-gradient(to bottom, #4CAF50, #8BC34A); border-radius: 4px;"></span>
+                About the Skin Diseases Recognition & Diagnosis System
+            </h2>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>What is the Skin Diseases Recognition & Diagnosis System?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <p style="padding: 25px 0; margin: 0;">It is an <strong style="color: #4CAF50;">Intelligent Facial Skin Issue Detection and Prediction System</strong> that utilizes Deep Learning. It's designed to help you understand and care for your skin by analyzing uploaded images and providing immediate feedback.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>What skin conditions can the system help identify?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <p style="padding: 25px 0; margin: 0;">The system aims to classify common skin conditions such as freckles, eye bags, dark circles, acne, rashes, pigmentation, wrinkles, blackheads, dark spots, and can potentially identify suspicious lesions like skin cancer.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>How accurate is the system?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <p style="padding: 25px 0; margin: 0;">Preliminary evaluations indicate that the system achieved a detection accuracy of approximately 40% with Faster R-CNN in its development phase. AI models trained on larger datasets have shown over 60% accuracy in trials for dermatology images.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>Is this system a replacement for a professional medical diagnosis?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <p style="padding: 25px 0; margin: 0;">No, this system is <strong style="color: #4CAF50;">not intended to replace professional medical diagnosis</strong>. It serves as a supplementary tool for early detection and self-monitoring, helping individuals get preliminary skin health assessments and understand when professional medical consultation is necessary. <strong style="color: #4CAF50;">Always consult a qualified healthcare professional for accurate diagnosis and treatment of any skin condition.</strong></p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>How does the system benefit users, especially in regions with limited access to dermatologists?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <p style="padding: 25px 0; margin: 0;">Our AI-driven platform aims to make preliminary skin health assessments more accessible, efficient, and cost-effective. It can help reduce diagnosis time, cut wait times by enabling immediate triage, and is designed to work on basic smartphones, eliminating the need for an on-site specialist. This is particularly beneficial in areas facing a shortage of dermatologists and high prevalence of skin diseases.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>What is the source of the information on skin diseases and remedies?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <p style="padding: 25px 0; margin: 0;">Our articles are designed as a "Skin Health Guide" focusing on detection and safe home-based remedies. However, it's important to remember that the information provided is for educational purposes only and is <strong style="color: #4CAF50;">not medical advice</strong>.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="margin-bottom: 20px;">
+                <div class="faq-question" style="background-color: #f8f9fa; padding: 22px 30px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2c3e50; font-size: 1.15em; transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-left: 4px solid #4CAF50;">
+                    <span>Are the home remedies safe to use?</span>
+                    <span class="faq-icon" style="font-size: 1.4em; transition: transform 0.3s ease; color: #4CAF50;">+</span>
+                </div>
+                <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; background-color: #f8f9fa; padding: 0 30px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); color: #555; font-size: 1em; line-height: 1.6;">
+                    <p style="padding: 25px 0; margin: 0;">Our "DIY Home Remedies" section provides guidance on how to safely use home remedies, including the importance of patch testing, consistency, and proper storage tips. However, always exercise caution and consult a professional if you have any concerns, especially for severe conditions or sensitive skin. For conditions like skin cancer, home remedies are not offered, and immediate professional consultation is heavily emphasized.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; color: #777; font-size: 0.9em;">
+            <p>Still have questions? <a href="#contact" style="color: #4CAF50; text-decoration: none; font-weight: 600;">Contact us</a> for more information.</p>
+        </div>
+    </div>
+</div>
+
+     <footer id="footer" data-stellar-background-ratio="0.5">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Find us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>Institute of Mathematics and Computer Science,<br>University of Sindh, Jamshoro — Sindh, Pakistan</p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Email us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>We’re just an email away from helping you!</p>
+                                   <p>0307-2515985 | 0300-3000000</p>
+                                   <p><a href="mailto:skinissuesfyp@gmail.com">skinissuesfyp@gmail.com</a></p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-8">
+                         <div class="footer-info footer-open-hour">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Glow Genies <span style="color: red;">.</span></h2>
+                              </div>
+                              <div class="wow fadeInUp" data-wow-delay="0.4s">
+                              <p>Our advanced AI engine quickly and efficiently evaluates the face,<br> 
+                                   identifying essential skin health and provides you with unparalleled insights into your complexion, guiding you towards optimal skin well-being.</p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-4">
+                           <div class="footer-info">
+                            <h2 class="wow fadeInUp" data-wow-delay="0.2s">Social</h2>
+                            <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
+                                 <li><a href="#" class="fa-brands fa-facebook-f" attr="facebook icon"></a></li>
+                                 <li><a href="#" class="fa-brands fa-twitter"></a></li>
+                                 <li><a href="#" class="fa-brands fa-instagram"></a></li>
+                                 <li><a href="#" class="fa-brands fa-whatsapp"></a></li>
+                            </ul>
+                            <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s"> 
+                              <p><br>Copyright &copy; 2025 <br>Glow Genie</p>
+                              <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click for Skin Diagnosis</a>
+
+                              
+                              <!-- <br><br>Design: <a rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a></p> -->
+                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </footer>
+    <!-- Chatbot popup container -->
+    <div id="chatbox-container">
+    <!-- Toggle Button -->
+    <button id="chat-toggle">
+    <span id="chat-icon"><i class="fa-solid fa-comments " style="color:white;"></i></span>
+    <span id="chat-close" style="display: none;"><i class="fa-solid fa-leaf" style="color:white;"></i></span>
+</button>
+
+    <!-- Chat Popup -->
+    <div id="chat-popup" style="display: none;">
+        <!-- Header -->
+        <div id="chat-header">
+            {% comment %} <img src="{% static 'images\logo_web-removebg-preview1.png' %}" alt="Glow.Genie Logo" class="chat-logo" /> {% endcomment %}
+            <div>
+                <h3 style="color:white">GenieGlow</h3>
+                <p>Your Personalized AI Assistant</p>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages"></div>
+
+        <!-- Input Area -->
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask about your skin issue..." />
+            <button id="chat-send" disabled>
+              <div style="background: white; padding: 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+                    <!-- Arrow SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" viewBox="0 0 24 24">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+             </button>
+
+        </div>
+    </div>
+</div>
+
+
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-bc8Gc1Lppn/H07GgNq9B2S7t+02zWn+vK9g32XlK5uWz2q67sK7Gz10d1uV" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/chatbot.js' %}"></script>
+    {% comment %} <script src="{% static 'js/chatbot_icon.js' %}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'js/FAQS.js' %}"></script> {% endcomment %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('mainNavbar');
+
+  toggleBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    navMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!toggleBtn.contains(event.target) && !navMenu.contains(event.target)) {
+      navMenu.classList.remove('open');
+    }
+  });
+});
+
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const icon = question.querySelector('.faq-icon');
+            
+            question.classList.toggle('active');
+            
+            if (question.classList.contains('active')) {
+                icon.textContent = '-';
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                answer.style.padding = '0 30px 25px';
+            } else {
+                icon.textContent = '+';
+                answer.style.maxHeight = '0';
+                answer.style.padding = '0 30px';
+            }
+            
+            faqQuestions.forEach(otherQuestion => {
+                if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                    otherQuestion.classList.remove('active');
+                    otherQuestion.querySelector('.faq-icon').textContent = '+';
+                    otherQuestion.nextElementSibling.style.maxHeight = '0';
+                    otherQuestion.nextElementSibling.style.padding = '0 30px';
+                }
+            });
+        });
+    });
+});
+</script>
+
+<script>
+    $(document).ready(function() {
+        console.log("Document is ready. Attaching form submit handler.");
+
+        $('#review-form').on('submit', function(e) {
+            console.log("Form submit event triggered!");
+            e.preventDefault();
+
+            var $form = $(this);
+            var $submitBtn = $form.find('button[type="submit"]');
+            var $loadingSpinner = $('#loading-spinner');
+            var $formResponseMessages = $('#form-response-messages');
+
+            $formResponseMessages.html('');
+            $submitBtn.prop('disabled', true);
+            $loadingSpinner.show();
+            console.log("Sending AJAX request...");
+
+            $.ajax({
+                type: 'POST',
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function(response) {
+                    console.log("AJAX success callback fired!");
+                    console.log("Server response:", response);
+
+                    $submitBtn.prop('disabled', false);
+                    $loadingSpinner.hide();
+
+                    if (response.success) {
+                        var successHtml = '<div class="alert alert-success" role="alert" style="opacity: 1; display: block; visibility: visible;">' + // Added inline styles
+                  response.message +
+                  // Removed the dismiss button and data-dismiss because it won't work without Bootstrap JS init
+                  '</div>';
+                        $formResponseMessages.html(successHtml);
+                        console.log("Success message HTML injected!");
+
+                        $form[0].reset();
+
+                        console.log("Fetching updated reviews list dynamically...");
+                        $.ajax({
+                            url: '{% url "reviews:get_reviews_list" %}',
+                            type: 'GET',
+                            success: function(reviewsHtml) {
+                                $('#reviews-list-container').html(reviewsHtml);
+                                console.log("Reviews list updated dynamically!");
+
+                                if (response.total_reviews_count !== undefined) {
+                                    $('#total-reviews-count').text(response.total_reviews_count);
+                                    console.log("Total reviews count updated to:", response.total_reviews_count);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error fetching updated reviews list:", status, error, xhr.responseText);
+                            }
+                        });
+
+                    } else {
+                        var errorHtml = '<div class="alert alert-warning" role="alert" style="opacity: 1; display: block; visibility: visible;">' +
+                (response.message || 'Form submission failed, but not a server error.') +
+                '</div>';
+                        $formResponseMessages.html(errorHtml);
+                        console.log("Error (success: false) message HTML injected!");
+
+                        if (response.errors) {
+                            console.log("Field errors:", response.errors);
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error callback fired!", status, error, xhr.responseText);
+                    $submitBtn.prop('disabled', false);
+                    $loadingSpinner.hide();
+
+                    var genericErrorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                                            'An unexpected error occurred. Please try again.' +
+                                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                            '<span aria-hidden="true">&times;</span>' +
+                                            '</button></div>';
+                    $formResponseMessages.html(genericErrorHtml);
+                    console.log("Generic error message HTML injected!");
+                }
+            });
+        });
+    });
+</script>
+
+<script src="{% static 'js/contact.js' %}"></script>
+  {% comment %} <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="Glow.Genie"
+    agent-id="44aa47e8-b37c-4409-ad9a-60acba45b803"
+    language-code="en">
+  </df-messenger> {% endcomment %}
+
+    
+</body>
+</html>
+
+
+
+ 

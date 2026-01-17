@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skin Issue Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+</head>
+<body>
+  <div class="page-container">
+    <!-- Header Section -->
+    {% comment %} 
+    <header class="header">
+      <img src="{% static 'images/skin_care_logo.png' %}" alt="Skin Care Logo" class="logo">
+      <h1>Skin Issue Detector</h1>
+    </header>
+    {% load static %} 
+    {% endcomment %} 
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+      <div class="card prediction-card">
+        <h2>Upload or Capture Image</h2>
+
+        <!-- File Upload -->
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        <div class="button-group">
+          <button onclick="document.getElementById('fileInput').click()" class="btn">
+            <i class="fas fa-upload"></i> Choose Image
+          </button>
+          <button id="startCameraBtn" class="btn camera-btn">
+            <i class="fas fa-camera"></i> Open Camera
+          </button>
+        </div>
+
+       <!-- Preview Area -->
+<div id="previewArea" style="position: relative; margin-top: 20px; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto;">
+  <img id="imagePreview" style="max-width: 100%; max-height: 400px; display: none; position: relative; z-index: 1;">
+  <canvas id="canvas" style="position: absolute; top: 0; left: 0; z-index: 2; pointer-events: none;"></canvas>
+</div>
+
+
+        <div class="action-buttons">
+          <button id="captureBtn" class="btn" disabled>Capture</button>
+          <button id="predictBtn" class="btn predict-btn" disabled>
+            <i class="fas fa-search"></i> Analyze
+          </button>
+        </div>
+
+        <div class="spinner" id="spinner"></div>
+      </div>
+
+      <!-- Results Card -->
+      <div class="card results-card" id="results">
+        <h2>Analysis Results</h2>
+        <div id="result" class="results-content">
+          <div id="remedies-container"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Information Sections -->
+    <section class="info-section">
+      <!-- Card 1: About Our Model -->
+      <div class="info-card">
+        <div class="info-card-content reverse">
+          <div class="info-text">
+            <h2>About Our Model</h2>
+            <p>Our model is designed to detect common skin issues using machine learning. It aims to provide quick, preliminary skin condition analysis from images. The model predicts likely issues and retrieves related symptoms, causes, and remedies. It is accessible through a user-friendly web interface for broad usability. This helps increase awareness, especially in medically underserved regions. It supports early health monitoring but is not a substitute for professional diagnosis.</p>
+          </div>
+          <div class="info-image">
+            <img src="{% static 'images/bg_image_2.jpg' %}" alt="AI Model Visualization">
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Our Goal -->
+      <div class="info-card">
+        <div class="info-card-content reverse">
+          <div class="info-text">
+            <h2>Our Goal</h2>
+            <p>To bridge the gap between early skin issue detection and medical consultation. Enable individuals to recognize potential skin conditions at home. Reduce anxiety by offering an informed first step toward understanding skin health. Support those in rural or under-resourced areas with minimal access to dermatologists. Encourage proactive skincare by promoting awareness and education. Empower users to take timely action with confidence and informed knowledge.</p>
+          </div>
+          <div class="info-image">
+            <img src="{% static 'images/technoo.jpg' %}" alt="AI Model Visualization">
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Technology -->
+      <div class="info-card">
+        <div class="info-card-content reverse">
+          <div class="info-text">
+            <h2>How It Works</h2>
+            <p>Users start by capturing or uploading an image of their skin concern. The image is processed through a trained deep learning model. The model analyzes visual patterns associated with common skin issues. It predicts the most likely condition based on the input image. The system then sends the prediction back to the user interface. Alongside this, it fetches useful information like causes and remedies.</p>
+          </div>
+          <div class="info-image">
+            <img src="{% static 'images/xyz.jpg' %}" alt="AI Model Visualization">
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Accessibility -->
+      <div class="info-card">
+        <div class="info-card-content reverse">
+          <div class="info-text">
+            <h2>Remedies and More</h2>
+            <p>After prediction, the app provides a detailed description of the skin issue. It includes common symptoms users may relate to for confirmation. Causes are listed to help users understand possible triggers or habits. The app offers natural and medical remedies for quick at-home care. It encourages users to consult professionals if symptoms persist. All content is designed to be easy to understand and actionable.</p>
+          </div>
+          <div class="info-image">
+            <img src="{% static 'images/goal.jpg' %}" alt="AI Model Visualization">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="features-container">
+        <div class="feature-card gradient-border-card">
+          <div class="card-content">
+            <img src="{% static 'images/download.svg' %}" alt="AI Icon">
+            <h3>AI-Powered</h3>
+            <p>Utilizes CNNs trained on dermatological images to enhance accuracy.</p>
+          </div>
+        </div>
+
+        <div class="feature-card gradient-border-card">
+          <div class="card-content">
+            <img src="{% static 'images/high_acc_logo.png' %}" alt="Accuracy Icon">
+            <h3>High Accuracy</h3>
+            <p>Refined and tested using real-world image datasets.</p>
+          </div>
+        </div>
+
+        <div class="feature-card gradient-border-card">
+          <div class="card-content">
+            <img src="{% static 'images/privacy_icon.png' %}" alt="Privacy Icon">
+            <h3>Privacy First</h3>
+            <p>All predictions are processed locally without saving your images.</p>
+          </div>
+        </div>
+
+        <div class="feature-card gradient-border-card">
+          <div class="card-content">
+            <img src="{% static 'images/real_time_icon.png' %}" alt="Realtime Icon">
+            <h3>Realtime Feedback</h3>
+            <p>Get instant results within seconds.</p>
+          </div>
+        </div>
+
+        <div class="feature-card gradient-border-card">
+          <div class="card-content">
+            <img src="{% static 'images/mobile_icon.png' %}" alt="Mobile Icon">
+            <h3>Mobile Friendly</h3>
+            <p>Optimized for mobile use.</p>
+          </div>
+        </div>
+
+        <div class="feature-card gradient-border-card">
+          <div class="card-content">
+            <img src="{% static 'images/dataset.png' %}" alt="Skin Tone Icon">
+            <h3>Inclusive Dataset</h3>
+            <p>Trained on diverse skin tones.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2025 Skin Issue Detector | Privacy Policy | Terms of Service</p>
+    </footer>
+  </div>
+
+  <script src="{% static 'js/script.js' %}"></script>
+  <script>
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        const x = e.clientX - e.target.getBoundingClientRect().left;
+        const y = e.clientY - e.target.getBoundingClientRect().top;
+
+        const ripple = document.createElement('span');
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        ripple.classList.add('ripple-effect');
+        this.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+  </script>
+
+  <!-- Dialogflow Popup chatbot -->
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="Glow.Genie"
+    agent-id="44aa47e8-b37c-4409-ad9a-60acba45b803"
+    language-code="en">
+  </df-messenger>
+</body>
+</html>

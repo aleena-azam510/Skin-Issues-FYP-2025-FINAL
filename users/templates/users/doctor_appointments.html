@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f4f4f4 0%, #bdd3c9 100%);
+            color: #023317;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #114f00, #4dff65);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #1dd020;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .dashboard-stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, #1c5e3d, #0e3a25);
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1;
+            min-width: 180px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(76, 255, 195, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-card h3 {
+            font-size: 1rem;
+            color: #a8e6cf;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stat-card .value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .appointments-table-container {
+            background: linear-gradient(145deg, #1c5e3d, #0e3a25);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(76, 255, 195, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background: linear-gradient(to right, #0e3a25, #1a5c3c);
+        }
+        
+        th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #a8e6cf;
+            border-bottom: 2px solid rgba(76, 255, 195, 0.2);
+            font-size: 1.05rem;
+        }
+        
+        th i {
+            margin-right: 8px;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background-color 0.2s;
+        }
+        
+        tbody tr:hover {
+            background-color: rgba(76, 255, 195, 0.05);
+        }
+        
+        td {
+            padding: 18px 15px;
+            color: #e0f7ec;
+        }
+        
+        .patient-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .patient-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4dffc3, #1a5c3c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0a2e1f;
+        }
+        
+        .date-time-cell {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .date {
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .time {
+            font-size: 0.9rem;
+            color: #a8e6cf;
+            margin-top: 3px;
+        }
+        
+        .phone-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reason-cell {
+            max-width: 250px;
+        }
+        
+        .reason-badge {
+            display: inline-block;
+            background: rgba(76, 255, 195, 0.15);
+            color: #4dffc3;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .no-appointments {
+            text-align: center;
+            padding: 60px 20px;
+            color: #b8e6d0;
+        }
+        
+        .no-appointments i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #4dffc3;
+            opacity: 0.7;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-box {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(10, 46, 31, 0.7);
+            color: #f1f8f4;
+            font-size: 1rem;
+            border: 1px solid rgba(76, 255, 195, 0.2);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4dffc3;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: rgba(10, 46, 31, 0.7);
+            color: #85ff83;
+            border: 1px solid rgba(76, 255, 195, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(26, 129, 0, 0.81);
+            color: #ffffff;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #b8e6d0;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-stats {
+                flex-direction: column;
+            }
+            
+            .stat-card {
+                min-width: 100%;
+            }
+            
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .appointments-table-container {
+                overflow-x: auto;
+            }
+            
+            table {
+                min-width: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-calendar-check"></i> My Appointments</h1>
+            <p class="subtitle">View and manage all scheduled patient appointments. You have <span>{{ appointments|length }}</span>
+ appointments today.</p>
+        </header>
+        
+       <div class="dashboard-stats">
+    <div class="stat-card">
+        <h3><i class="fas fa-users"></i> Total Patients</h3>
+        <div class="value">{{ total_patients }}</div>
+    </div>
+    <div class="stat-card">
+        <h3><i class="fas fa-calendar-day"></i> Today's Appointments</h3>
+        <div class="value">{{ todays_appointments }}</div>
+    </div>
+    <div class="stat-card">
+        <h3><i class="fas fa-clock"></i> Upcoming This Week</h3>
+        <div class="value">{{ upcoming_week }}</div>
+    </div>
+    <div class="stat-card">
+        <h3><i class="fas fa-user-clock"></i> Average Wait Time</h3>
+        <div class="value">8 min</div> <!-- Optional: calculate dynamically later -->
+    </div>
+</div>
+
+        
+        <div class="controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search appointments by patient name or reason...">
+            </div>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Appointments</button>
+                <button class="filter-btn" data-filter="today">Today</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+            </div>
+        </div>
+        
+        <div class="appointments-table-container">
+            <table id="appointmentsTable">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user-injured"></i> Patient</th>
+                        <th><i class="fas fa-calendar-alt"></i> Date</th>
+                        <th><i class="fas fa-clock"></i> Time</th>
+                        <th><i class="fas fa-phone"></i> Phone</th>
+                        <th><i class="fas fa-stethoscope"></i> Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+{% if appointments %}
+    {% for app in appointments %}
+    <tr>
+        <td>
+            <div class="patient-cell">
+                <div class="patient-avatar">
+                    {{ app.patient_name|slice:":1"|upper }}
+                </div>
+                <div>{{ app.patient_name }}</div>
+            </div>
+        </td>
+
+        <td>
+            <div class="date-time-cell">
+                <span class="date">{{ app.date|date:"D, M d Y" }}</span>
+            </div>
+        </td>
+
+        <td>
+            <span class="time">{{ app.time|time:"h:i A" }}</span>
+        </td>
+
+        <td>
+            <div class="phone-cell">
+                <i class="fas fa-phone-alt"></i>
+                {{ app.phone }}
+            </div>
+        </td>
+
+        <td>
+            <span class="reason-badge">
+                {{ app.reason|default:"General Consultation" }}
+            </span>
+        </td>
+    </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td colspan="5">
+            <div class="no-appointments">
+                <i class="fas fa-calendar-times"></i>
+                <h3>No appointments yet</h3>
+                <p>Patients have not booked any appointments.</p>
+            </div>
+        </td>
+    </tr>
+{% endif %}
+</tbody>
+
+            </table>
+        </div>
+        
+        <footer>
+            <p>© 2025 Medical Practice Management System | Last updated: Today, 10:42 AM</p>
+        </footer>
+    </div>
+    
+    
+    <script>
+        // Sample appointment data
+        const appointments = [
+            {
+                id: 1,
+                patient_name: "James Wilson",
+                date: "2023-11-15",
+                time: "09:30 AM",
+                phone: "(555) 123-4567",
+                reason: "Annual Checkup",
+                avatarColor: "#4dffc3"
+            },
+            {
+                id: 2,
+                patient_name: "Maria Rodriguez",
+                date: "2023-11-15",
+                time: "10:15 AM",
+                phone: "(555) 234-5678",
+                reason: "Follow-up Consultation",
+                avatarColor: "#4dffc3"
+            },
+            {
+                id: 3,
+                patient_name: "Robert Chen",
+                date: "2023-11-15",
+                time: "11:00 AM",
+                phone: "(555) 345-6789",
+                reason: "Vaccination",
+                avatarColor: "#4dffc3"
+            },
+            {
+                id: 4,
+                patient_name: "Sarah Johnson",
+                date: "2023-11-16",
+                time: "02:30 PM",
+                phone: "(555) 456-7890",
+                reason: "Dental Cleaning",
+                avatarColor: "#4dffc3"
+            },
+            {
+                id: 5,
+                patient_name: "Michael Brown",
+                date: "2023-11-16",
+                time: "03:45 PM",
+                phone: "(555) 567-8901",
+                reason: "Physical Therapy",
+                avatarColor: "#4dffc3"
+            },
+            {
+                id: 6,
+                patient_name: "Lisa Thompson",
+                date: "2023-11-17",
+                time: "09:00 AM",
+                phone: "(555) 678-9012",
+                reason: "Blood Test",
+                avatarColor: "#4dffc3"
+            },
+            {
+                id: 7,
+                patient_name: "David Miller",
+                date: "2023-11-18",
+                time: "01:20 PM",
+                phone: "(555) 789-0123",
+                reason: "Eye Examination",
+                avatarColor: "#4dffc3"
+            }
+        ];
+        
+        // Format date to be more readable
+        function formatDate(dateString) {
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', options);
+        }
+        
+        // Get initials for avatar
+        function getInitials(name) {
+            return name.split(' ').map(part => part[0]).join('').toUpperCase();
+        }
+        
+        // Render appointments to the table
+        function renderAppointments(appointmentsList) {
+            const tbody = document.getElementById('appointmentsBody');
+            tbody.innerHTML = '';
+            
+            if (appointmentsList.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5">
+                            <div class="no-appointments">
+                                <i class="fas fa-calendar-times"></i>
+                                <h3>No appointments found</h3>
+                                <p>Try adjusting your search or filter criteria</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            appointmentsList.forEach(app => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="patient-cell">
+                            <div class="patient-avatar" style="background: linear-gradient(135deg, ${app.avatarColor}, #1a5c3c)">
+                                ${getInitials(app.patient_name)}
+                            </div>
+                            <div>${app.patient_name}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="date-time-cell">
+                            <span class="date">${formatDate(app.date)}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="date-time-cell">
+                            <span class="time">${app.time}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="phone-cell">
+                            <i class="fas fa-phone-alt"></i>
+                            ${app.phone}
+                        </div>
+                    </td>
+                    <td>
+                        <span class="reason-badge">${app.reason}</span>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // Update appointment count
+            document.getElementById('appointmentCount').textContent = appointmentsList.filter(app => {
+                const today = new Date().toISOString().split('T')[0];
+                return app.date === today;
+            }).length;
+        }
+        
+        // Filter appointments based on criteria
+        function filterAppointments(filter) {
+            const today = new Date().toISOString().split('T')[0];
+            
+            switch(filter) {
+                case 'today':
+                    return appointments.filter(app => app.date === today);
+                case 'upcoming':
+                    return appointments.filter(app => app.date >= today);
+                default:
+                    return appointments;
+            }
+        }
+        
+        // Search appointments
+        function searchAppointments(query) {
+            if (!query.trim()) return appointments;
+            
+            const searchTerm = query.toLowerCase();
+            return appointments.filter(app => 
+                app.patient_name.toLowerCase().includes(searchTerm) || 
+                app.reason.toLowerCase().includes(searchTerm) ||
+                app.phone.includes(searchTerm)
+            );
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial render
+            renderAppointments(appointments);
+            
+            // Set up filter buttons
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Get filter type
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Apply filter
+                    const filteredApps = filterAppointments(filter);
+                    renderAppointments(filteredApps);
+                });
+            });
+            
+            // Set up search
+            document.getElementById('searchInput').addEventListener('input', function() {
+                const query = this.value;
+                const filteredApps = searchAppointments(query);
+                renderAppointments(filteredApps);
+            });
+        });
+    </script>
+</body>
+</html>

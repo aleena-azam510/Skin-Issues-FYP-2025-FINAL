@@ -1,0 +1,2497 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skin Wellness Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link href="{% static 'images/TabLogo.png' %}" rel="icon" type="image/x-icon" sizes="256x256">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #2A6B4E;
+      --primary-light: #3A8B66;
+      --primary-dark: #1E4D38;
+      --secondary: #E8F4F0;
+      --accent: #FF9A8B;
+      --accent-light: #FFC3B8;
+      --text: #333333;
+      --text-light: #6B7280;
+      --white: #FFFFFF;
+      --light-bg: #f9fafb;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --radius: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--light-bg) 0%, var(--secondary) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      background: var(--white);
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Quote Section */
+    .quote-section {
+      margin-bottom: 2.5rem;
+      position: relative;
+      margin-top: 200px; 
+
+    }
+
+    .quote-box {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--radius);
+      padding: 2rem;
+      color: white;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-box::before {
+      content: """;
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 8rem;
+      color: rgba(255, 255, 255, 0.2);
+      font-family: Georgia, serif;
+    }
+
+    .quote-text {
+      font-size: 1.4rem;
+      font-weight: 500;
+      font-style: italic;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .quote-author {
+      text-align: right;
+      font-size: 1rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 2;
+    }
+
+    .quote-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+      gap: 10px;
+    }
+
+    .quote-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .quote-dot.active {
+      background: white;
+      transform: scale(1.2);
+    }
+
+    /* Dashboard Cards */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      cursor: pointer;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+
+    .feature-card p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .tip-box {
+      margin-top: 1rem;
+      background: var(--secondary);
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--primary);
+      border-left: 3px solid var(--primary);
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .back-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .back-btn:hover {
+      background: var(--primary-light);
+      transform: translateX(-3px);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header i {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    /* Upload Form */
+    .upload-form {
+      margin-bottom: 2rem;
+    }
+
+    .upload-form input[type=file] {
+      border: 2px dashed #ddd;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 100%;
+      margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+
+    .upload-form input[type=file]:hover {
+      border-color: var(--primary);
+    }
+
+    .upload-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(42, 107, 78, 0.3);
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+      transform: translateY(-2px);
+    }
+
+    /* Image Preview */
+    #imagePreviewContainer {
+      margin-top: 1.5rem;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
+
+    #imagePreview {
+      max-width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 1rem;
+    }
+
+    /* Camera Elements */
+    #camera {
+      display: none;
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 1rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    #capturePhoto {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    /* Chart Styling */
+    .chart-container {
+      margin-top: 2rem;
+      position: relative;
+      height: 300px;
+    }
+
+    /* Upload History */
+    .upload-history {
+      margin-top: 2rem;
+    }
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .upload-item {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+    }
+
+    .upload-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .upload-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .upload-details {
+      padding: 1rem;
+    }
+
+    .upload-details p {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .delete-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .delete-btn:hover {
+      background: #c82333;
+    }
+
+    /* UV & Lifestyle Sections */
+    .uv-details, .lifestyle-tips {
+      margin-top: 1.5rem;
+    }
+
+    /* Enhanced Lifestyle Section */
+    .lifestyle-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .lifestyle-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .lifestyle-categories {
+      background: var(--secondary);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .category-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .category-tab {
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .category-tab:hover {
+      transform: translateX(5px);
+      background: var(--primary);
+      color: white;
+    }
+
+    .category-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .tips-display {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .tips-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .tips-list li {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--transition);
+    }
+
+    .tips-list li:hover {
+      background: var(--secondary);
+      border-radius: 8px;
+    }
+
+    .tips-list li:last-child {
+      border-bottom: none;
+    }
+
+    .tip-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .progress-section {
+      margin-top: 2rem;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      margin: 0.5rem 0 1rem;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .habit-tracker {
+      margin-top: 2rem;
+    }
+
+    .habit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .habit-item {
+      background: white;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .habit-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .habit-item.completed {
+      background: var(--secondary);
+      border: 1px solid var(--primary);
+    }
+
+    .habit-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Hidden Class */
+    .hidden {
+      display: none;
+    }
+
+    /* Floating Elements */
+    .floating-element {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(255, 154, 139, 0.1);
+      z-index: -1;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-element:nth-child(1) {
+      top: 10%;
+      left: 5%;
+      width: 80px;
+      height: 80px;
+    }
+
+    .floating-element:nth-child(2) {
+      top: 20%;
+      right: 10%;
+      width: 120px;
+      height: 120px;
+      animation-delay: 1s;
+    }
+
+    .floating-element:nth-child(3) {
+      bottom: 15%;
+      left: 8%;
+      width: 60px;
+      height: 60px;
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(10deg); }
+    }
+
+    /* Success Message */
+    .success-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateX(150%);
+      transition: transform 0.5s ease;
+    }
+
+    .success-message.show {
+      transform: translateX(0);
+    }
+    /* Sleep Section Styling */
+/* SLEEP SECTION STYLES */
+        #sectionSleep {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            background: #f0f9f4;
+            color: #2A6B4E;
+            border: 1px solid #2A6B4E;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            background: #2A6B4E;
+            color: white;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header i {
+            font-size: 2.5rem;
+            color: #2A6B4E;
+        }
+
+        .section-header h2 {
+            color: #2A6B4E;
+            font-size: 1.8rem;
+        }
+
+        #sectionSleep p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .sleep-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-group input {
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #2A6B4E;
+            box-shadow: 0 0 0 3px rgba(42, 107, 78, 0.1);
+        }
+
+        .analyze-btn {
+            background-color: #2A6B4E;
+            color: #fff;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            align-self: center;
+            width: 200px;
+        }
+
+        .analyze-btn:hover {
+            background-color: #235b40;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sleep-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f8f9fa;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .sleep-result h3 {
+            color: #2A6B4E;
+            margin-bottom: 1rem;
+        }
+
+        .sleep-result p {
+            margin-bottom: 0.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            height: 300px;
+            position: relative;
+        }
+        /* 🌙 Sleep, Habits & Journal Buttons */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.9rem 1.6rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(42, 107, 78, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-primary:active {
+  background: var(--primary-dark);
+  transform: scale(0.97);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* Add subtle button container alignment for cards */
+.feature-card .btn-primary,
+.feature-card .btn-outline {
+  margin-top: 0.8rem;
+  width: 80%;
+}
+
+
+        
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .upload-actions {
+        flex-direction: column;
+      }
+      #sectionSleep {
+                padding: 1.5rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+      header {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  {% load static %}
+  <!-- Floating Background Elements -->
+  <div class="floating-element"></div>
+  <div class="floating-element"></div>
+  <div class="floating-element"></div>
+
+  <!-- Success Message -->
+  <div class="success-message" id="successMessage">
+    <i class="fas fa-check-circle"></i>
+    <span id="successText">Operation completed successfully!</span>
+  </div>
+
+ 
+    <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="{% url 'index_page' %}" class="navbar-brand" style="display: flex; align-items: center; gap: 8px;">
+                    <img src= "{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo" style="height: 180px;">
+                </a>
+                
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-nav-first" style="color: black !important;">
+                    <li><a href="{% url 'index_page' %}" style="color: black !important;">Home</a></li>
+                    <li><a href="#about" style="color: black !important;">About</a></li>
+                    <li><a href="{% url 'developer_team_page' %}" style="color: black !important;">Developer Team</a></li>
+                    <li><a href="{% url 'article_page' %}" style="color: black !important;">Article</a></li>
+                    <li><a href="{% url 'skin_identifier' %}" style="color: black !important;">Skin Type Identifier</a></li>
+                    <li><a href="{% url 'index_page' %}#contact" style="color: black !important;">Contact</a></li>
+                    <li><a href="{% url 'index_page' %}#faqs"style="color: black !important;">FAQs</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'model_page' %}" class="section-btn">Skin-Diagnose</a></li>
+
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="display:flex; align-items:center; gap:8px;  color: black !important;">
+                            <i class="fa fa-user-circle" style="font-size:22px;"></i>
+                            Hello, {{ user.username }}
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'dashboard_redirect' %}">My Dashboard</a></li>
+
+                             <li role="separator" class="divider"></li>
+
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                        </li>
+
+                    {% else %}
+                        <li><a href="{% url 'auth_page' %}" class="section-btn">Login / Sign Up</a></li>
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </section>
+
+  <main>
+    <!-- QUOTE SECTION -->
+    <div class="quote-section">
+      <div class="quote-box animate__animated animate__fadeIn">
+        <div class="quote-text" id="quoteText">"Healthy skin is a reflection of overall wellness."</div>
+        <div class="quote-author" id="quoteAuthor">- Unknown</div>
+        <div class="quote-nav">
+          <div class="quote-dot active" data-index="0"></div>
+          <div class="quote-dot" data-index="1"></div>
+          <div class="quote-dot" data-index="2"></div>
+          <div class="quote-dot" data-index="3"></div>
+          <div class="quote-dot" data-index="4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD CARDS -->
+    <div id="dashboardGrid" class="dashboard-grid">
+      <div class="feature-card animate__animated animate__fadeInUp" id="cardTracker">
+        <i class="fas fa-chart-line"></i>
+        <h3>Skin Progress Tracker</h3>
+        <p>Track your skin's journey with AI insights and visual progress charts.</p>
+        <div class="tip-box" id="tip1">💡 Stay hydrated — your skin will thank you.</div>
+      </div>
+
+      <div class="feature-card animate__animated animate__fadeInUp animate__delay-1s" id="cardUV">
+        <i class="fas fa-sun"></i>
+        <h3>UV & Pollution Awareness</h3>
+        <p id="uvData">Fetching your local UV index...</p>
+        <div class="tip-box" id="tip2">💡 Don't skip sunscreen — even on cloudy days.</div>
+      </div>
+
+      <div class="feature-card animate__animated animate__fadeInUp animate__delay-2s" id="cardLifestyle">
+        <i class="fas fa-leaf"></i>
+        <h3>Lifestyle-Based Suggestions</h3>
+        <p>Personalized tips based on your skin type and daily routine.</p>
+        <div class="tip-box" id="tip3">💡 Sleep well for natural skin repair.</div>
+      </div>
+    
+    <div class="feature-card animate__animated animate__fadeInUp animate__delay-2s dashboard-card" id="cardSleep">
+        <i class="fas fa-moon"></i>
+        <h3>Sleep & Stress Monitor</h3>
+        <p>Track your rest and relaxation for healthier skin.</p>
+        <div class="tip-box" id="tip3">💡 Aim for 7-9 hours of consistent, quality rest</div>
+      </div>
+    <!-- 🌿 LIFESTYLE & HABITS TRACKER CARD -->
+    <div class="feature-card animate__animated animate__fadeInUp animate__delay-3s dashboard-card" id="cardHabits">
+      <i class="fas fa-leaf"></i>
+      <h3>Lifestyle & Habits Tracker</h3>
+      <p>Hydration, diet, and exercise — your skin’s wellness boosters.</p>
+      <div class="tip-box" id="tip4">💧 Drink at least 8 glasses of water daily for glowing skin</div>
+    </div>
+    <!-- 💖 SKINCARE JOURNAL CARD -->
+      <div class="feature-card animate__animated animate__fadeInUp animate__delay-3s dashboard-card" id="cardJournal">
+        <i class="fas fa-heart"></i>
+        <h3>Skincare Journal</h3>
+        <p>Reflect on your mood and how your skin feels each day.</p>
+        <div class="tip-box">💡 Consistency in mood & skincare leads to lasting glow!</div>
+      </div>
+
+    
+    </div>
+
+    <!-- SKIN PROGRESS TRACKER SECTION -->
+    <div id="sectionTracker" class="section-card hidden">
+      <button class="back-btn" onclick="showDashboard()">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </button>
+      
+      <div class="section-header">
+        <i class="fas fa-camera"></i>
+        <h2>Skin Progress Tracker</h2>
+      </div>
+
+      <!-- Upload Form -->
+      <form id="uploadForm" method="post" enctype="multipart/form-data" class="upload-form">
+        {% csrf_token %}
+        <input type="file" id="id_image" name="image" accept="image/*" required>
+        
+        <div id="imagePreviewContainer" style="display:none;">
+          <h4>Preview:</h4>
+          <img id="imagePreview" src="#" alt="Preview">
+        </div>
+        
+        <div class="upload-actions">
+          <button type="button" class="btn btn-secondary" id="startCamera">
+            <i class="fas fa-video"></i> Capture from Camera
+          </button>
+          <button type="submit" class="btn" id="uploadButton">
+            <i class="fas fa-upload"></i> Upload & Analyze
+          </button>
+        </div>
+        
+        <video id="camera" autoplay style="display:none;"></video>
+        <canvas id="snapshotCanvas" style="display:none;"></canvas>
+        <button type="button" id="capturePhoto" class="btn" style="display:none;">
+          <i class="fas fa-camera"></i> Capture Photo
+        </button>
+      </form>
+
+      <div id="trackerContent">
+        {% if uploads %}
+          <div class="chart-container">
+            <canvas id="progressChart"></canvas>
+          </div>
+          
+          <div class="upload-history">
+            <h3>Your Upload History</h3>
+            <div class="upload-grid" id="uploadGrid">
+              {% for p in uploads %}
+                <div class="upload-item" id="upload-{{ p.pk }}">
+                  <img src="{{ p.image.url }}" alt="Upload {{ forloop.counter }}">
+                  <div class="upload-details">
+                    <p><strong>Date:</strong> {{ p.created_at|date:"M d, Y" }}</p>
+                    <p class="confidence"><i class="fas fa-chart-bar"></i> Confidence: {{ p.ai_confidence|default:0|floatformat:1 }}%</p>
+                    <p class="improvement"><i class="fas fa-trending-up"></i> Improvement: {{ p.improvement_score|default:0 }}%</p>
+                    <p class="conditions"><i class="fas fa-stethoscope"></i> Detected: {{ p.detection_result|default:"None" }}</p>
+                    <button type="button" class="delete-btn" data-id="{{ p.pk }}">Delete</button>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <p style="margin-top:1rem; text-align: center;">No uploads yet. Start by uploading your first skin photo!</p>
+        {% endif %}
+      </div>
+    </div>
+
+   <!-- 🌤 UV & POLLUTION AWARENESS SECTION -->
+<div id="sectionUV" class="section-card hidden">
+  <button class="back-btn" onclick="showDashboard()">
+    <i class="fas fa-arrow-left"></i> Back to Dashboard
+  </button>
+
+  <div class="section-header">
+    <i class="fas fa-sun"></i>
+    <h2>UV & Pollution Awareness</h2>
+  </div>
+
+  <!-- ✅ UV INFORMATION -->
+  <div id="uvBox" style="margin-top:1rem; padding:1rem; border-radius:10px; background:#e8f5e9;">
+    <div id="uvData" style="line-height:1.6; font-size:1rem;">
+      Loading UV & air quality data...
+    </div>
+  </div>
+
+  <!-- UV CHART -->
+  <div style="margin-top:1rem;">
+    <canvas id="uvChart" height="200"></canvas>
+  </div>
+
+  <!-- UV DETAILS -->
+  <div id="uvDetails" style="margin-top:1rem;"></div>
+
+  <!-- USER-FRIENDLY EXPLANATION -->
+  <div id="uvExplain" style="margin-top:1rem; background:#f3faf7; padding:1rem; border-left:4px solid #3A8B66; border-radius:8px; font-size:0.95rem; color:#256149;">
+    🌞 <strong>Understanding the UV Chart:</strong><br>
+    The line graph above shows how strong the sun’s ultraviolet (UV) rays are likely to be throughout the day.  
+    A higher UV number means more sunlight intensity and a greater chance of skin damage.<br><br>
+    - **0–2 (Green):** Low risk — safe for most people.<br>
+    - **3–5 (Yellow):** Moderate risk — wear sunglasses & SPF 15+.<br>
+    - **6–7 (Orange):** High risk — apply SPF 30+ and limit sun exposure.<br>
+    - **8–10 (Red):** Very high — stay in shade during midday.<br>
+    - **11+ (Purple):** Extreme — avoid outdoor activities.<br><br>
+    ☀️ Even on cloudy days, UV rays can harm your skin — protection matters every day.
+  </div>
+
+  <hr style="margin:2rem 0; border:0; border-top:1px solid #e5e7eb;">
+
+  <!-- ✅ AIR QUALITY SECTION -->
+  <div id="pollutionBox" style="padding:1rem; border-radius:10px; background:#f0f4ff;">
+    <div id="pollutionData" style="line-height:1.6;">
+      Loading air quality information...
+    </div>
+  </div>
+
+  <!-- AIR QUALITY CHART -->
+  <div style="margin-top:1rem;">
+    <canvas id="airChart" height="200"></canvas>
+  </div>
+
+  <!-- USER-FRIENDLY EXPLANATION -->
+  <div id="pollutionExplain" style="margin-top:1rem; background:#f0f4ff; padding:1rem; border-left:4px solid #1d4ed8; border-radius:8px; font-size:0.95rem; color:#1e3a8a;">
+    🌬️ <strong>Understanding the Air Quality Chart:</strong><br>
+    This shows how clean or polluted the air around you is, based on the <strong>AQI (Air Quality Index)</strong>.<br><br>
+    - **0–50 (Green):** Good — air is clean and healthy.<br>
+    - **51–100 (Yellow):** Moderate — acceptable but slightly polluted.<br>
+    - **101–150 (Orange):** Unhealthy for sensitive people (asthma, allergies).<br>
+    - **151–200 (Red):** Unhealthy — limit outdoor activity.<br>
+    - **201+ (Purple):** Very unhealthy — stay indoors when possible.<br><br>
+    😷 Remember: Even short exposure to poor air can affect your breathing and skin health.
+  </div>
+</div>
+
+
+    <!-- LIFESTYLE SUGGESTIONS SECTION -->
+    <div id="sectionLifestyle" class="section-card hidden">
+      <button class="back-btn" onclick="showDashboard()">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </button>
+      
+      <div class="section-header">
+        <i class="fas fa-leaf"></i>
+        <h2>Lifestyle Suggestions</h2>
+      </div>
+      
+      <div class="lifestyle-container">
+        <div class="lifestyle-categories">
+          <h3>Categories</h3>
+          <div class="category-tabs">
+            <div class="category-tab active" data-category="nutrition">
+              <i class="fas fa-apple-alt"></i> Nutrition
+            </div>
+            <div class="category-tab" data-category="sleep">
+              <i class="fas fa-bed"></i> Sleep & Rest
+            </div>
+            <div class="category-tab" data-category="hydration">
+              <i class="fas fa-tint"></i> Hydration
+            </div>
+            <div class="category-tab" data-category="stress">
+              <i class="fas fa-brain"></i> Stress Management
+            </div>
+            <div class="category-tab" data-category="exercise">
+              <i class="fas fa-running"></i> Exercise
+            </div>
+          </div>
+          
+          <div class="progress-section">
+            <h4>Your Progress</h4>
+            <p>Daily Goals Completion</p>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill" style="width: 65%"></div>
+            </div>
+            <p>65% Complete</p>
+          </div>
+        </div>
+        
+        <div class="tips-display">
+          <div id="nutritionTips" class="tips-category">
+            <h3>Nutrition Tips</h3>
+            <ul class="tips-list">
+              <li>
+                <div class="tip-icon"><i class="fas fa-carrot"></i></div>
+                <div>Eat antioxidant-rich foods like berries, spinach, and nuts</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-fish"></i></div>
+                <div>Include omega-3 fatty acids from fish or flaxseeds</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-seedling"></i></div>
+                <div>Reduce sugar intake to prevent collagen breakdown</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-lemon"></i></div>
+                <div>Vitamin C from citrus fruits helps collagen production</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-water"></i></div>
+                <div>Stay hydrated with water-rich fruits and vegetables</div>
+              </li>
+            </ul>
+          </div>
+          
+          <div id="sleepTips" class="tips-category hidden">
+            <h3>Sleep & Rest Tips</h3>
+            <ul class="tips-list">
+              <li>
+                <div class="tip-icon"><i class="fas fa-moon"></i></div>
+                <div>Aim for 7-9 hours of quality sleep each night</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-bed"></i></div>
+                <div>Use silk or satin pillowcases to reduce friction</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-clock"></i></div>
+                <div>Establish a consistent sleep schedule</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-mobile"></i></div>
+                <div>Avoid screens 1 hour before bedtime</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-spa"></i></div>
+                <div>Practice relaxation techniques before bed</div>
+              </li>
+            </ul>
+          </div>
+          
+          <div id="hydrationTips" class="tips-category hidden">
+            <h3>Hydration Tips</h3>
+            <ul class="tips-list">
+              <li>
+                <div class="tip-icon"><i class="fas fa-glass-whiskey"></i></div>
+                <div>Drink at least 8 glasses of water daily</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-leaf"></i></div>
+                <div>Include herbal teas for added hydration</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-apple-alt"></i></div>
+                <div>Eat water-rich foods like cucumber and watermelon</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-tint"></i></div>
+                <div>Use a humidifier in dry environments</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-wind"></i></div>
+                <div>Avoid excessive caffeine and alcohol</div>
+              </li>
+            </ul>
+          </div>
+          
+          <div id="stressTips" class="tips-category hidden">
+            <h3>Stress Management</h3>
+            <ul class="tips-list">
+              <li>
+                <div class="tip-icon"><i class="fas fa-yin-yang"></i></div>
+                <div>Practice daily meditation or deep breathing</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-walking"></i></div>
+                <div>Take regular breaks during work</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-hands-helping"></i></div>
+                <div>Connect with friends and family regularly</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-book"></i></div>
+                <div>Engage in hobbies that bring you joy</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-spa"></i></div>
+                <div>Consider yoga or tai chi for stress relief</div>
+              </li>
+            </ul>
+          </div>
+          
+          <div id="exerciseTips" class="tips-category hidden">
+            <h3>Exercise Tips</h3>
+            <ul class="tips-list">
+              <li>
+                <div class="tip-icon"><i class="fas fa-running"></i></div>
+                <div>Aim for 30 minutes of moderate exercise daily</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-hiking"></i></div>
+                <div>Include both cardio and strength training</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-wind"></i></div>
+                <div>Don't forget to stretch before and after workouts</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-sun"></i></div>
+                <div>Exercise outdoors for vitamin D when possible</div>
+              </li>
+              <li>
+                <div class="tip-icon"><i class="fas fa-shower"></i></div>
+                <div>Cleanse skin after sweating to prevent breakouts</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="habit-tracker">
+        <h3>Daily Habit Tracker</h3>
+        <p>Track your daily skin wellness habits</p>
+        <div class="habit-grid">
+          <div class="habit-item" data-habit="water">
+            <div class="habit-icon"><i class="fas fa-tint"></i></div>
+            <div>Drink 8 glasses of water</div>
+          </div>
+          <div class="habit-item" data-habit="sunscreen">
+            <div class="habit-icon"><i class="fas fa-sun"></i></div>
+            <div>Apply sunscreen</div>
+          </div>
+          <div class="habit-item" data-habit="cleansing">
+            <div class="habit-icon"><i class="fas fa-soap"></i></div>
+            <div>Double cleanse</div>
+          </div>
+          <div class="habit-item" data-habit="moisturize">
+            <div class="habit-icon"><i class="fas fa-pump-soap"></i></div>
+            <div>Moisturize</div>
+          </div>
+          <div class="habit-item" data-habit="sleep">
+            <div class="habit-icon"><i class="fas fa-bed"></i></div>
+            <div>7+ hours sleep</div>
+          </div>
+          <div class="habit-item" data-habit="exercise">
+            <div class="habit-icon"><i class="fas fa-running"></i></div>
+            <div>30 min exercise</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLEEP & STRESS MONITOR SECTION -->
+    <div id="sectionSleep" class="section-card hidden">
+      <button class="back-btn" onclick="showDashboard()">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </button>
+
+      <div class="section-header">
+        <i class="fas fa-moon"></i>
+        <h2>Sleep & Stress Monitor</h2>
+      </div>
+
+      <p>Sleep and stress have a huge impact on your skin. Track them to understand how your mind and body affect your glow ✨.</p>
+
+      <label>😴 Hours of Sleep Last Night:</label>
+      <input type="number" id="sleepInput" min="0" max="12" placeholder="e.g. 7" class="input-field">
+
+      <label>😖 Stress Level (1–10):</label>
+      <input type="number" id="stressInput" min="1" max="10" placeholder="e.g. 5" class="input-field">
+
+      <button id="analyzeSleep" class="btn-primary">Analyze</button>
+
+      <div id="sleepResult" style="margin-top:1rem;"></div>
+      <div style="position: relative; height: 300px; width: 100%;">
+        <canvas id="sleepChart"></canvas>
+      </div>
+
+    </div>
+    <!-- 🌿 LIFESTYLE & HABITS TRACKER SECTION -->
+<div id="sectionHabits" class="section-card hidden">
+  <button class="back-btn" onclick="showDashboard()">
+    <i class="fas fa-arrow-left"></i> Back to Dashboard
+  </button>
+
+  <div class="section-header">
+    <i class="fas fa-seedling"></i>
+    <h2>Lifestyle & Habits Tracker</h2>
+  </div>
+
+  <p>
+    Your daily choices — hydration, food, and movement — shape your skin’s glow 🌞.
+    Track your healthy habits and see your progress grow!
+  </p>
+
+  <label>💧 Water Intake (glasses):</label>
+  <input type="number" id="waterInput" min="0" max="15" placeholder="e.g. 8" class="input-field">
+
+  <label>🥗 Healthy Meals Today:</label>
+  <input type="number" id="mealsInput" min="0" max="5" placeholder="e.g. 3" class="input-field">
+
+  <label>🏃‍♀️ Physical Activity (minutes):</label>
+  <input type="number" id="exerciseInput" min="0" max="180" placeholder="e.g. 30" class="input-field">
+
+  <button id="analyzeHabits" class="btn-primary">Analyze My Habits</button>
+
+  <div id="habitResult" style="margin-top:1rem;"></div>
+
+  <div class="progress-container" style="margin-top:1.5rem;">
+    <p><strong>Daily Wellness Progress:</strong></p>
+    <div class="progress-bar-bg" style="background:#eee; border-radius:10px; height:20px; overflow:hidden;">
+      <div id="habitProgress" class="progress-bar-fill" 
+           style="width:0%; height:100%; background:linear-gradient(90deg,#6DD5FA,#2980B9); transition:width 1s;"></div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.5rem; text-align:center;">
+  <canvas id="habitChart" width="250" height="250" style="max-width:250px; margin:auto;"></canvas>
+</div>
+
+</div>
+
+<!-- 💖 SKINCARE JOURNAL / MOOD TRACKER SECTION -->
+<div id="sectionJournal" class="section-card hidden">
+  <button class="back-btn" onclick="showDashboard()">
+    <i class="fas fa-arrow-left"></i> Back to Dashboard
+  </button>
+
+  <div class="section-header">
+    <i class="fas fa-heart"></i>
+    <h2>Skincare Journal & Mood Tracker</h2>
+  </div>
+
+  <p>Track your daily mood and skin condition to uncover what helps you glow 🌸</p>
+
+  <label>💆‍♀️ How does your skin feel today?</label>
+  <select id="skinCondition" class="input-field">
+    <option value="">-- Select --</option>
+    <option value="glowy">🌟 Glowy</option>
+    <option value="dry">🌵 Dry</option>
+    <option value="oily">💧 Oily</option>
+    <option value="irritated">😣 Irritated</option>
+  </select>
+
+  <label>😊 How’s your mood today?</label>
+  <select id="mood" class="input-field">
+    <option value="">-- Select --</option>
+    <option value="happy">😄 Happy</option>
+    <option value="calm">😌 Calm</option>
+    <option value="stressed">😖 Stressed</option>
+    <option value="tired">🥱 Tired</option>
+  </select>
+
+  <label>📝 Notes (optional)</label>
+  <textarea id="journalNotes" rows="3" class="input-field" placeholder="e.g. Slept well but skin feels oily"></textarea>
+
+  <button id="logEntry" class="btn-primary">Log Today's Entry</button>
+
+  <div id="journalResult" style="margin-top:1rem;"></div>
+
+  <div style="margin-top:1.5rem; height:250px;">
+    <canvas id="moodSkinChart"></canvas>
+  </div>
+</div>
+
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Skin-related quotes
+    const quotes = [
+      {
+        text: "Healthy skin is a reflection of overall wellness.",
+        author: "Unknown"
+      },
+      {
+        text: "Invest in your skin. It is going to represent you for a very long time.",
+        author: "Linden Tyler"
+      },
+      {
+        text: "Beautiful skin requires commitment, not a miracle.",
+        author: "Erno Laszlo"
+      },
+      {
+        text: "Your skin is the fingerprint of what is going on inside your body.",
+        author: "Georgiana Donadio"
+      },
+      {
+        text: "Glowing skin is always in.",
+        author: "Unknown"
+      }
+    ];
+
+    // Initialize quote display
+    let currentQuoteIndex = 0;
+    const quoteText = document.getElementById('quoteText');
+    const quoteAuthor = document.getElementById('quoteAuthor');
+    const quoteDots = document.querySelectorAll('.quote-dot');
+
+    function updateQuote(index) {
+      quoteText.textContent = `"${quotes[index].text}"`;
+      quoteAuthor.textContent = `- ${quotes[index].author}`;
+      
+      // Update active dot
+      quoteDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      
+      // Add animation
+      quoteText.parentElement.classList.remove('animate__fadeIn');
+      void quoteText.parentElement.offsetWidth; // Trigger reflow
+      quoteText.parentElement.classList.add('animate__fadeIn');
+    }
+
+    // Set up quote navigation
+    quoteDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        currentQuoteIndex = parseInt(dot.getAttribute('data-index'));
+        updateQuote(currentQuoteIndex);
+      });
+    });
+
+    // Auto-rotate quotes
+    setInterval(() => {
+      currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+      updateQuote(currentQuoteIndex);
+    }, 5000);
+
+    // Section navigation
+    const dashboard = document.getElementById('dashboardGrid');
+    const tracker = document.getElementById('sectionTracker');
+    const uv = document.getElementById('sectionUV');
+    const lifestyle = document.getElementById('sectionLifestyle');
+    
+    document.getElementById('cardTracker').onclick = () => showSection(tracker);
+    document.getElementById('cardUV').onclick = () => showSection(uv);
+    document.getElementById('cardLifestyle').onclick = () => showSection(lifestyle);
+    
+    function showSection(section) {
+      dashboard.classList.add('hidden');
+      section.classList.remove('hidden');
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function showDashboard() {
+      [tracker, uv, lifestyle].forEach(s => s.classList.add('hidden'));
+      dashboard.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Image preview and camera capture
+    const fileInput = document.getElementById('id_image');
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const previewImage = document.getElementById('imagePreview');
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadBtn = document.getElementById('uploadButton');
+    const startCameraBtn = document.getElementById('startCamera');
+    const captureBtn = document.getElementById('capturePhoto');
+    const video = document.getElementById('camera');
+    const canvas = document.getElementById('snapshotCanvas');
+
+    fileInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = ev => {
+          previewImage.src = ev.target.result;
+          previewContainer.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    startCameraBtn.addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        video.style.display = 'block';
+        captureBtn.style.display = 'block';
+        startCameraBtn.style.display = 'none';
+      } catch (err) {
+        alert('Camera access denied: ' + err.message);
+      }
+    });
+
+    captureBtn.addEventListener('click', () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+      canvas.toBlob(blob => {
+        const file = new File([blob], 'captured.jpg', { type: 'image/jpeg' });
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        fileInput.files = dt.files;
+        previewImage.src = URL.createObjectURL(blob);
+        previewContainer.style.display = 'block';
+        video.srcObject.getTracks().forEach(t => t.stop());
+        video.style.display = 'none';
+        captureBtn.style.display = 'none';
+        startCameraBtn.style.display = 'block';
+      });
+    });
+
+    // Success message function
+    function showSuccessMessage(message) {
+      const successMessage = document.getElementById('successMessage');
+      const successText = document.getElementById('successText');
+      
+      successText.textContent = message;
+      successMessage.classList.add('show');
+      
+      setTimeout(() => {
+        successMessage.classList.remove('show');
+      }, 3000);
+    }
+
+    // AJAX Upload with detection + success message
+    uploadForm.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      if (!fileInput.files.length) {
+        alert('Please select or capture a photo first.');
+        return;
+      }
+
+      uploadBtn.disabled = true;
+      uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+
+      const formData = new FormData(uploadForm);
+
+      try {
+        // Simulate API call (replace with actual endpoint)
+        setTimeout(() => {
+          // Simulate response
+          const mockResponse = {
+            status: 'success',
+            detection_result: 'Healthy Skin',
+            ai_confidence: 92.5,
+            improvement_score: 15,
+            pk: Date.now() // Simulate new ID
+          };
+
+          // Show success message
+          showSuccessMessage('Image uploaded and analyzed successfully!');
+          
+          // Reset form
+          uploadForm.reset();
+          previewContainer.style.display = 'none';
+          
+          // Update UI without reload
+          updateTrackerUI(mockResponse);
+          
+          uploadBtn.disabled = false;
+          uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload & Analyze';
+        }, 2000);
+        
+      } catch (err) {
+        alert('❌ Upload failed: ' + err.message);
+        uploadBtn.disabled = false;
+        uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload & Analyze';
+      }
+    });
+
+    // Function to update tracker UI after upload
+    function updateTrackerUI(data) {
+      const uploadGrid = document.getElementById('uploadGrid');
+      const trackerContent = document.getElementById('trackerContent');
+      
+      // If no uploads yet, update the content
+      if (!uploads || uploads.length === 0) {
+        trackerContent.innerHTML = `
+          <div class="chart-container">
+            <canvas id="progressChart"></canvas>
+          </div>
+          
+          <div class="upload-history">
+            <h3>Your Upload History</h3>
+            <div class="upload-grid" id="uploadGrid">
+              <!-- New upload will be added here -->
+            </div>
+          </div>
+        `;
+      }
+      
+      // Create new upload item
+      const newUpload = document.createElement('div');
+      newUpload.className = 'upload-item';
+      newUpload.id = `upload-${data.pk}`;
+      newUpload.innerHTML = `
+        <img src="${previewImage.src}" alt="New Upload">
+        <div class="upload-details">
+          <p><strong>Date:</strong> ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+          <p class="confidence"><i class="fas fa-chart-bar"></i> Confidence: ${data.ai_confidence.toFixed(1)}%</p>
+          <p class="improvement"><i class="fas fa-trending-up"></i> Improvement: ${data.improvement_score}%</p>
+          <p class="conditions"><i class="fas fa-stethoscope"></i> Detected: ${data.detection_result}</p>
+          <button type="button" class="delete-btn" data-id="${data.pk}">Delete</button>
+        </div>
+      `;
+      
+      // Add to the grid (at the beginning)
+      document.getElementById('uploadGrid').prepend(newUpload);
+      
+      // Add delete functionality
+      newUpload.querySelector('.delete-btn').addEventListener('click', function() {
+        deleteUpload(data.pk);
+      });
+      
+      // Update chart if it exists
+      updateProgressChart();
+    }
+
+    // Delete upload function
+    function deleteUpload(id) {
+      const uploadItem = document.getElementById(`upload-${id}`);
+      if (uploadItem) {
+        uploadItem.style.opacity = '0';
+        uploadItem.style.transform = 'translateX(100px)';
+        
+        setTimeout(() => {
+          uploadItem.remove();
+          showSuccessMessage('Upload deleted successfully!');
+          
+          // If no uploads left, show empty state
+          const uploadGrid = document.getElementById('uploadGrid');
+          if (!uploadGrid || uploadGrid.children.length === 0) {
+            document.getElementById('trackerContent').innerHTML = `
+              <p style="margin-top:1rem; text-align: center;">No uploads yet. Start by uploading your first skin photo!</p>
+            `;
+          }
+        }, 300);
+      }
+    }
+
+    // Add delete event listeners to existing uploads
+    document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('delete-btn')) {
+      const id = e.target.getAttribute('data-id');
+      deleteUpload(id);
+    }
+  });
+
+  
+
+      
+
+    // Update progress chart function
+    function updateProgressChart() {
+      const chartEl = document.getElementById('progressChart');
+      if (chartEl) {
+        // In a real app, you would fetch updated data from the server
+        // For now, we'll just recreate the chart with the same data
+        const ctx = chartEl.getContext('2d');
+        
+        // Get current data or use default
+        const labels = {{ labels|safe }} || ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+        const data = {{ data|safe }} || [10, 25, 40, 65];
+        
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Improvement (%)',
+              data: data,
+              borderColor: '#2A6B4E',
+              backgroundColor: 'rgba(42,107,78,0.1)',
+              fill: true,
+              tension: 0.3,
+              pointBackgroundColor: '#2A6B4E',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              pointRadius: 5,
+              pointHoverRadius: 7
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                grid: {
+                  color: 'rgba(0,0,0,0.05)'
+                }
+              },
+              x: {
+                grid: {
+                  color: 'rgba(0,0,0,0.05)'
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                backgroundColor: 'rgba(42,107,78,0.9)',
+                titleFont: {
+                  size: 14
+                },
+                bodyFont: {
+                  size: 13
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // Lifestyle section functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Category tabs
+      const categoryTabs = document.querySelectorAll('.category-tab');
+      const tipCategories = document.querySelectorAll('.tips-category');
+      
+      categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const category = this.getAttribute('data-category');
+          
+          // Update active tab
+          categoryTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Show corresponding tips
+          tipCategories.forEach(cat => cat.classList.add('hidden'));
+          document.getElementById(`${category}Tips`).classList.remove('hidden');
+        });
+      });
+      
+      // Habit tracker
+      const habitItems = document.querySelectorAll('.habit-item');
+      habitItems.forEach(item => {
+        item.addEventListener('click', function() {
+          this.classList.toggle('completed');
+          
+          // Update progress
+          const completed = document.querySelectorAll('.habit-item.completed').length;
+          const total = habitItems.length;
+          const progress = (completed / total) * 100;
+          
+          document.getElementById('progressFill').style.width = `${progress}%`;
+          document.querySelector('.progress-section p:last-child').textContent = 
+            `${Math.round(progress)}% Complete`;
+            
+          showSuccessMessage('Habit updated!');
+        });
+      });
+    });
+
+    // Initialize charts if they exist
+    document.addEventListener('DOMContentLoaded', function() {
+      // Progress chart
+      const progressChartEl = document.getElementById('progressChart');
+      if (progressChartEl && {{ uploads|length }} > 0) {
+        updateProgressChart();
+      }
+    });
+  </script>
+  <script>
+function getCSRFToken() {
+  return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
+
+async function deleteUpload(id) {
+  if (!confirm("Are you sure you want to delete this upload?")) return;
+
+  try {
+    const response = await fetch(`/delete-upload/${id}/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": getCSRFToken(),
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    });
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      const uploadItem = document.getElementById(`upload-${id}`);
+      if (uploadItem) uploadItem.remove();
+    } else {
+      alert("Delete failed");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong");
+  }
+}
+
+/* EVENT DELEGATION */
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("delete-btn")) {
+    const id = e.target.dataset.id;
+    deleteUpload(id);
+  }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const uvDataEl = document.getElementById("uvData");
+  const uvDetailsEl = document.getElementById("uvDetails");
+  const uvExplainEl = document.getElementById("uvExplain");
+  const pollutionDataEl = document.getElementById("pollutionData");
+  const pollutionExplainEl = document.getElementById("pollutionExplain");
+  const apiKey = "d3322d68c3442a9842f29bbcb4bcbdfe";
+
+  uvDataEl.innerHTML = "⏳ Getting location...";
+  pollutionDataEl.innerHTML = "⏳ Loading air quality data...";
+
+  if (!navigator.geolocation) {
+    uvDataEl.textContent = "⚠️ Geolocation not supported.";
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    async pos => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      console.log("✅ Got location:", lat, lon);
+
+      try {
+        uvDataEl.innerHTML = "📡 Fetching UV & pollution data...";
+
+        // --- Weather + UV + Air Pollution API ---
+        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+        const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+        const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+        const [weatherRes, uvRes, airRes] = await Promise.all([
+          fetch(weatherUrl),
+          fetch(uvUrl),
+          fetch(airUrl)
+        ]);
+
+        if (!weatherRes.ok || !uvRes.ok || !airRes.ok)
+          throw new Error("One or more requests failed");
+
+        const weatherData = await weatherRes.json();
+        const uvData = await uvRes.json();
+        const airData = await airRes.json();
+
+        // --- UV & Weather Info ---
+        const uvIndex = uvData.value ?? 0;
+        const temp = weatherData.main.temp;
+        const humidity = weatherData.main.humidity;
+        const condition = weatherData.weather[0].description;
+
+        uvDataEl.innerHTML = `
+          <strong>${condition.charAt(0).toUpperCase() + condition.slice(1)}</strong><br>
+          🌡️ Temp: <strong>${temp.toFixed(1)}°C</strong> |
+          💧 Humidity: <strong>${humidity}%</strong><br>
+          ☀️ UV Index: <strong>${uvIndex}</strong>
+        `;
+
+        // --- Skincare & Sun Safety Tips ---
+        let advice = "", extraTips = "";
+        if (uvIndex <= 2) {
+          advice = "Low UV — minimal protection needed.";
+          extraTips = "Enjoy outdoor time safely! SPF and hydration are still good habits.";
+        } else if (uvIndex <= 5) {
+          advice = "Moderate UV — SPF 15+, sunglasses advised.";
+          extraTips = "Reapply sunscreen every 2 hours if you’re outdoors.";
+        } else if (uvIndex <= 7) {
+          advice = "High UV — SPF 30+, avoid midday sun.";
+          extraTips = "Wear hats and sleeves; limit direct exposure from 10 AM–4 PM.";
+        } else if (uvIndex <= 10) {
+          advice = "Very High UV — SPF 50+, seek shade.";
+          extraTips = "Avoid extended outdoor activity and reapply sunscreen frequently.";
+        } else {
+          advice = "Extreme UV — stay indoors if possible.";
+          extraTips = "Skin damage can occur within minutes; avoid direct sunlight.";
+        }
+
+        uvDetailsEl.innerHTML = `
+          <strong>Skincare Tip:</strong> ${advice}<br>
+          <em>${extraTips}</em><br><br>
+          <em>Weather & UV data powered by OpenWeatherMap</em>
+        `;
+
+        // --- Simulated 12-hour UV Graph ---
+        const uvCtx = document.getElementById("uvChart").getContext("2d");
+        const hours = Array.from({ length: 12 }, (_, i) => `${(new Date().getHours() + i) % 24}:00`);
+        const uvTrend = Array.from({ length: 12 }, (_, i) => {
+          const variation = Math.sin(i / 2) * 1.5;
+          return Math.max(0, parseFloat((uvIndex + variation).toFixed(1)));
+        });
+
+        new Chart(uvCtx, {
+          type: "line",
+          data: {
+            labels: hours,
+            datasets: [{
+              label: "UV Index (Next 12h)",
+              data: uvTrend,
+              borderColor: "#2A6B4E",
+              backgroundColor: "rgba(42,107,78,0.2)",
+              borderWidth: 3,
+              fill: true,
+              tension: 0.35,
+              pointRadius: 4,
+              pointBackgroundColor: "#2A6B4E"
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { beginAtZero: true, max: 12, title: { display: true, text: "UV Index" } },
+              x: { title: { display: true, text: "Time (Next 12 Hours)" } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+
+        // --- Explanation for UV Graph ---
+        uvExplainEl.innerHTML = `
+          <p><strong>About This Graph:</strong> Shows how UV levels vary across the day.
+          UV peaks around midday (11 AM – 3 PM) and decreases after sunset.
+          Even on cloudy days, UV rays can reach your skin!</p>
+          <p><strong>Tip:</strong> Plan outdoor activities when UV < 3 for minimal risk.</p>
+        `;
+
+        // --- Air Quality Data ---
+        const aqi = airData.list[0].main.aqi;
+        const components = airData.list[0].components;
+        const aqiLevels = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+        const aqiColors = ["#2ecc71", "#f1c40f", "#e67e22", "#e74c3c", "#8e44ad"];
+        const aqiStatus = aqiLevels[aqi - 1] || "Unknown";
+
+        pollutionDataEl.innerHTML = `
+          🌫️ Air Quality Index: <strong style="color:${aqiColors[aqi - 1]}">${aqiStatus}</strong><br>
+          🫁 PM2.5: ${components.pm2_5} µg/m³ | CO: ${components.co} µg/m³
+        `;
+
+        // --- AQI Chart ---
+        const airCtx = document.getElementById("airChart").getContext("2d");
+        new Chart(airCtx, {
+          type: "bar",
+          data: {
+            labels: ["CO", "NO₂", "O₃", "SO₂", "PM2.5", "PM10"],
+            datasets: [{
+              label: "Pollutant Concentration (µg/m³)",
+              data: [
+                components.co,
+                components.no2,
+                components.o3,
+                components.so2,
+                components.pm2_5,
+                components.pm10
+              ],
+              backgroundColor: "rgba(42,107,78,0.6)",
+              borderRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { beginAtZero: true, title: { display: true, text: "µg/m³" } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+
+        // --- Explanation for AQI Graph ---
+        pollutionExplainEl.innerHTML = `
+          <p><strong>About Air Quality Graph:</strong> Displays concentrations of common air pollutants.
+          PM2.5 and PM10 affect lungs the most. Higher bars = more pollution.</p>
+          <p><strong>Health Tip:</strong> If air quality is <strong>Poor</strong> or <strong>Very Poor</strong>, 
+          wear a mask outdoors, avoid running near traffic, and use indoor air purifiers if possible.</p>
+        `;
+
+      } catch (err) {
+        console.error("❌ Weather fetch failed:", err);
+        uvDataEl.textContent = "⚠️ Could not fetch weather data.";
+        pollutionDataEl.textContent = "⚠️ Could not fetch air quality data.";
+      }
+    },
+    err => {
+      console.warn("⚠️ Geolocation failed:", err);
+      uvDataEl.textContent = "⚠️ Location access denied.";
+      pollutionDataEl.textContent = "⚠️ Location access denied.";
+    }
+  );
+});
+</script>
+<script>
+  function updateUVColor(uvIndex) {
+  const uvBox = document.getElementById("uvBox");
+  if (!uvBox) return;
+  if (uvIndex <= 2) uvBox.style.background = "#e8f5e9"; // green
+  else if (uvIndex <= 5) uvBox.style.background = "#fffde7"; // yellow
+  else if (uvIndex <= 7) uvBox.style.background = "#fff3e0"; // orange
+  else if (uvIndex <= 10) uvBox.style.background = "#ffebee"; // red
+  else uvBox.style.background = "#f3e5f5"; // purple
+}
+
+function updateAQIColor(aqi) {
+  const box = document.getElementById("pollutionBox");
+  if (!box) return;
+  if (aqi <= 50) box.style.background = "#e8f5e9"; // good
+  else if (aqi <= 100) box.style.background = "#fffde7"; // moderate
+  else if (aqi <= 150) box.style.background = "#fff3e0"; // unhealthy for sensitive
+  else if (aqi <= 200) box.style.background = "#ffebee"; // unhealthy
+  else box.style.background = "#f3e5f5"; // very unhealthy
+}
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // --- DOM Elements ---
+  const cardSleep = document.getElementById("cardSleep");
+  const sectionSleep = document.getElementById("sectionSleep");
+  const dashboard = document.getElementById("dashboardGrid");
+  const analyzeBtn = document.getElementById("analyzeSleep");
+  const sleepInput = document.getElementById("sleepInput");
+  const stressInput = document.getElementById("stressInput");
+  const sleepResult = document.getElementById("sleepResult");
+  const ctx = document.getElementById("sleepChart").getContext("2d");
+
+  let sleepChart = null;
+
+  // 🧩 Fix chart container height (prevents stretching)
+  const chartContainer = document.getElementById("sleepChart").parentElement;
+  chartContainer.style.height = "300px"; // ✅ set consistent height
+
+  // --- Navigation ---
+  cardSleep.addEventListener("click", () => {
+    dashboard.classList.add("hidden");
+    sectionSleep.classList.remove("hidden");
+    sectionSleep.scrollIntoView({ behavior: "smooth" });
+    initializeChart();
+  });
+
+  function showDashboard() {
+    sectionSleep.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // --- Initialize Chart ---
+  function initializeChart() {
+    // Destroy previous chart if exists
+    if (sleepChart) {
+      sleepChart.destroy();
+    }
+
+    // Create new chart
+    sleepChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        datasets: [
+          {
+            label: "Hours of Sleep",
+            data: [7, 6, 7.5, 8, 6.5, 9, 8],
+            borderColor: "#2A6B4E",
+            backgroundColor: "rgba(42, 107, 78, 0.15)",
+            tension: 0.3,
+            fill: true,
+            yAxisID: "ySleep"
+          },
+          {
+            label: "Stress Level",
+            data: [3, 5, 4, 2, 6, 1, 2],
+            borderColor: "#FF6B6B",
+            backgroundColor: "rgba(255, 107, 107, 0.15)",
+            tension: 0.3,
+            fill: true,
+            yAxisID: "yStress"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, // ✅ important for fixed height
+        animation: {
+          duration: 700,
+          easing: "easeOutQuart"
+        },
+        interaction: { mode: "index", intersect: false },
+        scales: {
+          ySleep: {
+            type: "linear",
+            position: "left",
+            beginAtZero: true,
+            max: 10,
+            title: {
+              display: true,
+              text: "Hours of Sleep"
+            }
+          },
+          yStress: {
+            type: "linear",
+            position: "right",
+            beginAtZero: true,
+            max: 10,
+            grid: { drawOnChartArea: false },
+            title: {
+              display: true,
+              text: "Stress Level"
+            }
+          }
+        },
+        plugins: {
+          legend: { position: "top" },
+          title: {
+            display: true,
+            text: "Weekly Sleep & Stress Trends",
+            font: { size: 16 }
+          }
+        }
+      }
+    });
+  }
+
+  // --- Analyze Button ---
+  analyzeBtn.addEventListener("click", function () {
+    const sleepHours = parseFloat(sleepInput.value);
+    const stressLevel = parseInt(stressInput.value);
+
+    if (isNaN(sleepHours) || isNaN(stressLevel)) {
+      sleepResult.innerHTML = "⚠️ Please enter valid values for both sleep hours and stress level.";
+      return;
+    }
+
+    let sleepMsg = "";
+    let stressMsg = "";
+    let recMsg = "";
+
+    if (sleepHours >= 7 && sleepHours <= 9)
+      sleepMsg = "✅ Great! You got the recommended amount of sleep.";
+    else if (sleepHours >= 6)
+      sleepMsg = "😴 Decent rest, but try for 7–9 hours for glowing skin.";
+    else if (sleepHours > 9)
+      sleepMsg = "💤 You might be oversleeping — 7–9 hours is optimal.";
+    else sleepMsg = "⚠️ Too little sleep — can cause dullness and dark circles.";
+
+    if (stressLevel <= 3)
+      stressMsg = "🧘 Low stress — ideal for healthy skin barrier.";
+    else if (stressLevel <= 6)
+      stressMsg = "😌 Moderate stress — consider short breaks or deep breaths.";
+    else stressMsg = "😬 High stress — can trigger inflammation. Relax your mind!";
+
+    if (sleepHours < 7 && stressLevel > 6)
+      recMsg = "💡 Try sleeping earlier and doing light meditation before bed.";
+    else if (sleepHours < 7)
+      recMsg = "🌙 Improve sleep duration — reduce caffeine and screen time.";
+    else if (stressLevel > 6)
+      recMsg = "💆 Reduce stress — mindfulness or short walks help.";
+    else recMsg = "✨ Perfect combo — maintain these habits for radiant skin.";
+
+    sleepResult.innerHTML = `
+      <h3>Your Sleep & Stress Analysis</h3>
+      <p><strong>Sleep:</strong> ${sleepMsg}</p>
+      <p><strong>Stress:</strong> ${stressMsg}</p>
+      <p><strong>Recommendation:</strong> ${recMsg}</p>
+      <hr>
+      <p><em>📊 Tip: The green line shows sleep hours; the red line shows stress. Keep them balanced for happy, healthy skin!</em></p>
+    `;
+
+    // --- Update Chart Data (no stretching) ---
+    if (sleepChart) {
+      const today = new Date().toLocaleDateString("en-US", { weekday: "short" });
+      sleepChart.data.labels.push(today);
+      sleepChart.data.datasets[0].data.push(sleepHours);
+      sleepChart.data.datasets[1].data.push(stressLevel);
+
+      // Keep last 7 entries
+      if (sleepChart.data.labels.length > 7) {
+        sleepChart.data.labels.shift();
+        sleepChart.data.datasets[0].data.shift();
+        sleepChart.data.datasets[1].data.shift();
+      }
+
+      sleepChart.update();
+    }
+  });
+
+  // Demo defaults
+  sleepInput.value = "7";
+  stressInput.value = "4";
+});
+</script>
+<script>
+const cardHabits = document.getElementById('cardHabits');
+const sectionHabits = document.getElementById('sectionHabits');
+const analyzeHabits = document.getElementById('analyzeHabits');
+const habitResult = document.getElementById('habitResult');
+const progressBar = document.getElementById('habitProgress');
+let habitChart;
+
+// Open section
+cardHabits.addEventListener('click', () => showSection(sectionHabits));
+
+// Analyze button
+analyzeHabits.addEventListener('click', () => {
+  const water = parseFloat(document.getElementById('waterInput').value);
+  const meals = parseFloat(document.getElementById('mealsInput').value);
+  const exercise = parseFloat(document.getElementById('exerciseInput').value);
+
+  if (isNaN(water) || isNaN(meals) || isNaN(exercise)) {
+    habitResult.innerHTML = "⚠️ Please enter all values to analyze your habits.";
+    return;
+  }
+
+  let score = 0;
+  let advice = "";
+
+  // Water logic
+  if (water >= 8) { score += 40; advice += "💧 Excellent hydration! "; }
+  else if (water >= 5) { score += 25; advice += "🚰 Decent hydration — try for 8 glasses! "; }
+  else { score += 10; advice += "🥵 Drink more water to keep your skin supple! "; }
+
+  // Meals logic
+  if (meals >= 3) { score += 30; advice += "🥗 Great healthy eating! "; }
+  else if (meals >= 2) { score += 20; advice += "🍎 Add more fruits & veggies. "; }
+  else { score += 10; advice += "🍔 Too few balanced meals can dull your skin. "; }
+
+  // Exercise logic
+  if (exercise >= 45) { score += 30; advice += "🏃‍♀️ Excellent activity! Circulation boosts glow. "; }
+  else if (exercise >= 20) { score += 20; advice += "🚶 Good — move a bit more for better blood flow. "; }
+  else { score += 10; advice += "🛋️ Try light exercise daily to improve skin oxygenation. "; }
+
+  const progress = Math.min(score, 100);
+  progressBar.style.width = progress + "%";
+
+  habitResult.innerHTML = `
+    <strong>Your Lifestyle Score:</strong> ${progress}/100<br>
+    <p>${advice}</p>
+  `;
+
+  // Chart visualization
+  const ctx = document.getElementById('habitChart').getContext('2d');
+  if (habitChart) habitChart.destroy();
+
+  habitChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Hydration', 'Nutrition', 'Exercise'],
+      datasets: [{
+        data: [water, meals, exercise / 15],
+        backgroundColor: ['#4FC3F7', '#81C784', '#FFD54F'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Your Healthy Habits Breakdown',
+          font: { size: 16 }
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+});
+</script>
+
+
+<script>
+  // 💖 Skincare Journal Logic
+const journalEntries = [];
+let moodSkinChart;
+
+document.getElementById("cardJournal").onclick = () => showSection(document.getElementById("sectionJournal"));
+
+document.getElementById("logEntry").addEventListener("click", () => {
+  const skin = document.getElementById("skinCondition").value;
+  const mood = document.getElementById("mood").value;
+  const notes = document.getElementById("journalNotes").value.trim();
+  const resultEl = document.getElementById("journalResult");
+
+  if (!skin || !mood) {
+    resultEl.innerHTML = "⚠️ Please select both skin condition and mood.";
+    return;
+  }
+
+  const entry = {
+    date: new Date().toLocaleDateString(),
+    skin,
+    mood,
+    notes
+  };
+  journalEntries.push(entry);
+
+  resultEl.innerHTML = `
+    <strong>Entry Logged:</strong><br>
+    📅 ${entry.date}<br>
+    💆‍♀️ Skin: ${skin}<br>
+    😊 Mood: ${mood}<br>
+    📝 ${notes || 'No notes added.'}
+  `;
+
+  updateMoodSkinChart();
+});
+
+function updateMoodSkinChart() {
+  const ctx = document.getElementById("moodSkinChart").getContext("2d");
+
+  const moodScores = { happy: 4, calm: 3, stressed: 2, tired: 1 };
+  const skinScores = { glowy: 4, oily: 3, dry: 2, irritated: 1 };
+
+  const labels = journalEntries.map(e => e.date);
+  const moodData = journalEntries.map(e => moodScores[e.mood]);
+  const skinData = journalEntries.map(e => skinScores[e.skin]);
+
+  if (moodSkinChart) moodSkinChart.destroy();
+
+  moodSkinChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Mood Level",
+          data: moodData,
+          borderColor: "#81C784",
+          backgroundColor: "rgba(129,199,132,0.2)",
+          fill: true,
+          tension: 0.3
+        },
+        {
+          label: "Skin Condition Level",
+          data: skinData,
+          borderColor: "#64B5F6",
+          backgroundColor: "rgba(100,181,246,0.2)",
+          fill: true,
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 4,
+          ticks: {
+            stepSize: 1,
+            callback: val => ["", "😣", "😕", "🙂", "😄"][val]
+          },
+          title: {
+            display: true,
+            text: "Mood / Skin Wellness Level"
+          }
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: "Mood vs. Skin Health Over Time"
+        },
+        legend: { position: "bottom" }
+      }
+    }
+  });
+}
+
+</script>
+
+ <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-bc8Gc1Lppn/H07GgNq9B2S7t+02zWn+vK9g32XlK5uWz2q67sK7Gz10d1uV" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/chatbot.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</body>
+</html>

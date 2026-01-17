@@ -1,0 +1,819 @@
+{% extends "dashboard/layout.html" %}
+
+{% block extra_css %}
+<style>
+:root {
+  --primary-green: #5cb910ff;
+  --light-green: #79d334ff;
+  --dark-green: #017a01ff;
+  --teal-green: #0f940dff;
+  --emerald-green: #047857;
+  --mint-green: #a8f3a7ff;
+  --bg-gradient: linear-gradient(135deg, #ecfdf5 0%, #b8e7b2ff 100%);
+  --card-gradient: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  --text-dark: #064e3b;
+  --text-medium: #065f46;
+  --text-light: #6b7280;
+  --shadow-light: 0 10px 25px rgba(16, 185, 129, 0.1);
+  --shadow-medium: 0 15px 35px rgba(16, 185, 129, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-gradient);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+/* Page Container */
+.habits-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--bg-gradient);
+  border-radius: 24px;
+  box-shadow: var(--shadow-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.habits-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary-green), var(--teal-green), var(--emerald-green));
+  border-radius: 24px 24px 0 0;
+}
+
+/* Header */
+.habits-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.habits-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-green), var(--teal-green));
+  border-radius: 2px;
+}
+
+.habits-header h2 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--emerald-green), var(--primary-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.habits-header p {
+  font-size: 1.5rem;
+  color: var(--text-medium);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Stats Overview */
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: var(--shadow-light);
+  border-left: 4px solid var(--primary-green);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+}
+
+.stat-card h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--emerald-green);
+  margin-bottom: 0.25rem;
+}
+
+.stat-card p {
+  font-size: 1.75rem;
+  color: var(--text-medium);
+  font-weight: 500;
+}
+
+/* Progress Bar */
+.progress-container {
+  background: white;
+  padding: 1.75rem;
+  border-radius: 18px;
+  box-shadow: var(--shadow-light);
+  margin-bottom: 3rem;
+  border: 1px solid #e5e7eb;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.progress-label {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-size: 1.2rem;
+}
+
+#progress-percentage {
+  font-weight: 800;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, var(--emerald-green), var(--primary-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 24px;
+  background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--light-green), var(--primary-green), var(--dark-green));
+  border-radius: 12px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Habits Grid */
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Individual Habit Card */
+.habit-card {
+  background: var(--card-gradient);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  border: 2px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+}
+
+.habit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-green), var(--teal-green));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.habit-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--light-green);
+}
+
+.habit-card:hover::before {
+  transform: scaleX(1);
+}
+
+.habit-card.completed {
+  border-color: var(--primary-green);
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.2);
+  background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+}
+
+.habit-card.completed::before {
+  transform: scaleX(1);
+  background: linear-gradient(90deg, var(--primary-green), var(--emerald-green));
+}
+
+.habit-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--mint-green), var(--light-green));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  color: var(--emerald-green);
+  font-size: 1.75rem;
+}
+
+.habit-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.habit-card p {
+  font-size: 1.3rem;
+  color: var(--text-medium);
+  flex-grow: 1;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Toggle Button */
+.habit-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 0.85rem 1.75rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary-green), var(--teal-green));
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.habit-toggle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.habit-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+.habit-toggle:hover::after {
+  opacity: 1;
+}
+
+.habit-toggle span {
+  position: relative;
+  z-index: 1;
+}
+
+.habit-toggle i {
+  position: relative;
+  z-index: 1;
+  font-size: 1.1rem;
+}
+
+.habit-toggle.completed {
+  background: linear-gradient(135deg, var(--teal-green), var(--emerald-green));
+}
+
+/* Completion Badge */
+.completion-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: linear-gradient(135deg, var(--primary-green), var(--emerald-green));
+  color: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.habit-card.completed .completion-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Streak Indicator */
+.streak-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.streak-dots {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.streak-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  transition: background 0.3s ease;
+}
+
+.streak-dot.active {
+  background: var(--primary-green);
+}
+
+/* Footer */
+.habits-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e5e7eb;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.habits-footer a {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .habits-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .habits-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .habits-header h2 {
+    font-size: 2.25rem;
+  }
+  
+  .stats-overview {
+    grid-template-columns: 1fr;
+  }
+  
+  .progress-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .habits-header h2 {
+    font-size: 1.875rem;
+  }
+  
+  .habit-card {
+    padding: 1.5rem;
+  }
+  
+  .habit-card h3 {
+    font-size: 1.35rem;
+  }
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="habits-container">
+  <div class="habits-header">
+    <h2>Healthy Skin Habits</h2>
+    <p>Track your daily routines for radiant, healthy skin. Consistency is key to glowing results!</p>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="stats-overview">
+    <div class="stat-card">
+      <h3 id="completed-count">0</h3>
+      <p>Completed Today</p>
+    </div>
+    <div class="stat-card">
+      <h3 id="total-habits">5</h3>
+      <p>Total Habits</p>
+    </div>
+    <div class="stat-card">
+      <h3 id="streak-days">0</h3>
+      <p>Current Streak</p>
+    </div>
+    <div class="stat-card">
+      <h3 id="weekly-avg">0%</h3>
+      <p>Weekly Average</p>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-container">
+    <div class="progress-header">
+      <div class="progress-label">Today's Progress</div>
+      <div id="progress-percentage">0%</div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="streak-indicator">
+      <span>Weekly Streak:</span>
+      <div class="streak-dots">
+        <div class="streak-dot" data-day="mon"></div>
+        <div class="streak-dot" data-day="tue"></div>
+        <div class="streak-dot" data-day="wed"></div>
+        <div class="streak-dot" data-day="thu"></div>
+        <div class="streak-dot" data-day="fri"></div>
+        <div class="streak-dot" data-day="sat"></div>
+        <div class="streak-dot" data-day="sun"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Habits Grid -->
+  <div class="habits-grid" id="habits-grid">
+    <!-- Habit 1 -->
+    <div class="habit-card" data-habit="water" data-completed="false">
+      <div class="habit-icon">
+        <i class="fas fa-tint"></i>
+      </div>
+      <div class="completion-badge">
+        <i class="fas fa-check-circle"></i> Completed
+      </div>
+      <h3>Drink 8 Glasses of Water</h3>
+      <p>Hydration keeps your skin plump, glowing, and helps flush out toxins.</p>
+      <div class="streak-indicator">
+        <span>This week:</span>
+        <div class="streak-dots">
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+        </div>
+      </div>
+      <button class="habit-toggle">
+        <span>Mark as Done</span>
+        <i class="fas fa-check"></i>
+      </button>
+    </div>
+    
+    <!-- Habit 2 -->
+    <div class="habit-card" data-habit="sunscreen" data-completed="false">
+      <div class="habit-icon">
+        <i class="fas fa-sun"></i>
+      </div>
+      <div class="completion-badge">
+        <i class="fas fa-check-circle"></i> Completed
+      </div>
+      <h3>Apply Sunscreen Daily</h3>
+      <p>Protects your skin from harmful UV rays that cause aging and damage.</p>
+      <div class="streak-indicator">
+        <span>This week:</span>
+        <div class="streak-dots">
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+        </div>
+      </div>
+      <button class="habit-toggle">
+        <span>Mark as Done</span>
+        <i class="fas fa-check"></i>
+      </button>
+    </div>
+    
+    <!-- Habit 3 -->
+    <div class="habit-card" data-habit="nutrition" data-completed="false">
+      <div class="habit-icon">
+        <i class="fas fa-apple-alt"></i>
+      </div>
+      <div class="completion-badge">
+        <i class="fas fa-check-circle"></i> Completed
+      </div>
+      <h3>Eat Fruits & Vegetables</h3>
+      <p>Rich in antioxidants and vitamins for healthy, radiant skin from within.</p>
+      <div class="streak-indicator">
+        <span>This week:</span>
+        <div class="streak-dots">
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+        </div>
+      </div>
+      <button class="habit-toggle">
+        <span>Mark as Done</span>
+        <i class="fas fa-check"></i>
+      </button>
+    </div>
+    
+    <!-- Habit 4 -->
+    <div class="habit-card" data-habit="sleep" data-completed="false">
+      <div class="habit-icon">
+        <i class="fas fa-moon"></i>
+      </div>
+      <div class="completion-badge">
+        <i class="fas fa-check-circle"></i> Completed
+      </div>
+      <h3>Get 7-9 Hours Sleep</h3>
+      <p>Sleep restores skin cells, reduces stress, and prevents dark circles.</p>
+      <div class="streak-indicator">
+        <span>This week:</span>
+        <div class="streak-dots">
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+        </div>
+      </div>
+      <button class="habit-toggle">
+        <span>Mark as Done</span>
+        <i class="fas fa-check"></i>
+      </button>
+    </div>
+    
+    <!-- Habit 5 -->
+    <div class="habit-card" data-habit="exercise" data-completed="false">
+      <div class="habit-icon">
+        <i class="fas fa-running"></i>
+      </div>
+      <div class="completion-badge">
+        <i class="fas fa-check-circle"></i> Completed
+      </div>
+      <h3>30 Minutes of Exercise</h3>
+      <p>Boosts circulation, promotes skin health, and reduces inflammation.</p>
+      <div class="streak-indicator">
+        <span>This week:</span>
+        <div class="streak-dots">
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot active"></div>
+          <div class="streak-dot"></div>
+          <div class="streak-dot"></div>
+        </div>
+      </div>
+      <button class="habit-toggle">
+        <span>Mark as Done</span>
+        <i class="fas fa-check"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="habits-footer">
+    <p>Track your habits daily for optimal skin health.
+         {% comment %} <a href="#">View your monthly report →</a> {% endcomment %}
+    </p>
+  </div>
+</div>
+
+<script>
+// Habit Tracker JS
+document.addEventListener('DOMContentLoaded', function() {
+  const habitCards = document.querySelectorAll('.habit-card');
+  const progressFill = document.getElementById('progress-fill');
+  const progressPercentage = document.getElementById('progress-percentage');
+  const completedCount = document.getElementById('completed-count');
+  const totalHabits = document.getElementById('total-habits');
+  const streakDays = document.getElementById('streak-days');
+  const weeklyAvg = document.getElementById('weekly-avg');
+  
+  // Initialize totals
+  totalHabits.textContent = habitCards.length;
+  
+  // Load saved state from localStorage
+  function loadSavedState() {
+    habitCards.forEach(card => {
+      const habitId = card.dataset.habit;
+      const savedState = localStorage.getItem(`habit-${habitId}`);
+      if (savedState === 'completed') {
+        card.dataset.completed = "true";
+        card.classList.add('completed');
+        const toggleBtn = card.querySelector('.habit-toggle');
+        toggleBtn.classList.add('completed');
+        toggleBtn.innerHTML = '<span>Completed</span> <i class="fas fa-check-double"></i>';
+      }
+    });
+    updateAllStats();
+  }
+  
+  // Save state to localStorage
+  function saveState(card) {
+    const habitId = card.dataset.habit;
+    const isCompleted = card.dataset.completed === "true";
+    localStorage.setItem(`habit-${habitId}`, isCompleted ? 'completed' : 'incomplete');
+  }
+  
+  function updateAllStats() {
+    const total = habitCards.length;
+    const completed = Array.from(habitCards).filter(c => c.dataset.completed === "true").length;
+    const percent = Math.round((completed / total) * 100);
+    
+    // Update progress bar
+    progressFill.style.width = percent + '%';
+    progressPercentage.textContent = percent + '%';
+    
+    // Update completed count
+    completedCount.textContent = completed;
+    
+    // Update streak (simplified for demo)
+    streakDays.textContent = completed;
+    
+    // Update weekly average (simplified for demo)
+    weeklyAvg.textContent = percent + '%';
+    
+    // Add celebration effect when all habits are completed
+    if (completed === total && total > 0) {
+      progressFill.style.background = 'linear-gradient(90deg, var(--light-green), #10b981, #047857, #10b981)';
+      progressFill.style.animation = 'pulse 1.5s infinite';
+      
+      // Add confetti effect
+      setTimeout(() => {
+        createConfetti();
+      }, 300);
+    } else {
+      progressFill.style.background = 'linear-gradient(90deg, var(--light-green), var(--primary-green), var(--dark-green))';
+      progressFill.style.animation = 'none';
+    }
+  }
+  
+  // Confetti effect for completion
+  function createConfetti() {
+    const confettiCount = 50;
+    const container = document.querySelector('.progress-container');
+    
+    for (let i = 0; i < confettiCount; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'absolute';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.background = `linear-gradient(135deg, ${getRandomGreen()}, ${getRandomGreen()})`;
+      confetti.style.borderRadius = '50%';
+      confetti.style.top = '0';
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.opacity = '0.8';
+      confetti.style.zIndex = '9999';
+      confetti.style.transform = `scale(0)`;
+      container.appendChild(confetti);
+      
+      // Animate confetti
+      const animation = confetti.animate([
+        { transform: 'translateY(0) scale(0)', opacity: 1 },
+        { transform: `translateY(${Math.random() * 300 + 100}px) scale(1)`, opacity: 0.8 },
+        { transform: `translateY(${Math.random() * 500 + 200}px) scale(0)`, opacity: 0 }
+      ], {
+        duration: Math.random() * 1500 + 1000,
+        easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+      });
+      
+      animation.onfinish = () => confetti.remove();
+    }
+  }
+  
+  function getRandomGreen() {
+    const greens = ['#10b981', '#34d399', '#059669', '#0d9488', '#047857', '#a7f3d0'];
+    return greens[Math.floor(Math.random() * greens.length)];
+  }
+  
+  // Add click events to habit cards
+  habitCards.forEach(card => {
+    const toggleBtn = card.querySelector('.habit-toggle');
+    
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isCompleted = card.dataset.completed === "true";
+      card.dataset.completed = (!isCompleted).toString();
+      card.classList.toggle('completed');
+      toggleBtn.classList.toggle('completed');
+      
+      if (!isCompleted) {
+        toggleBtn.innerHTML = '<span>Completed</span> <i class="fas fa-check-double"></i>';
+        // Add a subtle "pop" animation
+        card.style.animation = 'pop 0.3s ease';
+        setTimeout(() => {
+          card.style.animation = '';
+        }, 300);
+      } else {
+        toggleBtn.innerHTML = '<span>Mark as Done</span> <i class="fas fa-check"></i>';
+      }
+      
+      saveState(card);
+      updateAllStats();
+    });
+    
+    // Make the whole card clickable
+    card.addEventListener('click', (e) => {
+      if (e.target !== toggleBtn && !toggleBtn.contains(e.target)) {
+        toggleBtn.click();
+      }
+    });
+  });
+  
+  // Initialize with saved state
+  loadSavedState();
+  
+  // Add CSS for pop animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+  `;
+  document.head.appendChild(style);
+});
+</script>
+{% endblock %}

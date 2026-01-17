@@ -1,0 +1,29 @@
+{% load static %}
+{% load review_filters %} {# Make sure to load your custom filter here as well #}
+
+{% if reviews %}
+    {% for review in reviews %}
+        <div class="review-block mt-3">
+            <div class="stars">
+                {# Dynamic stars using create_star_list filter #}
+                {% for is_solid in review.rating|create_star_list %}
+                    {% if is_solid %}
+                        <i class="fa fa-star"></i>
+                    {% else %}
+                        <i class="fa fa-star-o"></i>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <p>"{{ review.review_text }}"</p>
+            <div class="reviewer-info">
+                <img src="{% if review.user.profile.avatar %}{{ review.user.profile.avatar.url }}{% else %}{% static 'images/review_bgg.jpg' %}{% endif %}" alt="{{ review.reviewer_name }}" class="reviewer-avatar">
+                <div>
+                    <strong>{{ review.reviewer_name }}</strong><br>
+                    <small>Guest Reviewer</small>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class="no-reviews-message">No reviews yet. Be the first to share your experience!</p>
+{% endif %}

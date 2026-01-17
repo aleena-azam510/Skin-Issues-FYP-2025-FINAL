@@ -1,0 +1,932 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. {{ doctor.user.get_full_name|default:doctor.user.username }} | Healthcare Professional</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6cb251;
+            --primary-dark: #077531;
+            --primary-light: #dcfedb;
+            --secondary: #37b910;
+            --secondary-light: #d1fada;
+            --accent: #8af65c;
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+            --radius-lg: 1.5rem;
+            --radius-md: 1rem;
+            --radius-sm: 0.5rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-medium);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            background: var(--bg-light);
+            border: 1px solid #e2e8f0;
+        }
+
+        .nav-back:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateX(-4px);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .view-date {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Doctor Profile Header */
+        .doctor-header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 3rem;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doctor-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .avatar-container {
+            position: relative;
+        }
+
+        .doctor-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--white);
+            font-size: 3.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 6px solid var(--white);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+            overflow: hidden;
+        }
+
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--success);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--white);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .doctor-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .doctor-title {
+            margin-bottom: 1rem;
+        }
+
+        .doctor-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .doctor-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .doctor-experience {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-medium);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .doctor-ratings {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 0.25rem;
+            color: #fbbf24;
+        }
+
+        .rating-text {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .doctor-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Info Cards */
+        .info-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .section-header i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Bio Section */
+        .bio-content {
+            color: var(--text-medium);
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+
+        .bio-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .detail-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--primary-light);
+        }
+
+        .detail-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-content h3 {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-content p {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        /* Sidebar */
+        .sidebar-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .appointment-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+
+        .appointment-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .appointment-price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .appointment-price::before {
+            content: 'Starting from';
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .appointment-price::after {
+            content: 'per consultation';
+            position: absolute;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            color: #000
+        }
+
+        .btn-primary {
+            background: #ffffff;
+            color: #000;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.125rem;
+        }
+
+        /* Quick Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Availability */
+        .availability-list {
+            margin-top: 1.5rem;
+        }
+
+        .availability-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.75rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .availability-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .day-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .time-slot {
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-available {
+            background: var(--secondary-light);
+            color: var(--secondary);
+        }
+
+        .status-offline {
+            background: #f3f4f6;
+            color: var(--text-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .doctor-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .doctor-avatar {
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .doctor-header {
+                padding: 2rem 1.5rem;
+            }
+            
+            .doctor-name {
+                font-size: 2rem;
+            }
+            
+            .info-section,
+            .sidebar-section {
+                padding: 1.5rem;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .doctor-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .doctor-avatar {
+                width: 140px;
+                height: 140px;
+                font-size: 2.5rem;
+            }
+            
+            .doctor-name {
+                font-size: 1.75rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .appointment-price {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .doctor-header,
+        .info-section,
+        .sidebar-section {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Loading State */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'doctors_list' %}" class="nav-back">
+                <i class="fas fa-arrow-left"></i>
+                View Doctors List
+            </a>
+            <div class="nav-actions">
+                <div class="view-date">
+                    <i class="far fa-clock"></i>
+                    Last viewed: {% now "g:i A" %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+    <!-- Doctor Profile Header -->
+    <div class="doctor-header">
+        <div class="avatar-container">
+            <div class="doctor-avatar">
+                {% if doctor.profile_image %}
+                    <img src="{{ doctor.profile_image.url }}" alt="Dr. {{ doctor.user.username }}" class="avatar-image">
+                {% else %}
+                    {{ doctor.user.username|slice:":1"|upper }}
+                {% endif %}
+            </div>
+            {% if doctor.verified %}
+            <div class="verified-badge" title="Verified Professional">
+                <i class="fas fa-check"></i>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="doctor-info">
+            <h1 class="doctor-name">Dr. {{ doctor.user.get_full_name|default:doctor.user.username|title }}</h1>
+            <div class="doctor-subtitle">
+                <i class="fas fa-user-md"></i>
+                {{ doctor.specialization|default:"Medical Professional" }}
+            </div>
+            <div class="doctor-experience">
+                <i class="fas fa-briefcase"></i>
+                {{ doctor.experience_years }} years of experience
+            </div>
+            {% if doctor.avg_rating %}
+            <div class="doctor-ratings">
+                <div class="rating-stars">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= doctor.avg_rating %}
+                            <i class="fas fa-star"></i>
+                        {% elif forloop.counter <= doctor.avg_rating|add:"0.5" %}
+                            <i class="fas fa-star-half-alt"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="rating-text">
+                    {{ doctor.avg_rating|floatformat:1 }} ({{ doctor.review_count }} reviews)
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="doctor-actions">
+                <a href="{% url 'book_appointment' doctor.id %}" class="btn btn-primary">
+                    <i class="fas fa-calendar-plus"></i>
+                    Book Appointment
+                </a>
+                <a href="#" class="btn btn-outline">
+                    <i class="far fa-envelope"></i>
+                    Send Message
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="content-grid">
+        <!-- Left Column -->
+        <div>
+            <!-- Bio Section -->
+            <div class="info-section">
+                <div class="section-header">
+                    <i class="fas fa-user-circle"></i>
+                    <h2>About Dr. {{ doctor.user.username }}</h2>
+                </div>
+                <div class="bio-content">
+                    {% if doctor.bio %}
+                        {{ doctor.bio|linebreaks }}
+                    {% else %}
+                        <p>Dr. {{ doctor.user.username }} is a dedicated medical professional with {{ doctor.experience_years }} years of experience in {{ doctor.specialization|default:"medicine" }}. Committed to providing exceptional patient care and staying updated with the latest medical advancements.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Professional Details -->
+            <div class="info-section">
+                <div class="section-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>Professional Details</h2>
+                </div>
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="detail-content">
+                            <h3>Specialization</h3>
+                            <p>{{ doctor.specialization|default:"General Medicine" }}</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <div class="detail-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="detail-content">
+                            <h3>Experience</h3>
+                            <p>{{ doctor.experience_years }} Years</p>
+                        </div>
+                    </div>
+
+                    {% if doctor.clinic_address %}
+                    <div class="detail-card">
+                        <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="detail-content">
+                            <h3>Clinic Location</h3>
+                            <p>{{ doctor.clinic_address|truncatewords:8 }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if doctor.phone_number %}
+                    <div class="detail-card">
+                        <div class="detail-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="detail-content">
+                            <h3>Contact</h3>
+                            <p>{{ doctor.phone_number }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Payment / Account Details -->
+            {% if doctor.bank_name or doctor.account_number or doctor.account_holder_name or doctor.upi_id %}
+            <div class="info-section">
+                <div class="section-header">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Payment / Account Details</h2>
+                </div>
+                <div class="details-grid">
+                    {% if doctor.bank_name %}
+                    <div class="detail-card">
+                        <div class="detail-icon"><i class="fas fa-university"></i></div>
+                        <div class="detail-content">
+                            <h3>Bank Name</h3>
+                            <p>{{ doctor.bank_name }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if doctor.account_number %}
+                    <div class="detail-card">
+                        <div class="detail-icon"><i class="fas fa-credit-card"></i></div>
+                        <div class="detail-content">
+                            <h3>Account Number</h3>
+                            <p>{{ doctor.account_number }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if doctor.account_holder_name %}
+                    <div class="detail-card">
+                        <div class="detail-icon"><i class="fas fa-user"></i></div>
+                        <div class="detail-content">
+                            <h3>Account Holder</h3>
+                            <p>{{ doctor.account_holder_name }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if doctor.upi_id %}
+                    <div class="detail-card">
+                        <div class="detail-icon"><i class="fas fa-qrcode"></i></div>
+                        <div class="detail-content">
+                            <h3>UPI ID</h3>
+                            <p>{{ doctor.upi_id }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right Column / Sidebar -->
+        <div>
+            <!-- Appointment Card / Fee -->
+            <div class="appointment-card">
+                <h3>Book Your Visit</h3>
+                <div class="appointment-price">
+                    Rs. {{ doctor.consultation_fee|default:"0" }}
+                    <a href="{% url 'book_appointment' doctor.id %}" class="btn btn-primary btn-full">
+                        <i class="fas fa-calendar-check"></i>
+                        Schedule Appointment
+                    </a>
+                </div>
+            </div>
+
+            <!-- Availability -->
+            <div class="sidebar-section">
+                <div class="section-header">
+                    <i class="fas fa-clock"></i>
+                    <h2>Availability</h2>
+                </div>
+                <div class="availability-list">
+                    {% for day, hours in doctor.availability.items %}
+                    <div class="availability-item">
+                        <span class="day-name">{{ day|title }}</span>
+                        <span class="time-slot">{{ hours|default:"Not Available" }}</span>
+                        {% if hours %}
+                            <span class="status-badge status-available">Available</span>
+                        {% else %}
+                            <span class="status-badge status-offline">Offline</span>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                    <div class="availability-item">
+                        <span class="day-name">Monday - Friday</span>
+                        <span class="time-slot">9:00 AM - 5:00 PM</span>
+                        <span class="status-badge status-available">Available</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update last viewed time
+        function updateViewTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            const dateElement = document.querySelector('.view-date');
+            if (dateElement) {
+                dateElement.innerHTML = `<i class="far fa-clock"></i> Last viewed: ${timeString}`;
+            }
+        }
+
+        // Update time every minute
+        setInterval(updateViewTime, 60000);
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation delay to cards
+            document.querySelectorAll('.detail-card').forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Share profile functionality
+        function shareProfile() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Dr. {{ doctor.user.username }} - Medical Professional',
+                    text: 'Check out Dr. {{ doctor.user.username }}\'s profile on our healthcare platform',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(window.location.href);
+                alert('Profile link copied to clipboard!');
+            }
+        }
+
+        // Add event listener to share button
+        document.querySelector('.btn-outline[href="#"]').addEventListener('click', function(e) {
+            if (this.textContent.includes('Share')) {
+                e.preventDefault();
+                shareProfile();
+            }
+        });
+    </script>
+</body>
+</html>

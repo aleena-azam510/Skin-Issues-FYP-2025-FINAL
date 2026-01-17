@@ -1,0 +1,1266 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>Glow Genesis Organic Care</title>
+ 
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link href="{% static 'images/TabLogo.png' %}" rel="icon" type="image/x-icon" sizes="256x256">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+</head>
+<body>
+      
+
+    <div id="login-popup-overlay" class="popup-overlay">
+        <div id="login-popup-content" class="popup-content">
+            <h2>Access Denied</h2>
+            <p>Please log in or sign up to view this content.</p>
+            <button id="popup-login-button" class="popup-button">Login / Sign Up</button>
+            <button id="popup-close-button" class="popup-button popup-close">Close</button>
+        </div>
+    </div>
+
+<section class="preloader">
+     <div class="spinner">
+          <span class="spinner-rotate"></span>
+         </div>
+    </section>
+
+   <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="{% url 'index_page' %}" class="navbar-brand">
+        <img src="{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo">
+      </a>
+
+      <button type="button" class="navbar-toggle" id="mobileToggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    
+
+    <!-- Menu items -->
+    <div class="navbar-collapse" id="mainNavbar">
+      <ul class="nav navbar-nav navbar-nav-first">
+        <li><a href="{% url 'index_page' %}">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="{% url 'developer_team_page' %}">Developer Team</a></li>
+        <li><a href="{% url 'article_page' %}">Article</a></li>
+        <li><a href="{% url 'skin_identifier' %}">Skin Type Identifier</a></li>
+         <li><a href="#contact">Contact</a></li>
+        <li><a href="{%url 'doctors_list' %}">Doctors</a></li> 
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          {# 🔔 Notifications #}
+          <li class="notification-item">
+            <a href="{% url 'notifications' %}" class="notification-bell">
+              <i class="fas fa-bell"></i>
+
+              {% if unread_notifications|length > 0 %}
+                <span class="badge">
+                  {{ unread_notifications|length }}
+                </span>
+              {% endif %}
+            </a>
+          </li>
+
+          <li><a href="{% url 'model_page' %}" class="section-btn">Skin-Diagnose</a></li>
+          <li><a href="{% url 'dashboard_redirect' %}"><i class="fa fa-user-circle"></i> My Dashboard</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'auth_page' %}" class="section-btn">Login / Sign Up</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+     <!-- HOME -->
+     <section id="home" class="slider" data-stellar-background-ratio="0.5">
+          <div class="row">
+
+                    <div class="owl-carousel owl-theme">
+                         <div class="item item-first">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Skin Diseases Recognition &amp; Diagnosis System</h3>
+                                             <h1>Our mission is to deliver an AI-powered skin diagnosis experience you’ll never forget.</h1>
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-second">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Smart Skin Analysis</h3>  
+                                             <h1>Experience AI-Powered Skin Diagnosis Instantly!</h1>  
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll">Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-third">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Smart Skin Analysis, Natural Healing</h3>  
+                                             <h1>AI-Powered Diagnosis with Home Remedy Suggestions</h1>  
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll">Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+          </div>
+     </section>
+
+     <!-- Articles -->          
+     <section id="articles" class="section">
+          <div class="container">
+     
+               <!-- <h4>Latest Posts</h4> -->
+                 <div class="section-title wow fadeInUp" data-wow-delay="0.1s" style="text-align:center;">
+                           <h2 style="text-align:center ">Experience Intelligent Skincare: How Glow Genesis Works for You</h2>
+                 </div>
+     
+          <div class="row">
+               <!-- Usage1 -->
+               <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="menu-thumb">
+                         <div class="articles-content">
+                              <span class="category">STEP 1</span>
+                              <h3>Take a Photo</h3>
+                              <div class="article-meta">
+                              <img src="{% static 'images/scan.png' %}" alt="Identify and Send" class="img-fluid">
+                              </div>
+                              <p>Keep zoomed at the closest distance (less
+                              than 10 cm), keep in focus and center only
+                              the Face mark</p>
+                         </div>
+                    </div>
+               </div>
+     
+               <!-- Usage2 -->
+               <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="menu-thumb">
+                         <div class="articles-content">
+                              <span class="category">STEP 2</span>
+                              <h3>identify & Send</h3>
+                              <div class="article-meta">
+                              <img src="{% static 'images/identifySend.png' %}" alt="Identify and Send" class="img-fluid">
+                              </div>
+                              <p>Send your photo to the Artificial Intelligence.
+                              The system will analyze it and send you a risk
+                              assessment.</p>
+                         </div>
+                    </div>
+               </div>
+     
+               <!-- Usage3 -->
+               <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="menu-thumb">
+                         <div class="articles-content">
+                              <span class="category">STEP 3</span>
+                              <h3>Receive your Assessment</h3>
+                              <div class="article-meta">
+                              <img src="{% static 'images/result.png' %}" alt="Identify and Send" class="img-fluid">
+                              </div>
+                              <p>Get the result within 60 seconds and related
+                              advice on the next steps to take.</p>
+                         </div>
+                    </div>
+               </div>
+              <p class="photo-upload-guidelines">
+       <strong>Capture with Clarity for Precise Analysis:</strong> Easily take a photo with your mobile or upload directly from your computer. For optimal AI results, please ensure your image is clean, focused, and taken against a neutral background (kindly avoid red or pink tones).
+          </p>
+     </section>
+
+    <div class="herbal-container">
+  <!-- Decorative Leaves -->
+  <div class="herbal-leaf-decoration herbal-leaf-1">
+    <i class="fas fa-leaf"></i>
+  </div>
+  <div class="herbal-leaf-decoration herbal-leaf-2">
+    <i class="fas fa-leaf"></i>
+  </div>
+
+  <!-- Main Content -->
+  <div class="herbal-container">
+  <!-- Decorative Leaves -->
+  <div class="herbal-leaf-decoration herbal-leaf-1">
+    <i class="fas fa-leaf"></i>
+  </div>
+  <div class="herbal-leaf-decoration herbal-leaf-2">
+    <i class="fas fa-leaf"></i>
+  </div>
+
+ <main class="herbal-main-content">
+    <div class="herbal-card-grid">
+        <div class="card herbal-upload-section">
+            <div class="herbal-card-body">
+                <h2 class="herbal-section-title"><i class="fas fa-spa"></i> Analyze Skin Condition</h2>
+                <input type="file" id="fileInput" name="image" accept="image/*" hidden>
+                
+                <div class="herbal-input-methods">
+                    <button onclick="document.getElementById('fileInput').click()" class="herbal-btn herbal-btn-secondary">
+                        <i class="fas fa-upload"></i> Choose Image
+                    </button>
+                    <button id="startCameraBtn" class="herbal-btn herbal-btn-secondary">
+                        <i class="fas fa-camera"></i> Open Camera
+                    </button>
+                </div>
+                
+                <div class="herbal-preview-container">
+                    <img id="imagePreview" style="display:none;"/>
+                    <canvas id="canvas" style="display:none;"></canvas>
+                    <video id="herbal-camera-feed" autoplay playsinline style="display:none;"></video>
+                </div>
+                
+                <div class="herbal-controls">
+                    <button id="captureBtn" class="herbal-btn herbal-btn-secondary" disabled>Capture</button>
+                    <button id="herbal-analyze-btn" class="herbal-btn herbal-btn-primary" disabled>
+                        <i class="fas fa-search"></i> Analyze
+                    </button>
+                    
+                    <div id="imageQualityFeedback" class="quality-feedback hidden">
+                        <span id="qualityIcon">⚙️</span>
+                        <span id="qualityMessage">Analyzing image quality...</span>
+                    </div>
+
+                    <span class="herbal-info-text">
+                        <i class="fas fa-lightbulb"></i> Having a little mystery on your hands? 🤔 Don't let it puzzle you! Just upload or capture an image here and let's get you an immediate diagnosis!
+                    </span>
+                </div>
+                <div class="spinner" id="spinner" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="card herbal-results-section" id="results" style="display:none;">
+            <div class="herbal-card-body">
+                <h2 class="herbal-section-title"><i class="fas fa-diagnoses"></i> Diagnosis Summary</h2>
+                
+                <div class="herbal-status-indicator">
+                    <span class="herbal-status-dot"></span>
+                    <span>Got an issue? Don't sweat it! 🎉 We've got the scoop on what's causing it, what to look out for, and how to kick it to the curb.</span>
+                </div>
+                
+                <div id="followUpQuestionsContainer" style="display:none;">
+                </div>
+
+                <div id="result" class="herbal-results-content">
+                    <h3>Probable Condition</h3>
+                    <p class="herbal-condition-name" id="diagnosisConditionName">No diagnosis yet.</p>
+
+                    <div class="herbal-confidence-meter">
+                        <div class="herbal-confidence-level" id="diagnosisConfidenceLevel" style="width: 0%;"></div>
+                    </div>
+                    <p id="diagnosisConfidenceText">Confidence: --%</p>
+                </div>
+
+                <div class="herbal-detailed-remedies-grid" id="herbalDetailedRemediesGrid">
+                    
+                </div>
+                <!-- SEND REPORT TO DOCTOR CARD -->
+<div id="sendReportCard" style="display:none; margin-top:40px;">
+  <div style="
+      max-width:520px;
+      margin:auto;
+      background:#f0fdf4;
+      border:1px solid #5cb910;
+      padding:24px;
+      border-radius:18px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      text-align:center;
+  ">
+    <!-- Header -->
+    <h3 style="font-size:2rem;font-weight:800;color:#064e3b;">
+      👩‍⚕️ Send AI Report to Doctor
+    </h3>
+
+    <!-- Description -->
+    <p style="font-size:1.6rem;color:#555;margin-top:6px;">
+      Share your AI skin analysis with a verified doctor
+    </p>
+
+    <!-- Follow-up warning -->
+    <p style="color:#064e3b; font-weight:600; margin-top:12px;">
+      ⚠️ You can only send this report to a doctor once you answer all follow-up questions.
+    </p>
+
+    <!-- Verified doctors count -->
+    {% if verified_doctors %}
+    <p style="color:#198526; margin-top:6px;">
+      Total Doctors: {{ verified_doctors|length }}
+    </p>
+    {% endif %}
+
+    <!-- Doctor select dropdown -->
+    <select id="doctorSelect" style="
+        width:100%;
+        margin:18px 0;
+        padding:12px;
+        border-radius:10px;
+        border:1px solid #ccc;
+        font-size:1.4rem;
+    ">
+      <option value="">Select Doctor</option>
+      {% for doctor in verified_doctors %}
+        <option value="{{ doctor.id }}">
+          Dr. {{ doctor.user.get_full_name|default:doctor.user.username }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <!-- Send Report Button -->
+    <button id="sendReportBtn" {% if verified_doctors|length == 0 %}disabled{% endif %}
+      style="
+        width:100%;
+        background:#198526;
+        color:white;
+        padding:12px 20px;
+        border:none;
+        border-radius:10px;
+        font-weight:700;
+        font-size:1.4rem;
+        cursor:pointer;
+      ">
+      📤 Send AI Report
+    </button>
+
+    <!-- Status message -->
+    <p id="sendReportStatus" style="margin-top:14px;font-weight:600;"></p>
+  </div>
+</div>
+
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+   <!-- Features Section -->
+<div class="section-title wow fadeInUp" data-wow-delay="0.1s" style="text-align:center;">
+    <h2>Unveiling Glow Genie's Intelligent Skin AI</h2>
+    <h4 style="color:#055719">Your Personalized Path to Radiant Skin, Powered by AI</h4>
+</div>
+
+
+
+<section class="features-section">
+    <div class="features-header">
+        <h2>Our Key Features</h2>
+        <div class="carousel-controls">
+            <button class="carousel-prev" aria-label="Previous feature">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="auto-rotate-control">
+                <button class="pause-rotation" aria-label="Pause auto-rotation">
+                    <span class="pause-icon">⏸️</span>
+                    <span class="play-icon" style="display:none;">▶️</span>
+                </button>
+            </div>
+            <button class="carousel-next" aria-label="Next feature">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    
+    <div class="features-carousel">
+        <!-- Carousel Track Container -->
+        <div class="carousel-track-container">
+            <div class="carousel-track">
+                <!-- Card 1: AI Technology -->
+                <div class="feature-card active" data-index="0">
+                    <div class="card-icon">
+                        <img src="{% static 'images/AI.png' %}" alt="AI Technology">
+                    </div>
+                    <div class="card-content">
+                        <h3>🤖 AI-Powered Precision</h3>
+                        <p>Advanced CNN models trained on 50,000+ dermatological images provide medical-grade analysis with 95%+ accuracy on common conditions.</p>
+                        <ul class="card-features">
+                            <li>Deep learning algorithms</li>
+                            <li>Continuous improvement</li>
+                            <li>Real-time processing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 2: Privacy -->
+                <div class="feature-card" data-index="1">
+                    <div class="card-icon">
+                        <img src="{% static 'images/privacy.png' %}" alt="Privacy Protection">
+                    </div>
+                    <div class="card-content">
+                        <h3>🔒 Military-Grade Privacy</h3>
+                        <p>Your data never leaves your device. All analysis happens locally with zero data storage - complete privacy guaranteed.</p>
+                        <ul class="card-features">
+                            <li>Local processing only</li>
+                            <li>No image storage</li>
+                            <li>End-to-end encryption</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 3: Experience -->
+                <div class="feature-card" data-index="2">
+                    <div class="card-icon">
+                        <img src="{% static 'images/realtime.png' %}" alt="Real-time Experience">
+                    </div>
+                    <div class="card-content">
+                        <h3>⚡ Real-time Analysis</h3>
+                        <p>Get detailed skin analysis in under 30 seconds. Our mobile-optimized interface makes it as simple as taking a selfie.</p>
+                        <ul class="card-features">
+                            <li>Instant results</li>
+                            <li>Mobile-first design</li>
+                            <li>Progress tracking</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 4: Support -->
+                <div class="feature-card" data-index="3">
+                    <div class="card-icon">
+                        <img src="{% static 'images/support.png' %}" alt="Support System">
+                    </div>
+                    <div class="card-content">
+                        <h3>💝 Complete Support</h3>
+                        <p>24/7 AI assistance with expert-reviewed guidelines and personalized recommendations tailored to your skin type.</p>
+                        <ul class="card-features">
+                            <li>24/7 AI assistant</li>
+                            <li>Expert guidelines</li>
+                            <li>Personalized advice</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 5: Accuracy -->
+                <div class="feature-card" data-index="4">
+                    <div class="card-icon">
+                        <img src="{% static 'images/accuracy.png' %}" alt="High Accuracy">
+                    </div>
+                    <div class="card-content">
+                        <h3>🎯 High Accuracy</h3>
+                        <p>Refined and tested using real-world image datasets from diverse populations for reliable, equitable results.</p>
+                        <ul class="card-features">
+                            <li>Real-world tested</li>
+                            <li>Diverse datasets</li>
+                            <li>Clinical validation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 6: Inclusive Dataset -->
+                <div class="feature-card" data-index="5">
+                    <div class="card-icon">
+                        <img src="{% static 'images/dataset.png' %}" alt="Inclusive Dataset">
+                    </div>
+                    <div class="card-content">
+                        <h3>🌈 Inclusive Analysis</h3>
+                        <p>Trained on diverse skin tones and conditions to provide accurate predictions for everyone, regardless of skin type.</p>
+                        <ul class="card-features">
+                            <li>All skin tones</li>
+                            <li>Various conditions</li>
+                            <li>Equitable results</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 7: Mobile Friendly -->
+                <div class="feature-card" data-index="6">
+                    <div class="card-icon">
+                        <img src="{% static 'images/mobile.png' %}" alt="Mobile Friendly">
+                    </div>
+                    <div class="card-content">
+                        <h3>📱 Mobile Optimized</h3>
+                        <p>Fully optimized for mobile devices, allowing you to perform skin checks and access results anytime, anywhere.</p>
+                        <ul class="card-features">
+                            <li>Anywhere access</li>
+                            <li>Touch-friendly</li>
+                            <li>Offline capable</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 8: Recommendations -->
+                <div class="feature-card" data-index="7">
+                    <div class="card-icon">
+                        <img src="{% static 'images/recommend.png' %}" alt="Personalized Recommendations">
+                    </div>
+                    <div class="card-content">
+                        <h3>✨ Personalized Care</h3>
+                        <p>Receive tailored advice and product suggestions based on your unique skin analysis and specific needs.</p>
+                        <ul class="card-features">
+                            <li>Tailored advice</li>
+                            <li>Product suggestions</li>
+                            <li>Lifestyle tips</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 9: Community -->
+                <div class="feature-card" data-index="8">
+                    <div class="card-icon">
+                        <img src="{% static 'images/community.png' %}" alt="Community Support">
+                    </div>
+                    <div class="card-content">
+                        <h3>👥 Growing Community</h3>
+                        <p>Join a supportive community of users focused on better skin health, shared knowledge, and mutual support.</p>
+                        <ul class="card-features">
+                            <li>User community</li>
+                            <li>Shared experiences</li>
+                            <li>Support network</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Dots -->
+        <div class="carousel-dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+            <span class="dot" data-index="4"></span>
+            <span class="dot" data-index="5"></span>
+            <span class="dot" data-index="6"></span>
+            <span class="dot" data-index="7"></span>
+            <span class="dot" data-index="8"></span>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+</section>
+     <!-- TESTIMONIAL -->
+     <section id="testimonial" data-stellar-background-ratio="0.5">
+          <div class="overlay"></div>
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                         <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                              <h2>Testimonials</h2>
+                         </div>
+                    </div>  
+
+                    <div class="col-md-offset-2 col-md-8 col-sm-12">
+                         <div class="owl-carousel owl-theme">
+                              <div class="item">
+                                   <p>Using AI-based skin analysis, I discovered natural remedies tailored to my skin's needs. The personalized suggestions truly made a difference!</p>
+                                        <div class="tst-author">
+                                             <h4>Saba-e-Yasrab</h4>
+                                             <span>Home Remedies Enthusiast</span>
+                                        </div>
+                              </div>
+
+                              <div class="item">
+                                   <p>The AI diagnosis accurately identified my skin issues and recommended effective home treatments. I noticed visible improvements within weeks!</p>
+                                        <div class="tst-author">
+                                             <h4>Zainab Noor</h4>
+                                             <span>Skincare Advocate</span>
+                                        </div>
+
+                              </div>
+
+                              <div class="item">
+                                   <p>The AI skin detector suggested natural treatments that I could easily do at home. My skin feels healthier and more radiant now!</p>
+                                        <div class="tst-author">
+                                             <h4>Aleena Naveed</h4>
+                                             <span>Natural Skincare Follower</span>
+                                        </div>                                   
+                              </div>
+
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </section>  
+
+
+     <!-- CONTACT -->
+     <section id="contact" data-stellar-background-ratio="0.5">
+        <div class="container">
+        <div class="row">
+            <div class="wow fadeInUp col-md-6 col-sm-12" data-wow-delay="0.4s">
+                <div id="google-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.564151031367!2d68.26203667517125!3d25.419396077568504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x394c7969bcd3111d%3A0xe45107ac7274c48c!2sInstitute%20of%20Mathematics%20and%20Computer%20Science!5e0!3m2!1sen!2s!4v1751955536702!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"> </iframe>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
+                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                        <h2>Contact Us</h2>
+                    </div>
+                </div>
+
+                <div id="contact-form-messages"></div>
+
+                <form action="{% url 'contact_submit' %}" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
+                    {% csrf_token %} <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control" id="cf-name" name="name" placeholder="Full name" required>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                        <input type="email" class="form-control" id="cf-email" name="email" placeholder="Email address" required>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                        <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Subject (Optional)">
+                        <textarea class="form-control" rows="6" id="cf-message" name="message" placeholder="Your message" required></textarea>
+                        <button type="submit" class="form-control" id="cf-submit" name="submit">
+                            Send Message
+                            <span id="contact-loading-spinner" class="ml-2" style="display: none;">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </section>          
+
+     <!-- FOOTER -->
+     <footer id="footer" data-stellar-background-ratio="0.5">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Find us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>Institute of Mathematics and Computer Science,<br>University of Sindh, Jamshoro — Sindh, Pakistan</p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Email us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>We’re just an email away from helping you!</p>
+                                   <p>0307-2515985 | 0300-3000000</p>
+                                   <p><a href="mailto:skinissuesfyp@gmail.com">skinissuesfyp@gmail.com</a></p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-8">
+                         <div class="footer-info footer-open-hour">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Glow Genies <span style="color: red;">.</span></h2>
+                              </div>
+                              <div class="wow fadeInUp" data-wow-delay="0.4s">
+                              <p>Our advanced AI engine quickly and efficiently evaluates the face,<br> 
+                                   identifying essential skin health and beauty metrics</p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-4">
+                         <!-- <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
+                              <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                              <li><a href="#" class="fa fa-twitter"></a></li>
+                              <li><a href="#" class="fa fa-instagram"></a></li>
+                              <li><a href="#" class="fa fa-whatsapp"></a></li>
+                         </ul> -->
+
+                         <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
+                              <li><a href="#" class="fab fa-facebook-square" title="Facebook"></a></li>
+                              <li><a href="#" class="fab fa-twitter" title="Twitter"></a></li>
+                              <li><a href="#" class="fab fa-instagram" title="Instagram"></a></li>
+                              <li><a href="#" class="fab fa-google" title="Google"></a></li>
+                         </ul>
+
+                         <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s"> 
+                              <p><br>Copyright &copy; 2025 <br>Glow Genie</p>
+                              <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click for Skin Diagnosis</a>
+
+                              
+                              <!-- <br><br>Design: <a rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a></p> -->
+                         </div>
+                    </div>
+                    
+               </div>
+          </div>
+     </footer>
+
+     <!-- Chatbot popup container -->
+    <div id="chatbox-container">
+    <!-- Toggle Button -->
+    <button id="chat-toggle">
+    <span id="chat-icon"><i class="fa-solid fa-comments " style="color:white;"></i></span>
+    <span id="chat-close" style="display: none;"><i class="fa-solid fa-leaf" style="color:white;"></i></span>
+</button>
+
+    <!-- Chat Popup -->
+    <div id="chat-popup" style="display: none;">
+        <!-- Header -->
+        <div id="chat-header">
+            {% comment %} <img src="{% static 'images\logo_web-removebg-preview1.png' %}" alt="Glow.Genie Logo" class="chat-logo" /> {% endcomment %}
+            <div>
+                <h3 style="color:white">GenieGlow</h3>
+                <p>Your Personalized AI Assistant</p>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages"></div>
+
+        <!-- Input Area -->
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask about your skin issue..." />
+            <button id="chat-send" disabled>
+              <div style="background: white; padding: 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+                    <!-- Arrow SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" viewBox="0 0 24 24">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+             </button>
+
+        </div>
+    </div>
+</div> 
+
+
+
+
+
+     <!-- SCRIPTS -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/script2.js' %}"></script>
+    <script src="{% static 'js/popup_script.js' %}"></script>
+     <script src="{% static 'js/contact.js' %}"></script>
+     <script src="{% static 'js/chatbot.js' %}"></script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('mainNavbar');
+
+  toggleBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    navMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!toggleBtn.contains(event.target) && !navMenu.contains(event.target)) {
+      navMenu.classList.remove('open');
+    }
+  });
+});
+
+    </script>
+     
+      <!-- Authentication script -->
+
+     <script>
+          document.addEventListener('DOMContentLoaded', function() {
+               const popupOverlay = document.getElementById('login-popup-overlay');
+               const loginButton = document.getElementById('popup-login-button');
+               const closeButton = document.getElementById('popup-close-button');
+
+               function showPopup() {
+                    if (popupOverlay) {
+                         popupOverlay.classList.add('active');
+                         document.body.style.overflow = 'hidden';
+                    }
+               }
+
+               function hidePopup() {
+                    if (popupOverlay) {
+                         popupOverlay.classList.remove('active');
+                         document.body.style.overflow = '';
+                         // --- ADD THIS LINE FOR REDIRECTION ---
+                         window.location.href = "{% url 'index_page' %}"; // Redirect to homepage
+                    }
+               }
+
+               if (loginButton) {
+                    loginButton.addEventListener('click', function() {
+                         window.location.href = '/auth/'; // Redirects to your login/signup page
+                    });
+               }
+
+               if (closeButton) {
+                    closeButton.addEventListener('click', hidePopup);
+               }
+
+               if (popupOverlay) {
+                    popupOverlay.addEventListener('click', function(event) {
+                         if (event.target === popupOverlay) {
+                              hidePopup();
+                         }
+                    });
+               }
+
+               // --- Trigger the popup based on Django's authentication status ---
+               const isAuthenticated = {{ is_authenticated|yesno:"true,false" }}; // Pass from Django context
+
+               if (!isAuthenticated) {
+                    showPopup();
+               }
+          });
+     </script>
+     <script>
+          document.addEventListener('DOMContentLoaded', function() {
+    const carouselTrack = document.querySelector('.carousel-track');
+    const featureCards = document.querySelectorAll('.feature-card');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    const pauseBtn = document.querySelector('.pause-rotation');
+    const pauseIcon = pauseBtn?.querySelector('.pause-icon');
+    const playIcon = pauseBtn?.querySelector('.play-icon');
+    const progressFill = document.querySelector('.progress-fill');
+    
+    let currentIndex = 0;
+    let isAutoRotating = true;
+    let autoRotateInterval;
+    const rotationSpeed = 5000;
+    const cardCount = featureCards.length;
+    let cardsPerView = calculateCardsPerView();
+    let isMobile = window.innerWidth < 768;
+    
+    // Calculate cards per view based on screen width
+    function calculateCardsPerView() {
+        const width = window.innerWidth;
+        if (width >= 1024) return 3;
+        if (width >= 768) return 2;
+        return 1;
+    }
+    
+    // Update responsive values
+    function updateResponsiveValues() {
+        const oldCardsPerView = cardsPerView;
+        cardsPerView = calculateCardsPerView();
+        isMobile = window.innerWidth < 768;
+        
+        // Reset to first card if view changes significantly
+        if (oldCardsPerView !== cardsPerView) {
+            currentIndex = 0;
+        }
+    }
+    
+    // Initialize carousel
+    function initCarousel() {
+        updateResponsiveValues();
+        updateCarousel();
+        if (isAutoRotating) {
+            startAutoRotation();
+        }
+        
+        // Force update after images load
+        window.addEventListener('load', updateCarousel);
+        
+        // Initial positioning
+        setTimeout(updateCarousel, 100);
+    }
+    
+    // Update carousel position
+    function updateCarousel() {
+        if (!carouselTrack || featureCards.length === 0) return;
+        
+        // Remove active class from all cards
+        featureCards.forEach(card => {
+            card.classList.remove('active');
+        });
+        
+        // Add active class to visible cards
+        const visibleCount = Math.min(cardsPerView, cardCount - currentIndex);
+        for (let i = 0; i < visibleCount; i++) {
+            const cardIndex = currentIndex + i;
+            if (cardIndex < cardCount) {
+                featureCards[cardIndex].classList.add('active');
+            }
+        }
+        
+        // Update dots
+        dots.forEach((dot, index) => {
+            dot.classList.remove('active');
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            }
+        });
+        
+        // Calculate and apply translation
+        updateTrackPosition();
+        
+        // Reset and restart progress bar
+        resetProgressBar();
+        if (isAutoRotating) {
+            startProgressAnimation();
+        }
+    }
+    
+    // Update track position
+    function updateTrackPosition() {
+        if (!carouselTrack || !featureCards[0]) return;
+        
+        const trackStyle = window.getComputedStyle(carouselTrack);
+        const trackGap = parseInt(trackStyle.gap) || 0;
+        
+        // Get first card dimensions
+        const firstCard = featureCards[0];
+        const cardStyle = window.getComputedStyle(firstCard);
+        const cardWidth = firstCard.offsetWidth;
+        const cardMargin = parseInt(cardStyle.marginRight || 0) + parseInt(cardStyle.marginLeft || 0);
+        
+        // Calculate total card width including gap
+        const totalCardWidth = cardWidth + cardMargin + trackGap;
+        
+        // Apply transformation
+        const translateX = -currentIndex * totalCardWidth;
+        carouselTrack.style.transform = `translateX(${translateX}px)`;
+        
+        // Log for debugging (remove in production)
+        console.log(`Desktop Layout: Cards per view: ${cardsPerView}, Index: ${currentIndex}, Translate: ${translateX}px`);
+    }
+    
+    // Navigation functions
+    function showNext() {
+        if (isMobile || cardsPerView === 1) {
+            currentIndex = (currentIndex + 1) % cardCount;
+        } else {
+            currentIndex = Math.min(currentIndex + cardsPerView, cardCount - cardsPerView);
+            if (currentIndex + cardsPerView > cardCount) {
+                currentIndex = 0;
+            }
+        }
+        updateCarousel();
+    }
+    
+    function showPrev() {
+        if (isMobile || cardsPerView === 1) {
+            currentIndex = (currentIndex - 1 + cardCount) % cardCount;
+        } else {
+            currentIndex = Math.max(0, currentIndex - cardsPerView);
+        }
+        updateCarousel();
+    }
+    
+    function goToCard(index) {
+        // Ensure we don't go out of bounds
+        if (index + cardsPerView > cardCount) {
+            currentIndex = Math.max(0, cardCount - cardsPerView);
+        } else {
+            currentIndex = index;
+        }
+        updateCarousel();
+    }
+    
+    // Auto-rotation functions
+    function startAutoRotation() {
+        if (autoRotateInterval) clearInterval(autoRotateInterval);
+        autoRotateInterval = setInterval(showNext, rotationSpeed);
+        
+        const carousel = document.querySelector('.features-carousel');
+        if (carousel) {
+            carousel.classList.add('auto-rotating');
+        }
+    }
+    
+    function stopAutoRotation() {
+        if (autoRotateInterval) {
+            clearInterval(autoRotateInterval);
+            autoRotateInterval = null;
+        }
+        
+        const carousel = document.querySelector('.features-carousel');
+        if (carousel) {
+            carousel.classList.remove('auto-rotating');
+        }
+    }
+    
+    function toggleAutoRotation() {
+        isAutoRotating = !isAutoRotating;
+        
+        if (isAutoRotating) {
+            if (pauseIcon) pauseIcon.style.display = 'inline';
+            if (playIcon) playIcon.style.display = 'none';
+            startAutoRotation();
+            startProgressAnimation();
+        } else {
+            if (pauseIcon) pauseIcon.style.display = 'none';
+            if (playIcon) playIcon.style.display = 'inline';
+            stopAutoRotation();
+            stopProgressAnimation();
+        }
+    }
+    
+    // Progress bar functions
+    function startProgressAnimation() {
+        if (progressFill) {
+            progressFill.style.animation = 'progressAnimation 5s linear forwards';
+        }
+    }
+    
+    function stopProgressAnimation() {
+        if (progressFill) {
+            progressFill.style.animation = 'none';
+        }
+    }
+    
+    function resetProgressBar() {
+        if (progressFill) {
+            progressFill.style.animation = 'none';
+            // Force reflow for smooth restart
+            void progressFill.offsetWidth;
+        }
+    }
+    
+    // Event Listeners
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPrev();
+            if (isAutoRotating) {
+                stopAutoRotation();
+                setTimeout(startAutoRotation, 100);
+            }
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showNext();
+            if (isAutoRotating) {
+                stopAutoRotation();
+                setTimeout(startAutoRotation, 100);
+            }
+        });
+    }
+    
+    if (pauseBtn) {
+        pauseBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleAutoRotation();
+        });
+    }
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function(e) {
+            e.preventDefault();
+            goToCard(index);
+            if (isAutoRotating) {
+                stopAutoRotation();
+                setTimeout(startAutoRotation, 100);
+            }
+        });
+    });
+    
+    // Touch swipe for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const minSwipeDistance = 50;
+    
+    if (carouselTrack) {
+        carouselTrack.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        
+        carouselTrack.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > minSwipeDistance) {
+                if (diff > 0) {
+                    showNext();
+                } else {
+                    showPrev();
+                }
+                if (isAutoRotating) {
+                    stopAutoRotation();
+                    setTimeout(startAutoRotation, 100);
+                }
+            }
+        }, { passive: true });
+    }
+    
+    // Handle window resize with debounce
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            updateResponsiveValues();
+            updateCarousel();
+        }, 150);
+    });
+    
+    // Initialize
+    initCarousel();
+    
+    // Handle orientation change
+    window.addEventListener('orientationchange', function() {
+        setTimeout(function() {
+            updateResponsiveValues();
+            updateCarousel();
+        }, 300);
+    });
+    
+    // Force update after all images load
+    window.addEventListener('load', function() {
+        setTimeout(updateCarousel, 500);
+    });
+    
+    // Export for debugging
+    window.carouselDebug = {
+        getCurrentIndex: () => currentIndex,
+        getCardsPerView: () => cardsPerView,
+        goToCard: goToCard,
+        showNext: showNext,
+        showPrev: showPrev
+    };
+});
+     </script>
+
+     <script>
+async function sendReportToDoctor(doctorId) {
+    const prediction = document.getElementById("diagnosisConditionName")?.innerText;
+    const confidence = parseFloat(
+        document.getElementById("diagnosisConfidenceLevel")?.dataset?.confidence || 0
+    );
+
+    const res = await fetch(
+        "{% url 'send_report_to_doctor' %}",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({
+            prediction: detectedIssues[0],
+            confidence: confidenceValue,
+            age: ageInput,
+            gender: genderInput,
+            duration_days: durationInput,
+            itchiness: itchinessChecked,
+            other_notes: notesText
+        })
+        }
+    );
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+        alert("Report sent to doctor");
+    } else {
+        alert(data.error || "Failed to send report");
+    }
+}
+
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sendBtn = document.getElementById("sendReportBtn");
+    const doctorSelect = document.getElementById("doctorSelect");
+    const statusEl = document.getElementById("sendReportStatus");
+
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+    sendBtn.addEventListener("click", function() {
+        const doctorId = doctorSelect.value;
+        if (!doctorId) {
+            statusEl.style.color = "red";
+            statusEl.textContent = "Please select a doctor first.";
+            return;
+        }
+
+        statusEl.style.color = "black";
+        statusEl.textContent = "Sending report...";
+
+        fetch("{% url 'send_report_to_doctor' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRFToken": getCSRFToken()
+            },
+            body: `doctor_id=${doctorId}`
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+                statusEl.style.color = "green";
+                statusEl.textContent = data.message;
+            } else {
+                statusEl.style.color = "red";
+                statusEl.textContent = data.message || "Failed to send report.";
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            statusEl.style.color = "red";
+            statusEl.textContent = "An error occurred while sending the report.";
+        });
+    });
+});
+</script>
+
+
+</body>
+</html>

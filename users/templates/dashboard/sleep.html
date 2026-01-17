@@ -1,0 +1,1037 @@
+{% extends "dashboard/layout.html" %}
+
+{% block extra_css %}
+<style>
+:root {
+  --primary-green: #5cb910ff;
+  --light-green: #66d334ff;
+  --dark-green: #04781dff;
+  --accent-teal: #14b86eff;
+  --accent-lime: #84cc16;
+  --accent-emerald: #059616ff;
+  --accent-forest: #065f0cff;
+  
+  --bg-gradient: linear-gradient(135deg, #ecfdf5 0%, #b8e7b2ff 100%);
+  --card-gradient: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  --card-hover: linear-gradient(145deg, #ffffff 0%, #dcfce7 100%);
+  --text-dark: #064e3b;
+  --text-medium: #065f46;
+  --text-light: #6b7280;
+  --shadow-card: 0 8px 30px rgba(5, 150, 105, 0.08);
+  --shadow-hover: 0 15px 35px rgba(5, 150, 105, 0.15);
+}
+
+body {
+  background: var(--bg-gradient);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+.tracker-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.tracker-header {
+  text-align: center; 
+  margin-bottom: 3rem;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+.tracker-header h2 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--dark-green), var(--accent-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+.tracker-header p {
+  color: var(--text-medium);
+  font-size: 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.tracker-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-green), var(--accent-teal));
+  border-radius: 2px;
+}
+
+/* Main Layout */
+.tracker-main {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Card Styles */
+.tracker-form, .widget {
+  background: var(--card-gradient);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+.widget:hover {
+  transform: translateY(-5px);
+  background: var(--card-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+.tracker-form h3, .widget h4 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tracker-form h3::before { content: '🌿'; }
+.widget h4::before { content: ''; }
+
+/* Custom icons for each widget */
+.sleep-quality-widget h4::before { content: '⭐'; }
+.sleep-tips-widget h4::before { content: '💡'; }
+.sleep-chart-widget h4::before { content: '📊'; }
+.stress-tips-widget h4::before { content: '🧘'; }
+.wellness-quote-widget h4::before { content: '💭'; }
+.reminder-widget h4::before { content: '⏰'; }
+
+.form-group { 
+  margin-bottom: 2rem;
+  position: relative;
+}
+.tracker-form label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: var(--text-medium);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Sleep Hours Input with Visual Feedback */
+.hours-input-container {
+  position: relative;
+}
+.sleep-hours-display {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-green);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.tracker-form input[type="range"] {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #d1fae5, var(--primary-green));
+  -webkit-appearance: none;
+  margin: 1.5rem 0;
+}
+.tracker-form input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-emerald);
+  cursor: pointer;
+  border: 4px solid white;
+  box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+}
+.tracker-form input[type="number"] {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 2px solid #d1fae5;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background-color: #f9fffb;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+.tracker-form input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+.tracker-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 2px solid #d1fae5;
+  font-size: 1.5rem;
+  resize: vertical;
+  transition: all 0.3s ease;
+  background-color: #f9fffb;
+  min-height: 120px;
+  font-family: inherit;
+}
+.tracker-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+.tracker-form button {
+  background: linear-gradient(135deg, var(--primary-green), var(--accent-emerald));
+  color: white;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 1rem;
+  letter-spacing: 0.5px;
+}
+.tracker-form button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  background: linear-gradient(135deg, var(--light-green), var(--accent-emerald));
+}
+
+/* Stress Level Selector */
+.stress-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.stress-option {
+  flex: 1;
+  text-align: center;
+  padding: 1.2rem;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f9fffb;
+  font-weight: 600;
+  color: var(--text-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.stress-option:hover { 
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card);
+}
+.stress-option.selected {
+  border-color: var(--accent-teal);
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(16, 185, 129, 0.1));
+  color: var(--accent-forest);
+}
+.stress-option.low { border-left: 4px solid var(--accent-lime); }
+.stress-option.medium { border-left: 4px solid var(--accent-teal); }
+.stress-option.high { border-left: 4px solid #f59e0b; }
+.stress-emoji { font-size: 1.5rem; }
+
+/* Sleep Quality Selector */
+.quality-selector {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.quality-star {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #d1d5db;
+  transition: all 0.2s ease;
+}
+.quality-star:hover,
+.quality-star.selected {
+  color: #fbbf24;
+  transform: scale(1.2);
+}
+
+/* Entries Section */
+.entries-section {
+  background: var(--card-gradient);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(16, 185, 129, 0.2);
+}
+.entries-header h3 { 
+  font-size: 1.75rem; 
+  color: var(--dark-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.entries-header h3::before { content: '📊'; }
+
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.filter-bar select {
+  padding: 0.875rem 1.5rem;
+  border-radius: 14px;
+  border: 2px solid #d1fae5;
+  font-size: 0.95rem;
+  background-color: #f9fffb;
+  color: var(--text-medium);
+  font-weight: 500;
+  min-width: 150px;
+}
+.filter-bar select:focus {
+  outline: none;
+  border-color: var(--primary-green);
+}
+
+.entries-list { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1.5rem; 
+}
+
+.entry-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  border-left: 6px solid var(--primary-green);
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.entry-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary-green), var(--accent-teal));
+}
+.entry-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+.entry-card h4 { 
+  font-size: 1.35rem; 
+  font-weight: 700; 
+  margin-bottom: 0.75rem;
+  color: var(--dark-green);
+}
+.entry-card p { 
+  color: var(--text-medium); 
+  margin-bottom: 1rem; 
+  line-height: 1.6;
+}
+.entry-meta { 
+  display: flex; 
+  gap: 1.5rem; 
+  flex-wrap: wrap; 
+  font-size: 0.9rem; 
+  color: var(--text-light);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  background-color: #f9fffb;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.stress-low { color: var(--accent-lime); }
+.stress-medium { color: var(--accent-teal); }
+.stress-high { color: #f59e0b; }
+
+.entry-card button.delete-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  padding: 0.6rem 1.2rem;
+  color: #dc2626;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.entry-card button.delete-btn:hover { 
+  background-color: #fee2e2;
+  transform: scale(1.05);
+}
+
+.no-entries {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-light);
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+}
+.no-entries .icon { font-size: 4rem; margin-bottom: 1rem; }
+
+/* Charts */
+.chart-container {
+  height: 220px;
+  margin-top: 1.5rem;
+  position: relative;
+  background: #f9fffb;
+  border-radius: 16px;
+  padding: 1rem;
+}
+.chart-bar {
+  position: absolute;
+  bottom: 0;
+  width: 10%;
+  background: linear-gradient(180deg, var(--primary-green), var(--accent-teal));
+  border-radius: 8px 8px 0 0;
+  transition: height 0.8s ease;
+}
+.chart-label {
+  position: absolute;
+  bottom: -30px;
+  font-size: 0.8rem;
+  text-align: center;
+  width: 10%;
+  color: var(--text-light);
+}
+
+/* Progress Indicators */
+.sleep-progress {
+  margin: 1.5rem 0;
+}
+.progress-bar {
+  height: 12px;
+  background-color: #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-lime), var(--primary-green));
+  border-radius: 6px;
+  transition: width 1s ease;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-medium);
+}
+
+/* Wellness Metrics */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.metric-card {
+  background: #f9fffb;
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+.metric-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-green);
+  margin-bottom: 0.5rem;
+}
+.metric-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* Tips & Recommendations */
+.tips-list {
+  margin-top: 1.5rem;
+}
+.tip-item {
+  padding: 1rem;
+  background: #f9fffb;
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  border-left: 3px solid var(--accent-teal);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.tip-item::before {
+  content: '🌱';
+  font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) { 
+  .tracker-main { grid-template-columns: 1fr; }
+  .tracker-header h2 { font-size: 2.5rem; }
+  .metrics-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .stress-selector { flex-direction: column; }
+  .stress-option { margin-bottom: 0.5rem; }
+  .tracker-form, .widget, .entries-section { padding: 1.5rem; }
+  .tracker-header h2 { font-size: 2rem; }
+  .filter-bar { flex-direction: column; }
+  .filter-bar select { width: 100%; }
+}
+</style>
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="tracker-container">
+  <div class="tracker-header">
+    <h2>Sleep & Stress Wellness Tracker</h2>
+    <p>Monitor your sleep patterns and stress levels to cultivate optimal skin health and overall wellbeing. Track, analyze, and improve your daily wellness habits.</p>
+  </div>
+
+  <div class="tracker-main">
+    <!-- Left Column: Form & Entries -->
+    <div>
+      <!-- Entry Form -->
+      <div class="tracker-form">
+        <h3>Today's Wellness Log</h3>
+
+        <div class="form-group">
+          <label for="sleepHours">🌙 Sleep Duration</label>
+          <div class="hours-input-container">
+            <input type="range" id="sleepHoursSlider" min="0" max="12" step="0.5" value="8">
+            <span class="sleep-hours-display" id="sleepHoursDisplay">8 hours</span>
+          </div>
+          <input type="number" id="sleepHours" min="0" max="24" step="0.5" value="8" style="display:none;">
+        </div>
+
+        <div class="form-group">
+          <label>⭐ Sleep Quality</label>
+          <div class="quality-selector" id="qualitySelector">
+            <span class="quality-star" data-value="1">★</span>
+            <span class="quality-star" data-value="2">★</span>
+            <span class="quality-star" data-value="3">★</span>
+            <span class="quality-star" data-value="4">★</span>
+            <span class="quality-star" data-value="5">★</span>
+          </div>
+          <input type="hidden" id="sleepQuality" value="3">
+        </div>
+
+        <div class="form-group">
+          <label>😌 Stress Level</label>
+          <div class="stress-selector">
+            <div class="stress-option low" data-value="low">
+              <span class="stress-emoji">😊</span>
+              <span>Low</span>
+              <small>Calm & Relaxed</small>
+            </div>
+            <div class="stress-option medium" data-value="medium">
+              <span class="stress-emoji">😐</span>
+              <span>Medium</span>
+              <small>Manageable</small>
+            </div>
+            <div class="stress-option high" data-value="high">
+              <span class="stress-emoji">😓</span>
+              <span>High</span>
+              <small>Needs Attention</small>
+            </div>
+          </div>
+          <select id="stressLevel" style="display:none;">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="sleepNotes">📝 Wellness Notes</label>
+          <textarea id="sleepNotes" rows="4" placeholder="How did you feel today? What affected your sleep or stress? Any self-care practices you tried?"></textarea>
+        </div>
+
+        <button id="saveSleepEntry">
+          <span>Save Daily Log</span>
+          <span>💾</span>
+        </button>
+      </div>
+
+      <!-- Entries Section -->
+      <div class="entries-section">
+        <div class="entries-header">
+          <h3>Your Wellness Journey</h3>
+          <span id="entriesCount">0 entries</span>
+        </div>
+
+        <div class="filter-bar">
+          <select id="filterStress">
+            <option value="">All Stress Levels</option>
+            <option value="low">😊 Low Stress</option>
+            <option value="medium">😐 Medium Stress</option>
+            <option value="high">😓 High Stress</option>
+          </select>
+          <select id="filterQuality">
+            <option value="">All Sleep Quality</option>
+            <option value="4-5">⭐ Excellent Sleep</option>
+            <option value="2-3">⭐⭐ Good Sleep</option>
+            <option value="1">⭐ Poor Sleep</option>
+          </select>
+          <select id="filterDate">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
+
+        <div class="entries-list" id="entriesList"></div>
+      </div>
+    </div>
+
+    <!-- Right Column: Widgets -->
+    <div class="sidebar-widgets">
+      <!-- Sleep Quality Widget -->
+      <div class="widget sleep-quality-widget">
+        <h4>Sleep Quality Score</h4>
+        <div class="sleep-progress">
+          <div class="progress-label">
+            <span>Weekly Average</span>
+            <span id="sleepScore">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="sleepProgress" style="width: 0%"></div>
+          </div>
+        </div>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value" id="avgSleepHours">0</div>
+            <div class="metric-label">Avg. Hours</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="avgStress">-</div>
+            <div class="metric-label">Avg. Stress</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sleep Chart Widget -->
+      <div class="widget sleep-chart-widget">
+        <h4>Weekly Sleep Pattern</h4>
+        <div id="chartContainer" class="chart-container"></div>
+      </div>
+
+      <!-- Sleep Tips Widget -->
+      <div class="widget sleep-tips-widget">
+        <h4>Sleep Optimization Tips</h4>
+        <div id="tipText">Consistent bedtime routines improve sleep quality by 40%.</div>
+        <div class="tips-list">
+          <div class="tip-item">Keep your bedroom temperature between 60-67°F (15-19°C)</div>
+          <div class="tip-item">Avoid caffeine and heavy meals 3 hours before bedtime</div>
+          <div class="tip-item">Try 4-7-8 breathing: inhale 4s, hold 7s, exhale 8s</div>
+        </div>
+      </div>
+
+      <!-- Stress Management Widget -->
+      <div class="widget stress-tips-widget">
+        <h4>Stress Management</h4>
+        <p>High stress can reduce sleep quality by up to 50%.</p>
+        <div class="tips-list">
+          <div class="tip-item">10 minutes of morning sunlight regulates cortisol</div>
+          <div class="tip-item">Progressive muscle relaxation before bed</div>
+          <div class="tip-item">Keep a gratitude journal for 5 minutes daily</div>
+        </div>
+      </div>
+
+      <!-- Wellness Quote -->
+      <div class="widget wellness-quote-widget">
+        <h4>Mindful Moment</h4>
+        <p id="wellnessQuote">"Rest is not idleness, but essential nourishment for the soul and skin."</p>
+      </div>
+
+      <!-- Daily Reminder -->
+      <div class="widget reminder-widget">
+        <h4>Daily Wellness Goal</h4>
+        <p id="dailyReminder">Aim for 7-9 hours of quality sleep tonight. Try a digital detox 1 hour before bed.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block dashboard_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Elements
+  const sleepHoursSlider = document.getElementById('sleepHoursSlider');
+  const sleepHoursDisplay = document.getElementById('sleepHoursDisplay');
+  const sleepHoursInput = document.getElementById('sleepHours');
+  const stressLevel = document.getElementById('stressLevel');
+  const stressOptions = document.querySelectorAll('.stress-option');
+  const qualityStars = document.querySelectorAll('.quality-star');
+  const sleepQualityInput = document.getElementById('sleepQuality');
+  const sleepNotes = document.getElementById('sleepNotes');
+  const saveEntry = document.getElementById('saveSleepEntry');
+  const entriesList = document.getElementById('entriesList');
+  const entriesCount = document.getElementById('entriesCount');
+  const chartContainer = document.getElementById('chartContainer');
+  const filterStress = document.getElementById('filterStress');
+  const filterQuality = document.getElementById('filterQuality');
+  const filterDate = document.getElementById('filterDate');
+  
+  // Metrics Elements
+  const sleepScore = document.getElementById('sleepScore');
+  const sleepProgress = document.getElementById('sleepProgress');
+  const avgSleepHours = document.getElementById('avgSleepHours');
+  const avgStress = document.getElementById('avgStress');
+  const wellnessQuote = document.getElementById('wellnessQuote');
+  const dailyReminder = document.getElementById('dailyReminder');
+  
+  // Data
+  let sleepEntries = JSON.parse(localStorage.getItem('sleepWellnessEntries') || '[]');
+  
+  // Wellness Content
+  const wellnessQuotes = [
+    "Rest is not idleness, but essential nourishment for the soul and skin.",
+    "The quality of your sleep determines the quality of your waking life.",
+    "Stress is a storm; sleep is the anchor that keeps us steady.",
+    "Each night's rest is an investment in tomorrow's wellbeing.",
+    "Balance is not something you find, but something you create through rest and mindfulness.",
+    "Your skin renews itself while you sleep; give it the rest it deserves."
+  ];
+  
+  const dailyReminders = [
+    "Aim for 7-9 hours of quality sleep tonight. Try a digital detox 1 hour before bed.",
+    "Practice 5 minutes of deep breathing before sleeping to reduce stress.",
+    "Hydrate well during the day, but reduce fluids 2 hours before bedtime.",
+    "Try a warm shower or bath 90 minutes before bed to help you fall asleep faster.",
+    "Set a consistent wake-up time, even on weekends, to regulate your body clock.",
+    "Keep a gratitude journal before bed to end your day with positive thoughts."
+  ];
+  
+  const sleepTips = [
+    "Consistent bedtime routines improve sleep quality by 40%.",
+    "Blue light from screens suppresses melatonin—use night mode or blue light glasses.",
+    "The optimal sleep temperature is between 60-67°F (15-19°C).",
+    "Regular exercise improves sleep quality, but avoid intense workouts close to bedtime.",
+    "Napping for 20-30 minutes can boost alertness without affecting nighttime sleep.",
+    "Alcohol may help you fall asleep but disrupts REM sleep and overall sleep quality."
+  ];
+  
+  // Initialize
+  updateSleepDisplay();
+  initializeQualityStars();
+  initializeStressSelector();
+  renderEntries();
+  renderChart();
+  updateMetrics();
+  updateWellnessContent();
+  
+  // Event Listeners
+  sleepHoursSlider.addEventListener('input', updateSleepDisplay);
+  
+  qualityStars.forEach(star => {
+    star.addEventListener('click', function() {
+      const value = this.dataset.value;
+      sleepQualityInput.value = value;
+      updateQualityStars(value);
+    });
+  });
+  
+  stressOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      stressOptions.forEach(opt => opt.classList.remove('selected'));
+      this.classList.add('selected');
+      stressLevel.value = this.dataset.value;
+    });
+  });
+  
+  saveEntry.addEventListener('click', saveWellnessEntry);
+  
+  filterStress.addEventListener('change', renderEntries);
+  filterQuality.addEventListener('change', renderEntries);
+  filterDate.addEventListener('change', renderEntries);
+  
+  // Functions
+  function updateSleepDisplay() {
+    const value = sleepHoursSlider.value;
+    sleepHoursDisplay.textContent = `${value} hours`;
+    sleepHoursInput.value = value;
+  }
+  
+  function initializeQualityStars() {
+    updateQualityStars(sleepQualityInput.value);
+  }
+  
+  function updateQualityStars(selectedValue) {
+    qualityStars.forEach(star => {
+      if (star.dataset.value <= selectedValue) {
+        star.classList.add('selected');
+        star.textContent = '★';
+      } else {
+        star.classList.remove('selected');
+        star.textContent = '☆';
+      }
+    });
+  }
+  
+  function initializeStressSelector() {
+    stressOptions[0].classList.add('selected');
+  }
+  
+  function saveWellnessEntry() {
+    if(!sleepHoursInput.value || !sleepNotes.value.trim()) {
+      alert('Please fill in your sleep hours and wellness notes.');
+      return;
+    }
+    
+    const newEntry = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      sleepHours: parseFloat(sleepHoursInput.value),
+      sleepQuality: parseInt(sleepQualityInput.value),
+      stress: stressLevel.value,
+      notes: sleepNotes.value.trim(),
+      timestamp: new Date().getTime()
+    };
+    
+    sleepEntries.unshift(newEntry);
+    localStorage.setItem('sleepWellnessEntries', JSON.stringify(sleepEntries));
+    
+    // Reset form
+    sleepHoursSlider.value = 8;
+    sleepQualityInput.value = 3;
+    sleepNotes.value = '';
+    updateSleepDisplay();
+    updateQualityStars(3);
+    stressOptions[0].click();
+    
+    // Update UI
+    renderEntries();
+    renderChart();
+    updateMetrics();
+    updateWellnessContent();
+    
+    // Show success feedback
+    showSuccessFeedback();
+  }
+  
+  function showSuccessFeedback() {
+    const originalText = saveEntry.querySelector('span').textContent;
+    saveEntry.querySelector('span').textContent = 'Entry Saved!';
+    saveEntry.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+    
+    setTimeout(() => {
+      saveEntry.querySelector('span').textContent = originalText;
+      saveEntry.style.background = 'linear-gradient(135deg, var(--primary-green), var(--accent-emerald))';
+    }, 1500);
+  }
+  
+  function renderEntries() {
+    entriesList.innerHTML = '';
+    
+    let filtered = sleepEntries.filter(entry => {
+      const stressMatch = !filterStress.value || entry.stress === filterStress.value;
+      
+      let qualityMatch = true;
+      if (filterQuality.value) {
+        const [min, max] = filterQuality.value.split('-').map(Number);
+        if (max) {
+          qualityMatch = entry.sleepQuality >= min && entry.sleepQuality <= max;
+        } else {
+          qualityMatch = entry.sleepQuality === min;
+        }
+      }
+      
+      return stressMatch && qualityMatch;
+    });
+    
+    // Sort entries
+    if (filterDate.value === 'oldest') {
+      filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    } else {
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    
+    // Update count
+    entriesCount.textContent = `${filtered.length} ${filtered.length === 1 ? 'entry' : 'entries'}`;
+    
+    if (filtered.length === 0) {
+      entriesList.innerHTML = `
+        <div class="no-entries">
+          <div class="icon">🌙</div>
+          <p>No wellness entries yet.</p>
+          <p style="margin-top: 1rem; font-size: 1rem;">Start tracking your sleep and stress journey!</p>
+        </div>
+      `;
+      return;
+    }
+    
+    filtered.forEach(entry => {
+      const card = document.createElement('div');
+      card.className = 'entry-card';
+      
+      const dateStr = new Date(entry.date).toLocaleDateString('en-US', {
+        weekday: 'short', 
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric'
+      });
+      
+      const stressClass = `stress-${entry.stress}`;
+      const qualityStars = '★'.repeat(entry.sleepQuality) + '☆'.repeat(5 - entry.sleepQuality);
+      
+      card.innerHTML = `
+        <h4>${dateStr}</h4>
+        <p>${entry.notes}</p>
+        <div class="entry-meta">
+          <div class="meta-item">
+            <span>🌙</span>
+            <span>${entry.sleepHours}h sleep</span>
+          </div>
+          <div class="meta-item">
+            <span>⭐</span>
+            <span>${qualityStars}</span>
+          </div>
+          <div class="meta-item ${stressClass}">
+            <span>${entry.stress === 'low' ? '😊' : entry.stress === 'medium' ? '😐' : '😓'}</span>
+            <span>${entry.stress} stress</span>
+          </div>
+        </div>
+        <button class="delete-btn" data-id="${entry.id}">Delete</button>
+      `;
+      
+      entriesList.appendChild(card);
+    });
+    
+    // Add delete functionality
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const id = parseInt(this.dataset.id);
+        sleepEntries = sleepEntries.filter(e => e.id !== id);
+        localStorage.setItem('sleepWellnessEntries', JSON.stringify(sleepEntries));
+        renderEntries();
+        renderChart();
+        updateMetrics();
+      });
+    });
+  }
+  
+  function renderChart() {
+    chartContainer.innerHTML = '';
+    if(sleepEntries.length === 0) return;
+    
+    // Get last 7 entries
+    const lastWeek = sleepEntries.slice(0, 7);
+    const maxHours = Math.max(...lastWeek.map(e => e.sleepHours), 10);
+    
+    lastWeek.forEach((entry, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'chart-bar';
+      bar.style.height = `${(entry.sleepHours / maxHours) * 100}%`;
+      bar.style.left = `${i * 14}%`;
+      bar.style.width = '10%';
+      
+      // Color based on quality
+      if (entry.sleepQuality >= 4) {
+        bar.style.background = 'linear-gradient(180deg, var(--accent-lime), var(--primary-green))';
+      } else if (entry.sleepQuality >= 2) {
+        bar.style.background = 'linear-gradient(180deg, var(--accent-teal), var(--primary-green))';
+      } else {
+        bar.style.background = 'linear-gradient(180deg, #fbbf24, #f59e0b)';
+      }
+      
+      const label = document.createElement('div');
+      label.className = 'chart-label';
+      label.textContent = new Date(entry.date).toLocaleDateString('en-US', {day:'numeric', month:'short'});
+      label.style.left = `${i * 14}%`;
+      
+      chartContainer.appendChild(bar);
+      chartContainer.appendChild(label);
+    });
+  }
+  
+  function updateMetrics() {
+    if (sleepEntries.length === 0) {
+      sleepScore.textContent = '0%';
+      sleepProgress.style.width = '0%';
+      avgSleepHours.textContent = '0';
+      avgStress.textContent = '-';
+      return;
+    }
+    
+    // Calculate weekly average sleep hours
+    const lastWeekEntries = sleepEntries.slice(0, 7);
+    const totalSleepHours = lastWeekEntries.reduce((sum, e) => sum + e.sleepHours, 0);
+    const avgHours = (totalSleepHours / lastWeekEntries.length).toFixed(1);
+    avgSleepHours.textContent = avgHours;
+    
+    // Calculate sleep quality score (0-100%)
+    const totalQuality = lastWeekEntries.reduce((sum, e) => sum + e.sleepQuality, 0);
+    const qualityScore = Math.round((totalQuality / (lastWeekEntries.length * 5)) * 100);
+    sleepScore.textContent = `${qualityScore}%`;
+    sleepProgress.style.width = `${qualityScore}%`;
+    
+    // Calculate average stress level
+    const stressCounts = { low: 0, medium: 0, high: 0 };
+    lastWeekEntries.forEach(e => stressCounts[e.stress]++);
+    
+    const maxStress = Object.keys(stressCounts).reduce((a, b) => 
+      stressCounts[a] > stressCounts[b] ? a : b
+    );
+    
+    avgStress.textContent = maxStress.charAt(0).toUpperCase() + maxStress.slice(1);
+  }
+  
+  function updateWellnessContent() {
+    // Random quote and reminder
+    wellnessQuote.textContent = wellnessQuotes[Math.floor(Math.random() * wellnessQuotes.length)];
+    dailyReminder.textContent = dailyReminders[Math.floor(Math.random() * dailyReminders.length)];
+    
+    // Update sleep tip
+    const tipText = document.querySelector('#tipText');
+    if (tipText) {
+      tipText.textContent = sleepTips[Math.floor(Math.random() * sleepTips.length)];
+    }
+  }
+  
+  // Update content every hour
+  setInterval(updateWellnessContent, 3600000);
+});
+</script>
+{% endblock %}

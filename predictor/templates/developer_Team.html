@@ -1,0 +1,1003 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>Glow Genesis Organic Care</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link href="{% static 'images/TabLogo.png' %}" rel="icon" type="image/x-icon" sizes="256x256">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+      <style>
+        /* Your provided CSS goes here */
+        .herbal-dev-container {
+            --herbal-primary: #1b5e20;
+            --herbal-secondary: #4caf50;
+            --herbal-accent: #64ea6b;
+            --herbal-light: #e8f5e9;
+            --herbal-dark: #263238;
+            --herbal-text: #37474f;
+            --herbal-light-text: #607d8b;
+            --herbal-card-bg: #ffffff;
+            --herbal-section-bg: rgba(255, 255, 255, 0.96);
+
+            font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5fff5 0%, #ebf7eb 100%);
+            color: var(--herbal-text);
+             padding: 40px 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Styles for herbal-dev-stats-title if you are NOT using .section-title */
+        .herbal-dev-stats-title {
+            font-size: 3.8rem; /* Adjust to match .section-title or desired size */
+            color: var(--herbal-dark-text, #333); /* Use a variable or direct color */
+            font-weight: 700; /* Bold */
+            text-align: center;
+            margin-bottom: 10px; /* Spacing */
+            /* Add other properties like line-height if necessary */
+        }
+
+        /* Ensure the divider matches the theme as well if it doesn't already */
+        .herbal-dev-stats-divider {
+            width: 80px; /* Adjust width as seen in the "Developer Team" section */
+            height: 4px;
+            background: linear-gradient(90deg, var(--herbal-primary), var(--herbal-accent)); /* Or solid color */
+            margin: 0 auto 20px; /* Reduced from 40px */
+            border-radius: 2px;
+        }
+
+        /* Adjust subtitle styles for consistency */
+        .herbal-dev-stats-subtitle {
+            font-size: 1.8rem; /* Match the paragraph under "Developer Team" */
+            color: var(--herbal-text); /* Regular text color */
+            text-align: center;
+            max-width: 700px; /* Constrain width for readability */
+             margin: 0 auto 20px; /* Reduced from 30px */
+            line-height: 1.6;
+        }
+        .herbal-dev-stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; /* Reduced from 30px */
+           margin: 40px 0; /* Reduced from 80px */
+            position: relative;
+        }
+
+        .herbal-dev-stats-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .herbal-dev-stats-leaf {
+            position: absolute;
+            color: rgba(27, 94, 32, 0.08);
+            font-size: 10rem;
+            z-index: 0;
+        }
+
+        .herbal-dev-leaf-1 {
+            top: -50px;
+            left: -50px;
+            transform: rotate(-25deg);
+        }
+
+        .herbal-dev-stats-dots {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0) 70%);
+            border-radius: 50%;
+        }
+
+        /* Stat Cards */
+        .herbal-dev-stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px; /* Reduced from 40px 30px */
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .herbal-dev-stat-card::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--herbal-primary), var(--herbal-accent));
+            transition: all 0.3s ease;
+        }
+
+        .herbal-dev-stat-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(46, 125, 50, 0.2);
+        }
+
+        .herbal-dev-stat-card:hover::before {
+            height: 8px;
+        }
+
+        .herbal-dev-stat-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px; /* Reduced bottom space */
+            background: linear-gradient(135deg, var(--herbal-primary), var(--herbal-accent));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+        }
+
+        .herbal-dev-stat-icon-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            z-index: 1;
+        }
+
+        .herbal-dev-stat-number {
+            font-size: 2.5rem; /* Reduced from 3.2rem */
+            margin: 10px 0;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--herbal-primary), var(--herbal-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+         
+            line-height: 1;
+        }
+
+        .herbal-dev-stat-label {
+            font-size: 1.2rem; /* Slightly smaller */
+            color: var(--herbal-light-text);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .herbal-dev-stat-decoration {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.1);
+            z-index: -1;
+        }
+
+       /* Footer Note */
+.herbal-dev-footer-note {
+    text-align: center;
+     margin: 40px auto; /* Reduced from 80px */
+    padding: 30px; /* Reduced from 50px */
+    font-size: 1.5rem;
+    max-width: 800px;
+    line-height: 1.6;
+    color:white;
+    border-radius: 20px;
+
+    /* Background properties for the element's box */
+    background-image: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+    background-color: #4CAF50; /* Fallback solid color */
+
+    max-width: 900px;
+    line-height: 1.8;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.herbal-dev-footer-note p.para,
+.herbal-dev-footer-note .herbal-dev-footer-signature span {
+    /* REMOVED the gradient text properties here */
+    /* This allows 'color: white;' from the parent to be effective */
+    /* If you still want the text to have a gradient, you cannot also have it be solid white.
+       You would need to choose one effect: gradient text OR solid white text. */
+    /*
+    background-image: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    */
+    /* If you want the text inside to be a different color than the inherited white (e.g., black),
+       you would set it here: */
+    /* color: black; */
+}
+
+.herbal-dev-footer-quote-icon {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-size: 5rem;
+    color: rgba(76, 175, 80, 0.1); /* This color is intentionally light for the background icon */
+    z-index: 1;
+}
+
+.herbal-dev-footer-signature {
+    margin-top: 30px;
+    font-weight: 600;
+    color: white; /* Changed this to white, as it was previously using a variable that might not be white */
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+    z-index: 2;
+}
+
+.herbal-dev-footer-signature-line {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--herbal-accent), transparent);
+    z-index: -1;
+}
+.para {
+    color:white;
+}
+
+        /* Counting Animation */
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .herbal-dev-stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .herbal-dev-footer-note {
+                padding: 40px 30px;
+                font-size: 1.6rem;
+            }
+
+            .herbal-dev-stat-number {
+                font-size: 2.8rem;
+            }
+
+            .herbal-dev-stat-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .herbal-dev-stats-section {
+                grid-template-columns: 1fr;
+            }
+
+            .herbal-dev-footer-note {
+                padding: 30px 20px;
+                font-size: 1.5rem;
+                margin: 60px auto;
+            }
+
+            .herbal-dev-stat-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Animation for counter */
+        .herbal-dev-stat-number.animated {
+            animation: countUp 1s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+     <!-- PRE LOADER -->
+     <section class="preloader">
+     <div class="spinner">
+          <span class="spinner-rotate"></span>
+         </div>
+    </section>
+
+ <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="{% url 'index_page' %}" class="navbar-brand">
+        <img src="{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo">
+      </a>
+
+      <button type="button" class="navbar-toggle" id="mobileToggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    
+
+    <!-- Menu items -->
+    <div class="navbar-collapse" id="mainNavbar">
+      <ul class="nav navbar-nav navbar-nav-first">
+        <li><a href="{% url 'index_page' %}">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="{% url 'developer_team_page' %}">Developer Team</a></li>
+        <li><a href="{% url 'article_page' %}">Article</a></li>
+        <li><a href="{% url 'skin_identifier' %}">Skin Type Identifier</a></li>
+         <li><a href="#contact">Contact</a></li>
+        <li><a href="{%url 'doctors_list' %}">Doctors</a></li> 
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          {# 🔔 Notifications #}
+          <li class="notification-item">
+            <a href="{% url 'notifications' %}" class="notification-bell">
+              <i class="fas fa-bell"></i>
+
+              {% if unread_notifications|length > 0 %}
+                <span class="badge">
+                  {{ unread_notifications|length }}
+                </span>
+              {% endif %}
+            </a>
+          </li>
+
+          <li><a href="{% url 'model_page' %}" class="section-btn">Skin-Diagnose</a></li>
+          <li><a href="{% url 'dashboard_redirect' %}"><i class="fa fa-user-circle"></i> My Dashboard</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'auth_page' %}" class="section-btn">Login / Sign Up</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+     <!-- HOME -->
+     <section id="home" class="slider" data-stellar-background-ratio="0.5">
+          <div class="row">
+
+                    <div class="owl-carousel owl-theme">
+                         <div class="item item-first">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Skin Diseases Recognition &amp; Diagnosis System</h3>
+                                             <h1>Our mission is to deliver an AI-powered skin diagnosis experience you’ll never forget.</h1>
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-second">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Smart Skin Analysis</h3>  
+                                             <h1>Experience AI-Powered Skin Diagnosis Instantly!</h1>  
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll">Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-third">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Smart Skin Analysis, Natural Healing</h3>  
+                                             <h1>AI-Powered Diagnosis with Home Remedy Suggestions</h1>  
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll">Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+          </div>
+     </section>
+
+<section class="herbal-dev-container">
+    <div class="herbal-dev-wrapper">
+        <header class="herbal-dev-header">
+            <h1 class="section-title wow fadeInUp" data-wow-delay="0.1s">Developer Team</h1>
+            <p class="wow fadeInUp" data-wow-delay="0.2s">The brilliant minds combining artificial intelligence with centuries of herbal wisdom to revolutionize skincare</p>
+            <div class="herbal-dev-divider wow fadeIn" data-wow-delay="0.3s"></div>
+        </header>
+
+        <section class="herbal-dev-team-section">
+            <div class="herbal-dev-team-header">
+                <h2 class="wow fadeInUp" data-wow-delay="0.2s" style="text-align:center;">Our Technical Experts</h2>
+                <p class="wow fadeInUp" data-wow-delay="0.3s" style="text-align:center;">Meet the talented engineers and researchers building the future of herbal skincare diagnostics</p>
+            </div>
+
+            <div class="herbal-dev-team-grid"> 
+                <div class="herbal-dev-team-card wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="herbal-dev-card-header">
+                        <img src="{% static 'images/alina.jpg' %}" alt="Aleena Azam Header"> 
+                        <div class="herbal-dev-floating-icons">
+                            <i class="fas fa-server"></i>
+                            <i class="fas fa-database"></i>
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="herbal-dev-info-bar">
+                        <h3 style="color:black">Aleena Azam</h3>
+                        <div class="herbal-dev-role">Backend Developer</div>
+                    </div>
+                    <div class="herbal-dev-card-body">
+                        <p>Architecting the secure and scalable backend infrastructure, powering seamless user experiences and comprehensive data management.</p>
+                        <div class="herbal-dev-skills-title">
+                            <i class="fas fa-server"></i> Core Skills
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>Django</span>
+                                <span>98%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 98%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>Database Management</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>API Development</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>User Authentication</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-social-links">
+                            <a href="https://www.linkedin.com/in/aleena-azam-321780322" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/aleena-azam510" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="mailto:aleenaazamchandio12@gmail.com" aria-label="Twitter"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="herbal-dev-team-card wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="herbal-dev-card-header">
+                        <img src="{% static 'images/sahil.jpg' %}" alt="Sahil Muneer Header"> 
+                        <div class="herbal-dev-floating-icons">
+                            <i class="fas fa-laptop-code"></i>
+                            <i class="fas fa-paint-brush"></i>
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                    </div>
+                    <div class="herbal-dev-info-bar">
+                        <h3 style="color:black">Sahil Muneer</h3>
+                        <div class="herbal-dev-role">Frontend Developer</div>
+                    </div>
+                    <div class="herbal-dev-card-body">
+                        <p>Created our user-friendly interface that makes complete data diagnostics accessible to everyone. Focused on accessibility and UK design.</p>
+                        <div class="herbal-dev-skills-title">
+                            <i class="fas fa-laptop-code"></i> Core Skills
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>React.js</span>
+                                <span>96%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 96%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>UI/UX Design</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>CSS/SCSS</span>
+                                <span>94%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 94%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>JavaScript</span>
+                                <span>97%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 97%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-social-links">
+                            <a href="https://www.linkedin.com/in/sahil-muneer-sario-064b12241/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/Sahil-Muneer-Sario" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://sahil-muneer-sario.github.io/Portfolio_Sahil_Muneer/" aria-label="Twitter"><i class="fas fa-code"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="herbal-dev-team-card wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="herbal-dev-card-header">
+                        <img src="{% static 'images/hira.jpg' %}" alt="Noor-e-Hira Header">
+                        <div class="herbal-dev-floating-icons">
+                            <i class="fas fa-brain"></i>
+                            <i class="fas fa-robot"></i>
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="herbal-dev-info-bar">
+                        <h3 style="color:black">Noor-e-Hira</h3>
+                        <div class="herbal-dev-role">AI Developer</div>
+                    </div>
+                    <div class="herbal-dev-card-body">
+                        <p>Specializing in computer vision and deep learning models for skin analysis. Developed our diagnostic algorithm with 99% accuracy.</p>
+                        <div class="herbal-dev-skills-title">
+                            <i class="fas fa-brain"></i> Core Skills
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>Computer Vision</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>TensorFlow</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>Python</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-skill">
+                            <div class="herbal-dev-skill-info">
+                                <span>Deep Learning</span>
+                                <span>94%</span>
+                            </div>
+                            <div class="herbal-dev-skill-bar">
+                                <div class="herbal-dev-skill-progress" style="width: 94%"></div>
+                            </div>
+                        </div>
+                        <div class="herbal-dev-social-links">
+                            <a href="https://www.linkedin.com/in/noor-e-hira-noorani-52b799322" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/Noore-hira" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="noorehira.noorani@gmail.com" aria-label="Twitter"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </section>
+    </div>
+</section>
+
+
+    <div class="herbal-dev-container"> <section class="herbal-dev-stats-container">
+            <div class="herbal-dev-stats-header wow fadeInUp" data-wow-delay="0.1s">
+                <h2 class="herbal-dev-stats-title section-title">Our Impact in Numbers</h2>
+                <p class="herbal-dev-stats-subtitle">Quantifying our commitment to blending herbal wisdom with technological innovation</p>
+                <div class="herbal-dev-stats-divider"></div>
+            </div>
+
+            <div class="herbal-dev-stats-section">
+                <div class="herbal-dev-stats-decoration">
+                    <div class="herbal-dev-stats-leaf herbal-dev-leaf-1">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="herbal-dev-stats-dots"></div>
+                </div>
+
+                <div class="herbal-dev-stat-card wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="herbal-dev-stat-icon">
+                        <i class="fas fa-users"></i>
+                        <div class="herbal-dev-stat-icon-bg"></div>
+                    </div>
+                    <div class="herbal-dev-stat-number" data-count="2">2+</div>
+                    <div class="herbal-dev-stat-label">Team Members</div>
+                    <div class="herbal-dev-stat-decoration"></div>
+                </div>
+
+                <div class="herbal-dev-stat-card wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="herbal-dev-stat-icon">
+                        <i class="fas fa-code"></i>
+                        <div class="herbal-dev-stat-icon-bg"></div>
+                    </div>
+                    <div class="herbal-dev-stat-number" data-count="250">250K+</div>
+                    <div class="herbal-dev-stat-label">Lines of Code</div>
+                    <div class="herbal-dev-stat-decoration"></div>
+                </div>
+
+                <div class="herbal-dev-stat-card wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="herbal-dev-stat-icon">
+                        <i class="fas fa-leaf"></i>
+                        <div class="herbal-dev-stat-icon-bg"></div>
+                    </div>
+                    <div class="herbal-dev-stat-number" data-count="20">20+</div>
+                    <div class="herbal-dev-stat-label">Herbal Remedies</div>
+                    <div class="herbal-dev-stat-decoration"></div>
+                </div>
+
+                <div class="herbal-dev-stat-card wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="herbal-dev-stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                        <div class="herbal-dev-stat-icon-bg"></div>
+                    </div>
+                    <div class="herbal-dev-stat-number" data-count="99">99%</div>
+                    <div class="herbal-dev-stat-label">Accuracy Rate</div>
+                    <div class="herbal-dev-stat-decoration"></div>
+                </div>
+            </div>
+
+            <div class="herbal-dev-footer-note wow fadeInUp" data-wow-delay="0.6s">
+                <div class="herbal-dev-footer-quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="para">We are the architects of a new era in skincare, where the profound insights of ancient herbal traditions seamlessly converge with the precision of modern diagnostic technology. Our passionate team is committed to bridging this vital gap, delivering innovative and natural solutions that empower you with the healthiest, most radiant skin possible.</p>
+                <div class="herbal-dev-footer-signature">
+                    <span>The Herbal AI Team</span>
+                    <div class="herbal-dev-footer-signature-line"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+<section id="testimonial" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                    <h2>Testimonials</h2>
+                </div>
+            </div> 
+
+            <div class="col-md-offset-2 col-md-8 col-sm-12">
+                <div class="owl-carousel owl-theme">
+                    <div class="item">
+                        <p>Using AI-based skin analysis, I discovered natural remedies tailored to my skin's needs. The personalized suggestions truly made a difference!</p>
+                        <div class="tst-author">
+                            <h4>Saba-e-Yasrab</h4>
+                            <span>Home Remedies Enthusiast</span>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <p>The AI diagnosis accurately identified my skin issues and recommended effective home treatments. I noticed visible improvements within weeks!</p>
+                        <div class="tst-author">
+                            <h4>Zainab Noor</h4>
+                            <span>Skincare Advocate</span>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <p>The AI skin detector suggested natural treatments that I could easily do at home. My skin feels healthier and more radiant now!</p>
+                        <div class="tst-author">
+                            <h4>Aleena Naveed</h4>
+                            <span>Natural Skincare Follower</span>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>  
+     <script>
+// Counter animation script
+document.addEventListener('DOMContentLoaded', function() {
+    const statNumbers = document.querySelectorAll('.herbal-dev-stat-number');
+    
+    const animateCounters = () => {
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-count'));
+            const suffix = stat.textContent.replace(/^0/, '').replace(target.toString(), '');
+            let count = 0;
+            const duration = 2000; // Animation duration in ms
+            const increment = target / (duration / 16); // 60fps
+            
+            const updateCount = () => {
+                count += increment;
+                if (count < target) {
+                    stat.textContent = Math.floor(count) + suffix;
+                    requestAnimationFrame(updateCount);
+                } else {
+                    stat.textContent = target + suffix;
+                    stat.classList.add('animated');
+                }
+            };
+            
+            // Start animation when element is in viewport
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    updateCount();
+                    observer.unobserve(stat);
+                }
+            });
+            
+            observer.observe(stat);
+        });
+    };
+    
+    // Start animation when stats section comes into view
+    const statsSection = document.querySelector('.herbal-dev-stats-section');
+    const sectionObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            animateCounters();
+            sectionObserver.unobserve(statsSection);
+        }
+    });
+    
+    sectionObserver.observe(statsSection);
+});
+</script>
+
+
+
+     <!-- CONTACT -->
+     <section id="contact" data-stellar-background-ratio="0.5">
+        <div class="container">
+        <div class="row">
+            <div class="wow fadeInUp col-md-6 col-sm-12" data-wow-delay="0.4s">
+                <div id="google-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.564151031367!2d68.26203667517125!3d25.419396077568504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x394c7969bcd3111d%3A0xe45107ac7274c48c!2sInstitute%20of%20Mathematics%20and%20Computer%20Science!5e0!3m2!1sen!2s!4v1751955536702!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"> </iframe>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
+                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                        <h2>Contact Us</h2>
+                    </div>
+                </div>
+
+                <div id="contact-form-messages"></div>
+
+                <form action="{% url 'contact_submit' %}" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
+                    {% csrf_token %} <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control" id="cf-name" name="name" placeholder="Full name" required>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                        <input type="email" class="form-control" id="cf-email" name="email" placeholder="Email address" required>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                        <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Subject (Optional)">
+                        <textarea class="form-control" rows="6" id="cf-message" name="message" placeholder="Your message" required></textarea>
+                        <button type="submit" class="form-control" id="cf-submit" name="submit">
+                            Send Message
+                            <span id="contact-loading-spinner" class="ml-2" style="display: none;">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </section>            
+
+
+     <!-- FOOTER -->
+     <footer id="footer" data-stellar-background-ratio="0.5">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Find us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>Institute of Mathematics and Computer Science,<br>University of Sindh, Jamshoro — Sindh, Pakistan</p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Email us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>We’re just an email away from helping you!</p>
+                                   <p>0307-2515985 | 0300-3000000</p>
+                                   <p><a href="mailto:skinissuesfyp@gmail.com">skinissuesfyp@gmail.com</a></p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-8">
+                         <div class="footer-info footer-open-hour">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Glow Genies <span style="color: red;">.</span></h2>
+                              </div>
+                              <div class="wow fadeInUp" data-wow-delay="0.4s">
+                              <p>Our advanced AI engine quickly and efficiently evaluates the face,<br> 
+                                   identifying essential skin health and beauty metrics</p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-4">
+                         <!-- <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
+                              <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                              <li><a href="#" class="fa fa-twitter"></a></li>
+                              <li><a href="#" class="fa fa-instagram"></a></li>
+                              <li><a href="#" class="fa fa-whatsapp"></a></li>
+                         </ul> -->
+
+                         <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
+                              <li><a href="#" class="fab fa-facebook-square" title="Facebook"></a></li>
+                              <li><a href="#" class="fab fa-twitter" title="Twitter"></a></li>
+                              <li><a href="#" class="fab fa-instagram" title="Instagram"></a></li>
+                              <li><a href="#" class="fab fa-google" title="Google"></a></li>
+                         </ul>
+
+                         <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s"> 
+                              <p><br>Copyright &copy; 2025 <br>Glow Genie</p>
+                              <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click for Skin Diagnosis</a>
+
+                              
+                              <!-- <br><br>Design: <a rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a></p> -->
+                         </div>
+                    </div>
+                    
+               </div>
+          </div>
+     </footer>
+
+     <!-- Chatbot popup container -->
+    <div id="chatbox-container">
+    <!-- Toggle Button -->
+    <button id="chat-toggle">
+    <span id="chat-icon"><i class="fa-solid fa-comments " style="color:white;"></i></span>
+    <span id="chat-close" style="display: none;"><i class="fa-solid fa-leaf" style="color:white;"></i></span>
+</button>
+
+    <!-- Chat Popup -->
+    <div id="chat-popup" style="display: none;">
+        <!-- Header -->
+        <div id="chat-header">
+            {% comment %} <img src="{% static 'images\logo_web-removebg-preview1.png' %}" alt="Glow.Genie Logo" class="chat-logo" /> {% endcomment %}
+            <div>
+                <h3 style="color:white">GenieGlow</h3>
+                <p>Your Personalized AI Assistant</p>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages"></div>
+
+        <!-- Input Area -->
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask about your skin issue..." />
+            <button id="chat-send" disabled>
+              <div style="background: white; padding: 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+                    <!-- Arrow SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" viewBox="0 0 24 24">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+             </button>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+     <!-- SCRIPTS -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-bc8Gc1Lppn/H07GgNq9B2S7t+02zWn+vK9g32XlK5uWz2q67sK7Gz10d1uV" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/chatbot.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> {% endcomment %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('mainNavbar');
+
+  toggleBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    navMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!toggleBtn.contains(event.target) && !navMenu.contains(event.target)) {
+      navMenu.classList.remove('open');
+    }
+  });
+});
+
+    </script>
+
+
+
+
+
+</body>
+</html>

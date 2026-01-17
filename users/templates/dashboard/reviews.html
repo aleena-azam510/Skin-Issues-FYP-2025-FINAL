@@ -1,0 +1,216 @@
+{% extends "dashboard/layout.html" %}
+{% block extra_css %}
+<style>
+/* ===== Main Container ===== */
+.reviews-page-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+/* ===== Header ===== */
+.reviews-header {
+    background: linear-gradient(135deg, #2A6B4E 0%, #4CAF50 100%);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    box-shadow: 0 8px 30px rgba(42, 107, 78, 0.15);
+}
+.reviews-header-icon {
+    background: rgba(255, 255, 255, 0.2);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    backdrop-filter: blur(10px);
+}
+.reviews-header-content h1 { margin: 0 0 8px 0; font-size: 32px; font-weight: 700; }
+.reviews-header-content p { margin: 0 0 20px 0; opacity: 0.9; font-size: 16px; }
+.reviews-header-stats { display: flex; gap: 25px; flex-wrap: wrap; }
+.stat-item { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 12px; font-weight: 500; }
+.stat-item i { font-size: 14px; }
+
+/* ===== Reviews Section ===== */
+.reviews-section { background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; border:1px solid #e2e8f0; }
+.reviews-section-header { padding: 24px 30px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; background: #f8fafc; }
+.reviews-section-header h3 { margin:0; font-size:20px; font-weight:600; color:#2d3748; display:flex; align-items:center; gap:12px; }
+.reviews-section-header h3 i { color:#2A6B4E; }
+
+/* ===== Reviews List ===== */
+.reviews-list { padding: 30px; display: grid; gap: 20px; }
+
+/* ===== Review Card ===== */
+.review-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border:1px solid #e2e8f0; display:flex; flex-direction:column; transition: all 0.3s ease; }
+.review-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); border-color:#2A6B4E; }
+.review-card-header { display:flex; justify-content:space-between; align-items:flex-start; padding:24px 24px 0 24px; margin-bottom:16px; }
+.review-doctor-info h4 { margin:0; color:#2d3748; font-size:17px; font-weight:600; display:flex; align-items:center; gap:10px; }
+.review-date { color:#718096; font-size:14px; font-weight:500; background:#f8fafc; padding:6px 12px; border-radius:20px; }
+.review-card-body { flex:1; padding:0 24px 20px 24px; }
+.doctor-notes, .ai-notes, .confidence-box { margin-bottom:16px; }
+.annotated-image { margin-top:15px; display:flex; justify-content:center; }
+.annotated-image img { max-width:100%; width:320px; max-height:320px; object-fit:contain; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+
+/* ===== Review Footer ===== */
+.review-card-footer { display:flex; justify-content:space-between; align-items:center; padding:20px 24px; border-top:1px solid #e2e8f0; background:#f8fafc; }
+.tag-positive { background: linear-gradient(135deg,#10b981 0%,#059669 100%); color:white; padding:6px 12px; border-radius:20px; font-weight:600; display:inline-flex; align-items:center; gap:6px; }
+
+/* ===== Empty State ===== */
+.no-reviews { text-align:center; padding:60px 30px; color:#718096; }
+.no-reviews i { font-size:64px; margin-bottom:20px; color:#cbd5e0; opacity:0.7; }
+.no-reviews h3 { margin:0 0 12px 0; color:#2d3748; font-size:24px; font-weight:600; }
+.no-reviews p { margin:0 0 8px 0; font-size:16px; color:#718096; }
+.confidence-box {
+    margin-top: 15px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.confidence-box strong {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #2d3748;
+}
+
+.confidence-table {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.confidence-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.issue-name {
+    width: 120px;
+    font-size: 13px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #2A6B4E, #4CAF50);
+    border-radius: 6px 0 0 6px;
+}
+
+.score-value {
+    width: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #2d3748;
+    text-align: right;
+}
+
+</style>
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="reviews-page-container">
+
+    <!-- Header Section -->
+    <div class="reviews-header">
+        <div class="reviews-header-icon"><i class="fas fa-star"></i></div>
+        <div class="reviews-header-content">
+            <h1>Doctor Reviews</h1>
+            <p>Feedback from doctors on your AI skin reports</p>
+            <div class="reviews-header-stats">
+                <div class="stat-item"><i class="fas fa-list-alt"></i> Total Reviews: {{ total_reviews_count }}</div>
+                <div class="stat-item"><i class="fas fa-user-md"></i> Reviewed by {{ unique_doctors }} doctors</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+        <div class="reviews-section-header">
+            <h3><i class="fas fa-comments"></i> Doctor Feedback</h3>
+        </div>
+
+        {% if reviews %}
+        <div class="reviews-list">
+            {% for report in reviews %}
+            <div class="review-card">
+
+                <!-- Header -->
+                <div class="review-card-header">
+                    <div class="review-doctor-info">
+                        <h4><i class="fas fa-user-md"></i> Dr. {{ report.doctor.get_full_name|default:report.doctor.username }}</h4>
+                    </div>
+                    <div class="review-date">Reviewed on {{ report.updated_at|date:"M d, Y H:i" }}</div>
+                </div>
+
+                <!-- Body -->
+                <div class="review-card-body">
+                    <div class="doctor-notes">
+                        <strong><i class="fas fa-user-md"></i> Doctor Notes:</strong>
+                        <p>{{ report.review_notes|default:"No additional notes provided by the doctor." }}</p>
+                    </div>
+
+                    {% if report.filtered_issues %}
+                    <div class="ai-notes">
+                        <strong><i class="fas fa-robot"></i> AI Findings:</strong>
+                        <p>{{ report.filtered_issues|join:", " }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if report.annotated_image %}
+                    <div class="annotated-image">
+                        <img src="{{ report.annotated_image.url }}" alt="Annotated Result">
+                    </div>
+                    {% endif %}
+
+                    {% if report.confidence_scores_json %}
+                    <div class="confidence-box">
+                        <strong><i class="fas fa-chart-line"></i> Confidence Scores:</strong>
+                        <div class="confidence-table">
+                            {% for key, value in report.confidence_scores_json.items %}
+                            <div class="confidence-row">
+                                <span class="issue-name">{{ key|title }}</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: {{ value }}%;"></div>
+                                </div>
+                                <span class="score-value">{{ value|floatformat:2 }}%</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <!-- Footer -->
+                <div class="review-card-footer">
+                    <span><i class="fas fa-file-alt"></i> AI Prediction: {{ report.filtered_prediction|join:", " }}</span>
+                    <span class="tag-positive"><i class="fas fa-check-circle"></i> Reviewed</span>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-reviews">
+            <i class="fas fa-comment-slash"></i>
+            <h3>No Reviews Yet</h3>
+            <p>Your reports will appear once reviewed by a doctor.</p>
+        </div>
+        {% endif %}
+
+</div>
+{% endblock %}

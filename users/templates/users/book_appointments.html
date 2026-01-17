@@ -1,0 +1,911 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment | Dr. {{ doctor.user.username }}</title>
+    
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+           --primary: #416931;
+            --primary-dark: #077531;
+            --primary-light: #dcfedb;
+            --secondary: #37b910;
+            --secondary-light: #d1fada;
+            --accent: #8af65c;
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --card-shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+            --radius-lg: 1rem;
+            --radius-md: 0.75rem;
+            --radius-sm: 0.5rem;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+            padding-top: 80px; /* Adjusted for fixed navbar height */
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            height: 70px; /* Fixed height to prevent excessive height */
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .navbar-header {
+            display: flex;
+            align-items: center;
+        }
+        .icon-bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-dark);
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+
+        .navbar-brand {
+            text-decoration: none;
+        }
+
+        .navbar-brand img {
+            height: 130px;
+            width: auto;
+            display: block;
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .navbar-collapse {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .navbar-nav.navbar-nav-first {
+            flex: 1;
+        }
+
+        .navbar-nav.navbar-right {
+            margin-left: auto; /* Pushes right nav to the right */
+        }
+
+        .navbar-nav li {
+            margin: 0 0.5rem;
+        }
+
+        .navbar-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 0.75rem 1rem;
+            display: block;
+            transition: var(--transition);
+            border-radius: var(--radius-sm);
+        }
+
+        .navbar-nav a:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+        }
+
+        .section-btn {
+            background: var(--primary);
+            color: var(--white) !important;
+            border-radius: var(--radius-md);
+        }
+
+        .section-btn:hover {
+            background: var(--primary-dark);
+            color: var(--white) !important;
+        }
+
+        .notification-item {
+            position: relative;
+        }
+
+        .notification-bell {
+            position: relative;
+            padding: 0.75rem 1rem;
+        }
+
+        .badge {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            background: var(--error);
+            color: var(--white);
+            border-radius: 50%;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            min-width: 1.25rem;
+            text-align: center;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-collapse {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                display: none; /* Hidden by default */
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+
+            .navbar-collapse.show {
+                display: flex;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar-nav li {
+                margin: 0;
+                width: 100%;
+            }
+
+            .navbar-nav a {
+                padding: 1rem;
+                border-bottom: 1px solid var(--bg-light);
+            }
+
+            .navbar-nav.navbar-right {
+                margin-left: 0;
+            }
+        }
+
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .appointment-container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header Section */
+        .appointment-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            opacity: 0.1;
+            font-size: 12rem;
+            transform: rotate(15deg);
+        }
+
+        .doctor-header-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .doctor-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-info-text h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .doctor-specialty {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .doctor-stats {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9375rem;
+        }
+
+        .stat-item i {
+            font-size: 1.125rem;
+        }
+
+        /* Form Container */
+        .form-container {
+            padding: 3rem;
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .form-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-header i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .appointment-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-size: 0.9375rem;
+        }
+
+        .form-group label .required {
+            color: var(--error);
+            margin-left: 0.25rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--text-dark);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .form-input[type="date"],
+        .form-input[type="time"] {
+            cursor: pointer;
+        }
+
+        .form-input[type="date"]::-webkit-calendar-picker-indicator,
+        .form-input[type="time"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .form-input[type="date"]::-webkit-calendar-picker-indicator:hover,
+        .form-input[type="time"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .form-hint {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        .form-row {
+            grid-column: 1 / -1;
+        }
+
+        /* Appointment Details Card */
+        .appointment-details-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .details-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item {
+            padding: 0.75rem;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Buttons */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--bg-light);
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-dark);
+            border: 2px solid #e2e8f0;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            font-size: 1.125rem;
+        }
+
+        /* Success/Error Messages */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .alert-success {
+            background: var(--secondary-light);
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: var(--error);
+            border-left: 4px solid var(--error);
+        }
+
+        .alert i {
+            font-size: 1.25rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .appointment-container {
+                max-width: 100%;
+            }
+
+            .appointment-header {
+                padding: 1.5rem;
+            }
+
+            .doctor-header-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .doctor-stats {
+                justify-content: center;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .appointment-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .doctor-info-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form Validation Styles */
+        .errorlist {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .errorlist li {
+            color: var(--error);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .errorlist li:before {
+            content: "⚠️";
+            font-size: 0.875rem;
+        }
+
+        .form-group.has-error .form-input {
+            border-color: var(--error);
+        }
+
+        .form-group.has-error .form-input:focus {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="appointment-container">
+    <!-- Header with Doctor Info -->
+    <div class="appointment-header">
+        <div class="header-pattern">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="doctor-header-info">
+            <div class="doctor-avatar">
+                {{ doctor.user.username|slice:":1"|upper }}
+            </div>
+            <div class="doctor-info-text">
+                <h1>Dr. {{ doctor.user.get_full_name|default:doctor.user.username|title }}</h1>
+                <div class="doctor-specialty">
+                    <i class="fas fa-user-md"></i>
+                    {{ doctor.specialization|default:"General Medicine" }}
+                </div>
+                <div class="doctor-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>{{ doctor.experience_years }} years experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <span>Verified Professional</span>
+                    </div>
+                    {% if doctor.consultation_fee %}
+                    <div class="stat-item">
+                        <i class="fas fa-coins"></i>
+                        <span>Fee: Rs. {{ doctor.consultation_fee }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="form-container">
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <i class="fas fa-{% if message.tags == 'success' %}check-circle{% else %}exclamation-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Fee / Payment Info -->
+        {% if doctor.consultation_fee %}
+        <div class="appointment-fee">
+            <h3>Consultation Fee</h3>
+            <p>Rs. {{ doctor.consultation_fee }}</p>
+            {% if doctor.bank_name or doctor.account_number or doctor.upi_id %}
+            <small>Pay via: 
+                {% if doctor.bank_name %}{{ doctor.bank_name }}{% endif %}
+                {% if doctor.account_number %} / A/C: {{ doctor.account_number }}{% endif %}
+                {% if doctor.upi_id %} / UPI: {{ doctor.upi_id }}{% endif %}
+            </small>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="form-header">
+            <i class="fas fa-calendar-check"></i>
+            <h2>Book Your Appointment</h2>
+        </div>
+
+        <form method="POST" class="appointment-form">
+            {% csrf_token %}
+            <!-- Date & Time -->
+            <div class="form-group">
+                <label for="id_date">Appointment Date <span class="required">*</span></label>
+                <input type="date" name="date" id="id_date" class="form-input" min="{{ today|date:'Y-m-d' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="id_time">Appointment Time <span class="required">*</span></label>
+                <input type="time" name="time" id="id_time" class="form-input" min="09:00" max="17:00" step="1800" required>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="form-group">
+                <label for="id_patient_name">Full Name <span class="required">*</span></label>
+                <input type="text" name="patient_name" id="id_patient_name" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="id_phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" name="phone" id="id_phone" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email Address</label>
+                <input type="email" name="email" id="id_email" class="form-input">
+            </div>
+
+            <!-- Reason -->
+            <div class="form-group">
+                <label for="id_reason">Reason for Visit <span class="required">*</span></label>
+                <textarea name="reason" id="id_reason" class="form-input" required></textarea>
+            </div>
+
+            <!-- Appointment Summary -->
+            <div class="appointment-details-card">
+                <div class="details-title"><i class="fas fa-info-circle"></i> Appointment Summary</div>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Doctor</div>
+                        <div class="detail-value">Dr. {{ doctor.user.username }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Specialization</div>
+                        <div class="detail-value">{{ doctor.specialization }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Duration</div>
+                        <div class="detail-value">30 minutes</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Type</div>
+                        <div class="detail-value">In-person Consultation</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-calendar-plus"></i> Confirm Appointment
+                </button>
+                <a href="{% url 'public_doctor_profile' doctor.id %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Profile
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <script>
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('id_date');
+        if (dateInput) {
+            dateInput.min = today;
+        }
+
+        // Time input restrictions
+        const timeInput = document.getElementById('id_time');
+        if (timeInput) {
+            timeInput.addEventListener('change', function() {
+                const time = this.value;
+                const [hours, minutes] = time.split(':').map(Number);
+                
+                // Check if within business hours (9 AM - 5 PM)
+                if (hours < 9 || hours >= 17) {
+                    alert('Please select a time between 9:00 AM and 5:00 PM');
+                    this.value = '';
+                }
+                
+                // Check if it's in 30-minute intervals
+                if (minutes !== 0 && minutes !== 30) {
+                    alert('Please select a time in 30-minute intervals (e.g., 9:00, 9:30, 10:00)');
+                    this.value = '';
+                }
+            });
+        }
+
+        // Form validation
+        const form = document.querySelector('.appointment-form');
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+            
+            // Check required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'var(--error)';
+                    
+                    // Add error message
+                    if (!field.nextElementSibling?.classList.contains('error-message')) {
+                        const errorMsg = document.createElement('div');
+                        errorMsg.className = 'error-message';
+                        errorMsg.style.color = 'var(--error)';
+                        errorMsg.style.fontSize = '0.875rem';
+                        errorMsg.style.marginTop = '0.25rem';
+                        errorMsg.textContent = 'This field is required';
+                        field.parentNode.insertBefore(errorMsg, field.nextSibling);
+                    }
+                } else {
+                    field.style.borderColor = '';
+                    const errorMsg = field.nextElementSibling;
+                    if (errorMsg?.classList.contains('error-message')) {
+                        errorMsg.remove();
+                    }
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+                // Scroll to first error
+                const firstError = form.querySelector('[style*="border-color: var(--error)"]');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+            }
+        });
+
+        // Real-time date validation
+        if (dateInput) {
+            dateInput.addEventListener('change', function() {
+                const selectedDate = new Date(this.value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                if (selectedDate < today) {
+                    alert('Please select a future date');
+                    this.value = today.toISOString().split('T')[0];
+                }
+                
+                // Disable weekends (optional)
+                const day = selectedDate.getDay();
+                if (day === 0 || day === 6) { // Sunday or Saturday
+                    alert('Weekend appointments are not available. Please select a weekday.');
+                    this.value = '';
+                }
+            });
+        }
+
+        // Phone number formatting
+        const phoneInput = document.getElementById('id_phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function() {
+                // Remove non-numeric characters
+                let value = this.value.replace(/\D/g, '');
+                
+                // Format as (XXX) XXX-XXXX
+                if (value.length > 3 && value.length <= 6) {
+                    value = '(' + value.substring(0, 3) + ') ' + value.substring(3);
+                } else if (value.length > 6) {
+                    value = '(' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6, 10);
+                }
+                
+                this.value = value;
+            });
+        }
+    </script>
+</body>
+</html>

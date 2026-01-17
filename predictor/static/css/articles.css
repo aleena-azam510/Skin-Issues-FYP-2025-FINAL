@@ -1,0 +1,812 @@
+/* ARTICLES SECTION */
+.articles-section {
+    padding: 100px 0;
+    background-color: #f9f9f9;
+}
+
+.articles-section h2 {
+    color: #5a8f5a;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.articles-section p {
+    color: #777;
+    margin-bottom: 40px;
+}
+
+/* ARTICLES FILTER */
+.articles-filter {
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 2px solid #5a8f5a;
+    color: #5a8f5a;
+    padding: 8px 20px;
+    margin: 0 5px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #5a8f5a;
+    color: #fff;
+}
+
+/* ARTICLE ITEM */
+.article-item {
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.article-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.article-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.article-img img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.article-item:hover .article-img img {
+    transform: scale(1.05);
+}
+
+.article-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(90, 143, 90, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.article-item:hover .article-overlay {
+    opacity: 1;
+}
+
+.read-more {
+    color: #fff;
+    background: transparent;
+    border: 2px solid #fff;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.read-more:hover {
+    background: #fff;
+    color: #5a8f5a;
+    text-decoration: none;
+}
+
+.article-info {
+    padding: 20px;
+}
+
+.article-info h3 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.article-info p {
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #999;
+    font-size: 14px;
+}
+
+.article-meta i {
+    margin-right: 5px;
+}
+
+/* PAGINATION */
+.pagination {
+    display: inline-block;
+    margin-top: 30px;
+}
+
+.pagination li {
+    display: inline;
+    margin: 0 5px;
+}
+
+.pagination li a {
+    color: #5a8f5a;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.pagination li.active a,
+.pagination li a:hover {
+    background: #5a8f5a;
+    color: #fff;
+    border-color: #5a8f5a;
+}
+
+/* RESPONSIVE */
+@media (max-width: 767px) {
+    .filter-btn {
+        margin-bottom: 10px;
+    }
+    
+    .article-img img {
+        height: 180px;
+    }
+}
+
+
+/* ARTICLE DETAIL STYLES */
+.article-detail-section {
+    background-color: #f9f9f9;
+}
+
+/* .article-detail {
+    background: #fff;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+} */
+
+.article-header {
+    margin-bottom: 30px;
+}
+
+.article-title {
+    color: #333;
+    font-size: 32px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.article-meta {
+    color: #777;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.article-meta span {
+    margin-right: 15px;
+}
+
+.article-meta i {
+    margin-right: 5px;
+}
+
+.featured-image {
+    margin: 25px 0;
+}
+
+.featured-image img {
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+}
+
+.article-content {
+    line-height: 1.8;
+    color: #555;
+    font-size: 16px;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.article-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.category-label {
+    background-color: #d98014;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.share-buttons {
+    margin-top: 20px;
+}
+
+.share-buttons span {
+    margin-right: 10px;
+    color: #777;
+}
+
+.social-share {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+}
+
+.social-share.facebook { background: #3b5998; }
+.social-share.twitter { background: #1da1f2; }
+.social-share.pinterest { background: #bd081c; }
+
+.social-share:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+
+/* RELATED ARTICLES */
+.related-articles {
+    margin-top: 60px;
+}
+
+.related-articles h3 {
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.related-article-item {
+    margin-bottom: 20px;
+}
+
+.related-article-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.related-article-item:hover img {
+    opacity: 0.8;
+}
+
+.related-article-item h4 {
+    font-size: 16px;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.related-article-item:hover h4 {
+    color: #5a8f5a;
+}
+
+@media (max-width: 767px) {
+    .article-detail {
+        padding: 20px;
+    }
+    
+    .article-title {
+        font-size: 24px;
+    }
+}
+
+
+/* Ensure Font Awesome is loaded in your base.html or similar */
+/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> */
+
+/* General Article Detail Section */
+.article-detail-section {
+    padding: 80px 0;
+    background-color: #f9f9f9; /* Light background for detail page */
+}
+
+.article-detail {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    width: 75vw; /* 75% of viewport width */
+    max-width: 75vw; /* Ensure it doesn't get wider if inside a smaller container */
+    margin-left: auto;
+    margin-right: auto;
+    /* You might also need to ensure it's not influenced by parent padding/positioning */
+    box-sizing: border-box; /* Important for padding to be included in width */
+}
+/* Article Header */
+.article-header {
+    margin-bottom: 30px;
+}
+
+.article-title {
+    font-size: 2.8em;
+    color: #d98014;
+
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.article-meta {
+    margin-bottom: 25px;
+    color: #777;
+    font-size: 0.95em;
+    display: flex; /* Use flexbox for better alignment */
+    flex-wrap: wrap; /* Allow items to wrap on small screens */
+    justify-content: center;
+}
+
+.article-meta span {
+    display: flex; /* Flex for icon and text alignment */
+    align-items: center;
+    margin: 0 15px 10px 0; /* Margin between items, and bottom margin for wrap */
+    white-space: nowrap; /* Prevent breaking icon and text */
+}
+
+.article-meta span i {
+    margin-right: 8px;
+    color: #5a8f5a; /* A calming green for icons */
+    font-size: 1.1em;
+}
+
+.featured-image {
+    margin-top: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.featured-image .image-excerpt {
+    background-color: #004e17; /* Light green background */
+    padding: 15px;
+    font-style: italic;
+    color: #ffffff;
+    font-size: 0.95em;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Article Content */
+.article-content {
+    line-height: 1.8;
+    color: #444;
+    font-size: 1.05em;
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+    /* Corrected gradient application */
+    background-image: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+    -webkit-background-clip: text; /* For WebKit browsers (Chrome, Safari, Edge) */
+    background-clip: text; /* Standard property */
+    color: transparent; /* Makes the text transparent so the background gradient shows through */
+    -webkit-text-fill-color: transparent; /* For older WebKit browsers */ /* A professional blue for content headings */
+    margin-top: 35px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    font-weight: 600;
+}
+
+.article-content h2 i,
+.article-content h3 i,
+.article-content h4 i,
+.article-content p i,
+.article-content li i,
+.article-content blockquote i,
+.article-content .alert i {
+    margin-right: 10px;
+    color: #0d6519; /* A complementary purple for inner content icons */
+    font-size: 1.1em;
+}
+
+.article-content p {
+    margin-bottom: 18px;
+    font-size: 18px;
+}
+
+.article-content figure.article-image {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.article-content figure.article-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.article-content figure.article-image figcaption {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 12px;
+}
+
+.article-content ul,
+.article-content ol {
+    margin-bottom: 25px;
+    padding-left: 30px;
+    font-size: 18px;
+}
+
+.article-content ul li,
+.article-content ol li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.article-content blockquote.article-quote {
+    border-left: 5px solid #038600; /* Purple accent */
+    padding: 20px 25px;
+    margin: 30px 0;
+    background-color: #fafafa;
+    font-style: italic;
+    color: #000000;
+    border-radius: 6px;
+    font-size: 1.1em;
+    position: relative; /* For icon positioning */
+}
+
+.article-content blockquote.article-quote i {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 1.5em;
+    color: #15ff00;
+    opacity: 0.2; /* Subtle icon */
+}
+
+.article-content blockquote.article-quote p {
+    margin-bottom: 10px;
+    padding-left: 25px; /* Make space for icon */
+}
+
+.article-content blockquote.article-quote cite {
+    display: block;
+    margin-top: 15px;
+    text-align: right;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* In your static/css/custom.css or equivalent file */
+.article-content .article-image {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0; /* Remove default margins if present */
+    margin-right: 0; /* Remove default margins if present */
+    /* Ensure it takes full width of its parent */
+    width: 100%;
+}
+
+.article-content .article-image img {
+    display: block; /* Helps remove any extra space below inline images */
+    width: 100%;    /* Explicitly make image fill container */
+    height: auto;
+}
+/* Code Blocks */
+.article-content pre {
+    background-color: #2d2d2d; /* Dark background for code */
+    color: #f8f8f2; /* Light text for code */
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto; /* Scroll for long lines */
+    margin: 25px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+/* Alert Boxes */
+.article-content .alert {
+    padding: 15px 20px;
+    margin: 25px 0;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-start; /* Align text to top if multiline */
+    font-size: 0.95em;
+}
+
+.article-content .alert i {
+    font-size: 1.3em;
+    margin-top: 2px; /* Adjust icon vertical alignment */
+}
+
+.alert-info {
+    background-color: #e0f2f7; /* Light blue */
+    border-left: 5px solid #2196f3; /* Blue */
+    color: #2196f3;
+}
+.alert-info i { color: #2196f3; }
+
+.alert-warning {
+    background-color: #fff3e0; /* Light orange */
+    border-left: 5px solid #ff9800; /* Orange */
+    color: #ff9800;
+}
+.alert-warning i { color: #ff9800; }
+
+.alert-danger {
+    background-color: #ffebee; /* Light red */
+    border-left: 5px solid #f44336; /* Red */
+    color: #f44336;
+}
+.alert-danger i { color: #f44336; }
+
+.alert-success {
+    background-color: #e8f5e9; /* Light green */
+    border-left: 5px solid #4caf50; /* Green */
+    color: #4caf50;
+}
+.alert-success i { color: #4caf50; }
+
+/* Article Footer */
+.article-footer {
+    margin-top: 50px;
+    padding-top: 25px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.article-tags {
+    margin-bottom: 15px;
+}
+
+.category-label {
+    background-color: #ff9800;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 12px;
+    display: inline-flex; /* Use flex to align icon and text */
+    align-items: center;
+}
+
+.category-label i {
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+.individual-tag { /* For optional additional tags */
+    background-color: #e0e0e0;
+    color: #555;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    margin-right: 8px;
+    margin-bottom: 5px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.individual-tag i {
+    margin-right: 5px;
+    color: #777;
+}
+
+.share-buttons span {
+    font-weight: bold;
+    color: #555;
+    margin-right: 12px;
+    font-size: 1em;
+}
+
+.social-share {
+    display: inline-flex; /* Use flex to center icon */
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.2em;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.social-share.facebook { background-color: #3b5998; }
+.social-share.twitter { background-color: #55acee; }
+.social-share.pinterest { background-color: #cb2027; }
+.social-share.email { background-color: #dd4b39; }
+.social-share.whatsapp { background-color: #25d366; }
+
+.social-share:hover {
+    opacity: 0.9;
+    transform: translateY(-3px); /* More pronounced lift effect */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Related Articles */
+.related-articles {
+    margin-top: 70px;
+    padding-top: 50px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.related-articles h3 {
+    font-size: 2.2em;
+    color: #5a8f5a;
+    text-align: center;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.related-articles h3 i {
+    margin-left: 10px;
+    color: #0d6519;
+    font-size: 1em; /* Keep icon size relative to text */
+}
+
+.related-article-item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%; /* Ensure cards are same height in a row */
+    display: flex;
+    flex-direction: column;
+}
+
+.related-article-item:hover {
+    transform: translateY(-8px); /* More lift */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.related-article-item a {
+    text-decoration: none; /* Remove underline from link */
+    color: inherit; /* Inherit text color */
+    display: flex; /* Make the entire card a flex container */
+    flex-direction: column;
+    height: 100%;
+}
+
+.related-article-item img {
+    width: 100%;
+    height: 200px; /* Slightly taller image for related articles */
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.related-article-info {
+    padding: 15px 20px 20px;
+    flex-grow: 1; /* Allow info section to grow and push meta to bottom */
+    display: flex;
+    flex-direction: column;
+}
+
+.related-article-item h4 {
+    font-size: 1.3em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    min-height: 3em; /* Give enough space for two lines of title */
+}
+
+.related-article-item .related-excerpt {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.related-article-item .article-meta {
+    margin-top: auto; /* Push meta to the bottom */
+    padding: 0; /* Remove extra padding from global meta */
+    justify-content: flex-start; /* Align meta items to left */
+}
+
+.no-related-articles {
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+.no-related-articles i {
+    margin-right: 8px;
+    color: #0d6519;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) { /* Tablets and smaller desktops */
+    .article-title {
+        font-size: 2.2em;
+    }
+    .article-meta span {
+        margin: 0 10px 8px 0;
+    }
+    .related-article-item h4 {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 767px) { /* Mobile devices */
+    .article-detail {
+        padding: 20px;
+    }
+    .article-title {
+        font-size: 1.8em;
+    }
+    .article-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .article-meta span {
+        margin-bottom: 8px;
+    }
+    .article-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .share-buttons {
+        margin-top: 20px;
+        justify-content: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .social-share {
+        margin-left: 0;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+    .related-articles h3 {
+        font-size: 1.8em;
+    }
+    .related-article-item img {
+        height: 150px;
+    }
+    .related-article-item h4 {
+        min-height: auto; /* Allow height to collapse */
+    }
+}

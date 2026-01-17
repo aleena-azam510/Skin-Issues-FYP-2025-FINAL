@@ -1,0 +1,1119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Glow Genesis Organic Care</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link href="{% static 'images/TabLogo.png' %}" rel="icon" type="image/x-icon" sizes="256x256">
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/articles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ====== Global Styles ====== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Updated Navbar Style */
+        .navbar.custom-navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #e0f0e2;
+        }
+        .navbar .navbar-nav > li > a {
+            color: #555; /* Or any other color you want for the links */
+            transition: all 0.3s ease; /* Keep the transition for a smooth hover effect */
+        }
+    </style>
+</head>
+<body>
+
+     <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+
+               <span class="spinner-rotate"></span>
+               
+          </div>
+     </section>
+
+     <!-- MENU -->
+<section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="{% url 'index_page' %}" class="navbar-brand">
+        <img src="{% static 'images/logo_web-removebg-preview.png' %}" alt="Logo">
+      </a>
+
+      <button type="button" class="navbar-toggle" id="mobileToggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    
+
+    <!-- Menu items -->
+    <div class="navbar-collapse" id="mainNavbar">
+      <ul class="nav navbar-nav navbar-nav-first">
+        <li><a href="{% url 'index_page' %}">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="{% url 'developer_team_page' %}">Developer Team</a></li>
+        <li><a href="{% url 'article_page' %}">Article</a></li>
+        <li><a href="{% url 'skin_identifier' %}">Skin Type Identifier</a></li>
+         <li><a href="#contact">Contact</a></li>
+        <li><a href="{%url 'doctors_list' %}">Doctors</a></li> 
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          {# 🔔 Notifications #}
+          <li class="notification-item">
+            <a href="{% url 'notifications' %}" class="notification-bell">
+              <i class="fas fa-bell"></i>
+
+              {% if unread_notifications|length > 0 %}
+                <span class="badge">
+                  {{ unread_notifications|length }}
+                </span>
+              {% endif %}
+            </a>
+          </li>
+
+          <li><a href="{% url 'model_page' %}" class="section-btn">Skin-Diagnose</a></li>
+          <li><a href="{% url 'dashboard_redirect' %}"><i class="fa fa-user-circle"></i> My Dashboard</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'auth_page' %}" class="section-btn">Login / Sign Up</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+
+     <!-- HOME -->
+     {% comment %} <section id="home" class="slider" data-stellar-background-ratio="0.5">
+          <div class="row">
+
+                    <div class="owl-carousel owl-theme">
+                         <div class="item item-first">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Skin Diseases Recognition &amp; Diagnosis System</h3>
+                                             <h1>Our mission is to deliver an AI-powered skin diagnosis experience you’ll never forget.</h1>
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-second">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Smart Skin Analysis</h3>  
+                                             <h1>Experience AI-Powered Skin Diagnosis Instantly!</h1>  
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll">Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="item item-third">
+                              <div class="caption">
+                                   <div class="container">
+                                        <div class="col-md-8 col-sm-12">
+                                             <h3>Smart Skin Analysis, Natural Healing</h3>  
+                                             <h1>AI-Powered Diagnosis with Home Remedy Suggestions</h1>  
+                                             <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll">Click Here for AI-Powered Skin Diagnosis</a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+          </div>
+     </section> {% endcomment %}
+     <!-- Blog card -->
+
+     {% comment %} <div class="herbal-skin-component">
+        <div class="herbal-watermark">HERBAL CARE</div>
+        
+        <div class="herbal-skin-container">
+            <header class="herbal-skin-header">
+                <div class="herbal-leaf-decoration herbal-leaf-1">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="herbal-leaf-decoration herbal-leaf-2">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h1 class="herbal-main-title">Natural Skin Solutions</h1>
+                <p class="herbal-subtitle">Harnessing the power of nature for healthy, radiant skin through AI diagnostics and herbal remedies</p>
+            </header>
+            
+            <div class="herbal-divider"></div>
+            
+            <div class="herbal-card-grid">
+                <div class="herbal-card">
+                    <div class="herbal-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="herbal-card-image">
+                        <img src="{% static '/images/acne.jpg' %}" alt="Herbal Skin Care">
+                    </div>
+                    <div class="herbal-card-body">
+                        <p class="herbal-card-date">20th February 2025</p>
+                        <h3 class="herbal-card-title">Top Herbal Remedies for Common Skin Conditions</h3>
+                        <p class="herbal-card-text">Discover nature's solutions for skin health. Our AI-powered diagnostics identify issues and recommend personalized herbal treatments for acne, eczema, and more.</p>
+                        <div class="herbal-tag-container">
+                            <span class="herbal-tag"><i class="fas fa-seedling"></i> Herbal Solutions</span>
+                            <span class="herbal-tag"><i class="fas fa-spa"></i> Skin Health</span>
+                            <span class="herbal-tag"><i class="fas fa-brain"></i> AI Diagnostics</span>
+                        </div>
+                    </div>
+                    <div class="herbal-card-footer">
+                        <span class="herbal-card-mini-date">20.02.25</span>
+                        <a href="#" class="herbal-card-button">
+                            Read more <span class="herbal-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="herbal-card">
+                    <div class="herbal-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div class="herbal-card-image">
+                        <img src="{% static '/images/acne.jpg' %}" alt="AI Skin Analysis">
+                    </div>
+                    <div class="herbal-card-body">
+                        <p class="herbal-card-date">15th March 2025</p>
+                        <h3 class="herbal-card-title">AI-Powered Skin Analysis & Herbal Recommendations</h3>
+                        <p class="herbal-card-text">Our advanced AI analyzes skin conditions with 95% accuracy and matches them with the most effective herbal remedies based on your unique skin profile.</p>
+                        <div class="herbal-tag-container">
+                            <span class="herbal-tag"><i class="fas fa-robot"></i> AI Technology</span>
+                            <span class="herbal-tag"><i class="fas fa-leaf"></i> Natural Remedies</span>
+                            <span class="herbal-tag"><i class="fas fa-user-md"></i> Personalized Care</span>
+                        </div>
+                    </div>
+                    <div class="herbal-card-footer">
+                        <span class="herbal-card-mini-date">15.03.25</span>
+                        <a href="#" class="herbal-card-button">
+                            Read more <span class="herbal-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="herbal-card">
+                    <div class="herbal-icon">
+                        <i class="fas fa-mortar-pestle"></i>
+                    </div>
+                    <div class="herbal-card-image">
+                        <img src="{% static '/images/acne.jpg' %}" alt="Herbal Ingredients">
+                    </div>
+                    <div class="herbal-card-body">
+                        <p class="herbal-card-date">3rd April 2025</p>
+                        <h3 class="herbal-card-title">Science-Backed Herbal Formulations for Skin Health</h3>
+                        <p class="herbal-card-text">Explore research-backed herbs in our formulations: Turmeric for inflammation, Aloe Vera for healing, Tea Tree for acne, and Neem for antibacterial protection.</p>
+                        <div class="herbal-tag-container">
+                            <span class="herbal-tag"><i class="fas fa-flask"></i> Herbal Science</span>
+                            <span class="herbal-tag"><i class="fas fa-leaf"></i> Ingredients</span>
+                            <span class="herbal-tag"><i class="fas fa-heart"></i> Skin Healing</span>
+                        </div>
+                    </div>
+                    <div class="herbal-card-footer">
+                        <span class="herbal-card-mini-date">03.04.25</span>
+                        <a href="#" class="herbal-card-button">
+                            Read more <span class="herbal-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+    <!-- Articles -->          
+     <!-- <section id="articles" class="section">
+          <div class="container">
+          <div class="section-title">
+               <h4>Latest Posts</h4>
+               <h2>AI-Powered Insights</h2>
+          </div>
+     
+          <div class="row">
+               Article 1
+               <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="menu-thumb">
+                         <div class="articles-content">
+                              <span class="category">CYBERSECURITY</span>
+                              <h3>AI & Threat Detection</h3>
+                              <div class="article-meta">
+                              <span>Clow Center!</span>
+                              <span>April 25</span>
+                              </div>
+                              <p>Next-gen AI algorithms for real-time security monitoring.</p>
+                              <a href="art.html" class="section-btn">READ MORE</a>
+                         </div>
+                    </div>
+               </div>
+     
+               Article 2
+               <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="menu-thumb">
+                         <div class="articles-content">
+                              <span class="category">INNOVATION</span>
+                              <h3>AI in Healthcare</h3>
+                              <div class="article-meta">
+                              <span>Clow Center!</span>
+                              <span>April 26</span>
+                              </div>
+                              <p>Revolutionizing patient care through diagnostic AI.</p>
+                              <a href="#" class="section-btn">READ MORE</a>
+                         </div>
+                    </div>
+               </div>
+     
+               Article 3
+               <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="menu-thumb">
+                         <div class="articles-content">
+                              <span class="category">TECH BREAKTHROUGHS</span>
+                              <h3>Quantum Computing</h3>
+                              <div class="article-meta">
+                              <span>Clow Center!</span>
+                              <span>April 27</span>
+                              </div>
+                              <p>Bridging AI and quantum processing power.</p>
+                              <a href="#" class="section-btn">READ MORE</a>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>  -->
+
+     
+
+<!-- ARTICLES SECTION -->
+
+
+
+
+<!-- ARTICLES SECTION -->
+
+
+<!-- ARTICLES SECTION -->
+
+<section id="articles" class="articles-section" style="padding: 100px 0; background-color: #f9f9f9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="wow fadeIn" data-wow-delay="0.4s" style="color:#5a8f5a; font-weight:bold; font-size:30px;">Natural Skin Solutions</h2>
+                <p class="wow fadeIn" data-wow-delay="0.6s" style="margin-bottom: 40px; color:#8BC34A; font-size:25px;">Harnessing the power of nature for healthy, radiant skin</p>
+            </div>
+        </div>
+
+        <!-- ARTICLES FILTER -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="articles-filter text-center wow fadeIn" data-wow-delay="0.8s">
+                    <button class="filter-btn active" data-filter="all">All Articles</button>
+                    {% comment %} <button class="filter-btn" data-filter="remedies">DIY Beauty Lab (10)</button> {% endcomment %}
+                    <button class="filter-btn" data-filter="prevention">Holistic Skin Wisdom</button>
+                    <button class="filter-btn" data-filter="ingredients">Nature's Pharmacy</button>
+                    <button class="filter-btn" data-filter="secret">Skin Secrets</button>
+                </div>
+            </div>
+        </div>
+        <!-- ALL ARTICLES VIEW (no section headings) -->
+    <div class="articles-container all-articles">
+        <div class="row articles-grid">
+        <!-- All articles mixed together without section headings -->
+        </div>
+    </div>
+
+
+
+
+            <!-- Holistic SECTION (hidden by default) -->
+    <div class="articles-container prevention-articles" style="display:none;">
+            <div class="row">
+                <!-- Section Title -->
+                <div class="col-md-12 section-title">
+                    <h3 class="wow fadeIn" data-wow-delay="0.3s" style="text-align:center">🌟 Holistic Skin Wisdom: Nurturing Your Skin from Within</h3>
+                    <h4 class="wow fadeIn" data-wow-delay="0.3s" style="text-align:center">Lifestyle, prevention, and long-term skin health strategies</h4>
+                </div>
+            </div>
+    
+        <div class="row articles-grid">
+                <!-- Article 1 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/1.jpg' %}" class="img-responsive" alt="Skincare routine">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'adjust-your-skincare-routine' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>How to Adjust Your Skincare Routine with the Seasons</h3>
+                            <p  style="font-style: italic;">"Seasonal Skin Savvy for a Radiant Glow" 🌞💆</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 7 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/2.jpg' %}" class="img-responsive" alt="gut-skin-connection">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'the-gut-skin-connection' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>The Gut-Skin Connection: Foods That Fight Acne & Inflammation</h3>
+                            <p style="font-style: italic;">"Nourish Your Skin from the Inside Out" 🥗🌿</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 5 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 4 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/3.jpg' %}" class="img-responsive" alt="sleep & skin health">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'sleep-skin-health' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>Sleep & Skin Health: Why Your Pillowcase Matters</h3>
+                            <p style="font-style: italic;">"Sweet Dreams for Better Skin" 😴🧴</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 6 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 6 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/4.jpg' %}" class="img-responsive" alt="stress breakouts">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'stress-induced-breakouts' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>Stress-Induced Breakouts? Try These Calming Rituals</h3>
+                            <p style="font-style: italic;">"Calm Your Skin, Calm Your Mind" 🙏🌸</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 6 min read</span>
+                                <span><i class="fa fa-calendar"></i> August 28, 2023</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 8 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/5.jpg' %}" class="img-responsive" alt="dry-brushing">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'dry-brushing-101-benefits' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>Dry Brushing 101: Benefits for Circulation & Glowing Skin</h3>
+                            <p style="font-style: italic;">"Brush Your Way to Glowing Skin" 🧹💫</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 5 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 9 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/6.jpg' %}" class="img-responsive" alt="blue-light-protection">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'skin-protection' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>How to Protect Your Skin from Blue Light & Screen Damage</h3>
+                            <p style="font-style: italic;">"Protect Your Skin from Digital Damage" 📱🛡️</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 11 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/7.jpg' %}" class="img-responsive" alt="Face-massage">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'face-massage-guide' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>The Ultimate Guide to Facial Massage Techniques</h3>
+                            <p style="font-style: italic;">"Massage Your Way to Flawless Skin" 💆‍♀️🌹</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 5 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 12 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/8.jpg' %}" class="img-responsive" alt="pollution-defense">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'pollution-defense' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>Pollution Defense: Natural Ways to Shield Your Skin</h3>
+                            <p style="font-style: italic;">"Shield Your Skin from Pollution" 🌿🚮</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 13 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s" data-category="prevention">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/9.jpg' %}" class="img-responsive" alt="yoga-poses">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'yoga-for-skin' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>Yoga Poses for Glowing Skin: Boost Blood Flow Naturally</h3>
+                            <p style="font-style: italic;">"Yoga for a Healthy Glow" 🧘‍♀️💃</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 7 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         </div>
+    </div>
+
+        <!-- Holistic SECTION (hidden by default) -->
+        <div class="articles-container nature-articles" style="display:none;">
+                        <div class="row">
+                            <!-- Section Title -->
+                            <div class="col-md-12 section-title">
+                                <h3 class="wow fadeIn" data-wow-delay="0.3s" style="text-align:center">✨ Nature's Pharmacy: Decoding Skincare Ingredients</h3>
+                                <h4 class="wow fadeIn" data-wow-delay="0.3s" style="text-align:center">Deep dives into the science, benefits, and uses of powerhouse ingredients</h4>
+                            </div>
+                        </div>
+                
+                    <div class="row articles-grid">
+                            <!-- Article 1 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/10.jpg' %}" class="img-responsive" alt="aloe-vera">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'aloe-vera' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Aloe Vera: Your Skin's Best Friend! </h3>
+                                        <p style="font-style: italic;">"Soothe, hydrate, and rejuvenate with nature's miracle plant" 🌿✨</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                            <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 2 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/11.jpg' %}" class="img-responsive" alt="tumeric-for-skin">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'golden-glow-turmeric' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Golden Glow: Turmeric for Radiant Skin! </h3>
+                                        <p style="font-style: italic;">"Brighten, heal, and fight acne naturally" ✨💛</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                            <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 3 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/12.jpg' %}" class="img-responsive" alt="tea-tree-oil">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'tea-tree-oil' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Tea Tree Oil: Pure Skin Power! 🍃💪</h3>
+                                        <p style="font-style: italic;">"Nature's antibacterial hero for clearer, healthier skin"🍃💪</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 5 min read</span>
+                                            <span><i class="fa fa-calendar"></i> August 7, 2023</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 4 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/13.jpg' %}" class="img-responsive" alt="green-tea">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'green-tea-for-skin' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Green Tea: Your Skin's Antioxidant Shield!</h3>
+                                        <p style="font-style: italic;">"Combat pollution and soothe your skin with this natural powerhouse" 🍵✨</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                            <span><i class="fa fa-calendar"></i>July 17 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 5 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/14.jpg' %}" class="img-responsive" alt="oatmeal-for-skin">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'oatmeal-guide' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Oatmeal's Gentle Embrace: Soothe & Nurture Your Skin!</h3>
+                                        <p style="font-style: italic;">"Discover the calming benefits for sensitive and irritated skin. Naturally soft and happy!"🌾💖</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 3 min read</span>
+                                            <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 6 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/15.jpg' %}" class="img-responsive" alt="honey-for-skin">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'honey-touch' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Honey's Golden Touch: Sweet Secrets for Healthy Skin! </h3>
+                                        <p style="font-style: italic;">"Hydrate, heal, and glow with this natural wonder"🍯🌟</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 5 min read</span>
+                                            <span><i class="fa fa-calendar"></i> July 17 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 7 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/16.jpg' %}" class="img-responsive" alt="lavender-oil">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'lavender-oil' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Lavender Oil: Your Skin's Calming Secret! </h3>
+                                        <p style="font-style: italic;">"Soothe and relax with this aromatic treasure. Discover its natural skincare magic!" 💜✨</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                            <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 8 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/17.jpg' %}" class="img-responsive" alt="potato-power">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'potato-power' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Potato Power: Your Secret for Radiant Skin! </h3>
+                                        <p style="font-style: italic;">"Improve texture, brighten, and protect your skin from sun damage with this humble root" 🥔✨</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                            <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 9 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/18.jpg' %}" class="img-responsive" alt="rice-flour">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'rice-flour-for-skin' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Rice Flour Revelations: Gentle Exfoliation for Glowing Skin! </h3>
+                                        <p style="font-style: italic;">"Achieve a brighter, calmer complexion with this ancient beauty secret" 🍚💫</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 3 min read</span>
+                                            <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Article 10 -->
+                            <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="ingredients">
+                                <div class="article-item">
+                                    <div class="article-img">
+                                        <img src="{% static 'images/Cards_For Articles/19.jpg' %}" class="img-responsive" alt="tomato-glow">
+                                        <div class="article-overlay">
+                                            <a href="{% url 'predictor:article_detail' 'tomato-glow' %}" class="read-more">Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="article-info">
+                                        <h3>Tomato Glow: Tighten Pores & Brighten Your Complexion! </h3>
+                                        <p style="font-style: italic;">"Harness the power of vitamins A & C for clearer, oil-absorbing skin"🍅🌟</p>
+                                        <div class="article-meta">
+                                            <span><i class="fa fa-clock-o"></i> 5 min read</span>
+                                            <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+        </div>'
+                <!-- Seasonal SECTION (hidden by default) -->
+                <div class="articles-container secret-articles" style="display:none;">
+                        <div class="row">
+                            <!-- Section Title -->
+                            <div class="col-md-12 section-title">
+                                <h3 class="wow fadeIn" data-wow-delay="0.3s" style="text-align:center">🔬 Skin Unveiled: The Science Behind Your Glow</h3>
+                                <h4 class="wow fadeIn" data-wow-delay="0.3s" style="text-align:center">Educational content on skin biology and evidence-backed insights</h4>
+                            </div>
+                 </div>
+        
+    
+             <div class="row articles-grid">
+                <!-- Article 1 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="secret">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/20.jpg' %}" class="img-responsive" alt="skin-ph">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'skin-ph' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>Skin pH 101: Why It Matters & How to Balance It Naturally </h3>
+                            <p style="font-style: italic;">"Balance Your Skin's Harmony" ⚖️💆</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="secret">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/21.jpg' %}" class="img-responsive" alt="skin-barrier">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'skin-barrier' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>The Skin Barrier Explained: How to Repair & Strengthen It</h3>
+                            <p style="font-style: italic;">"Stronger Skin Barrier, Better Protection" 🛡️💪</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s" data-category="secret">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/22.jpg' %}" class="img-responsive" alt="melanin & pigmentation">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'get-even-tone' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>Melanin & Hyperpigmentation: How to Even Skin Tone Safely</h3>
+                            <p style="font-style: italic;">"Even Out Your Complexion" 🌸💫</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 4 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 4 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s" data-category="secret">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/23.jpg' %}" class="img-responsive" alt="diy remedies">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'what-work-what-not' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>Why Some DIY Remedies Work (and Others Don’t)</h3>
+                            <p style="font-style: italic;">"Nature's Remedies: What Works, What Doesn't" 🌿🤔</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 3 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 5 -->
+                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.5s" data-category="secret">
+                    <div class="article-item">
+                        <div class="article-img">
+                            <img src="{% static 'images/Cards_For Articles/24.jpg' %}" class="img-responsive" alt="toxin-free-skincare">
+                            <div class="article-overlay">
+                                <a href="{% url 'predictor:article_detail' 'myths' %}" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                        <div class="article-info">
+                            <h3>The Truth About ‘Toxin-Free’ Skincare: Separating Myths from Facts</h3>
+                            <p style="font-style: italic;">"The Lowdown on Toxin-Free Skincare" 📚🚫</p>
+                            <div class="article-meta">
+                                <span><i class="fa fa-clock-o"></i> 6 min read</span>
+                                <span><i class="fa fa-calendar"></i> July 16 , 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+               
+            </div>
+        </div>
+
+        <!-- PAGINATION -->
+
+    </div>
+</section>
+
+
+ <footer id="footer" data-stellar-background-ratio="0.5">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Find us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>Institute of Mathematics and Computer Science,<br>University of Sindh, Jamshoro — Sindh, Pakistan</p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-8">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Email us</h2>
+                              </div>
+                              <address class="wow fadeInUp" data-wow-delay="0.4s">
+                                   <p>We’re just an email away from helping you!</p>
+                                   <p>0307-2515985 | 0300-3000000</p>
+                                   <p><a href="mailto:skinissuesfyp@gmail.com">skinissuesfyp@gmail.com</a></p>
+                              </address>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-8">
+                         <div class="footer-info footer-open-hour">
+                              <div class="section-title">
+                                   <h2 class="wow fadeInUp" data-wow-delay="0.2s">Glow Genies <span style="color: red;">.</span></h2>
+                              </div>
+                              <div class="wow fadeInUp" data-wow-delay="0.4s">
+                              <p>Our advanced AI engine quickly and efficiently evaluates the face,<br> 
+                                   identifying essential skin health and provides you with unparalleled insights into your complexion, guiding you towards optimal skin well-being.</p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-4">
+                           <div class="footer-info">
+                            <h2 class="wow fadeInUp" data-wow-delay="0.2s">Social</h2>
+                            <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
+                                 <li><a href="#" class="fa-brands fa-facebook-f" attr="facebook icon"></a></li>
+                                 <li><a href="#" class="fa-brands fa-twitter"></a></li>
+                                 <li><a href="#" class="fa-brands fa-instagram"></a></li>
+                                 <li><a href="#" class="fa-brands fa-whatsapp"></a></li>
+                            </ul>
+                            <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s"> 
+                              <p><br>Copyright &copy; 2025 <br>Glow Genie</p>
+                              <a href="{% url 'model_page' %}" class="section-btn btn btn-default smoothScroll" >Click for Skin Diagnosis</a>
+
+                              
+                              <!-- <br><br>Design: <a rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a></p> -->
+                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </footer>
+    <!-- Chat Popup -->
+    <div id="chat-popup" style="display: none;">
+        <!-- Header -->
+        <div id="chat-header">
+            {% comment %} <img src="{% static 'images\logo_web-removebg-preview1.png' %}" alt="Glow.Genie Logo" class="chat-logo" /> {% endcomment %}
+            <div>
+                <h3 style="color:white">GenieGlow</h3>
+                <p>Your Personalized AI Assistant</p>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages"></div>
+
+        <!-- Input Area -->
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask about your skin issue..." />
+            <button id="chat-send" disabled>
+              <div style="background: white; padding: 6px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+                    <!-- Arrow SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" viewBox="0 0 24 24">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+             </button>
+
+        </div>
+    </div>
+</div> 
+
+
+<!-- SCRIPTS -->
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/smoothscroll.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<script src="{% static 'js/chatbot.js' %}"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('mainNavbar');
+
+  toggleBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    navMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!toggleBtn.contains(event.target) && !navMenu.contains(event.target)) {
+      navMenu.classList.remove('open');
+    }
+  });
+});
+
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const allArticlesGrid = document.querySelector('.all-articles .articles-grid');
+  const categoryGrids = document.querySelectorAll('.articles-container:not(.all-articles) .articles-grid');
+
+  categoryGrids.forEach(grid => {
+    // Clone all articles from each category grid
+    grid.querySelectorAll('.col-md-4').forEach(article => {
+      allArticlesGrid.appendChild(article.cloneNode(true));
+    });
+  });
+});
+
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.filter-btn');
+  const sections = {
+    all: document.querySelector('.all-articles'),
+    remedies: document.querySelector('.diy-articles'),
+    prevention: document.querySelector('.prevention-articles'),
+    ingredients: document.querySelector('.nature-articles'), // add if exists
+    secret: document.querySelector('.secret-articles'),       // add if exists
+  };
+  console.log('Found secret section:', sections.secret);  // 🔍 Debug here
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+
+      // Hide all sections first
+      Object.values(sections).forEach(section => {
+        if (section) section.style.display = 'none';
+      });
+
+      // Show the selected section
+      if (filter === 'all') {
+        if (sections.all) sections.all.style.display = 'block';
+      } else {
+        if (sections[filter]) sections[filter].style.display = 'block';
+      }
+
+      // Update active button style
+      buttons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+    });
+  });
+});
+</script>
+
+
+
+<!-- pagination script -->
+{% comment %} <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const articles = document.querySelectorAll(".article-item");
+  const itemsPerPage = 6;
+  const pagination = document.getElementById("pagination");
+  let currentPage = 1;
+
+  function showPage(page) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    articles.forEach((item, index) => {
+      item.style.display = index >= start && index < end ? "block" : "none";
+    });
+  }
+
+  function buildPagination() {
+    const totalPages = Math.ceil(articles.length / itemsPerPage);
+    pagination.innerHTML = "";
+
+    const prev = document.createElement("li");
+    prev.innerHTML = `<a href="#"><i class="fa fa-angle-left"></i></a>`;
+    prev.classList.toggle("disabled", currentPage === 1);
+    prev.onclick = () => {
+      if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+        buildPagination();
+      }
+    };
+    pagination.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="#">${i}</a>`;
+      if (i === currentPage) li.classList.add("active");
+      li.onclick = () => {
+        currentPage = i;
+        showPage(currentPage);
+        buildPagination();
+      };
+      pagination.appendChild(li);
+    }
+
+    const next = document.createElement("li");
+    next.innerHTML = `<a href="#"><i class="fa fa-angle-right"></i></a>`;
+    next.classList.toggle("disabled", currentPage === totalPages);
+    next.onclick = () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        showPage(currentPage);
+        buildPagination();
+      }
+    };
+    pagination.appendChild(next);
+  }
+
+  showPage(currentPage);
+  buildPagination();
+});
+</script> {% endcomment %}
+
+
+</body>
+</html>
